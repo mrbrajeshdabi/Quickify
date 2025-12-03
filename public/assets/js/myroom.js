@@ -195,7 +195,11 @@ async function startremotevideo(params) {
 
 function createPeer(joinid)
 {
-    let config = {iceServers:[{urls:"stun:stun4.l.google.com:19302"}]};
+    let config = {iceServers:[{urls:"stun:stun4.l.google.com:19302"},{
+      urls: "turn:openrelay.metered.ca:80",
+      username: "openrelayproject",
+      credential: "openrelayproject"
+    }]};
     let pc = new RTCPeerConnection(config);
     peers[joinid] = pc;
 
