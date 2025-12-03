@@ -1,0 +1,39 @@
+#profile
+
+1 = create room ->
+[
+    1.1 = room name
+    1.2 = limit users
+    1.3 = private ya public
+    1.4 = private hoga to password
+    1.5 = show krengye sabhi users ko
+    1.6 = 
+]
+
+2 = click room ->
+[
+    2.1 = check karengye users ki jo limit he utne member he ya nhi agr nhi he to offer create nhi karengye
+    2.2 = agr room fool he to yah bhi check karwana he us room me jitni limit he wah poori he ya nhi agr puri he to usko busy store karwa dengye
+    2.3 = calling ke side me group chat bhi hona chaiye
+    2.4 = call disconnect/mute/video close etc
+]
+
+3 = setting ->
+[
+    3.1 = update info
+    3.2 = change password
+    3.3 = user id show
+    3.4 = Logout
+]
+
+4  = Add users ->
+[
+    4.1 = user ki id leke custom call kar sakte he one to one
+]
+
+5 = My Rooms ->
+[
+    5.1 = start room
+    5.2 = close room
+    5.3 = notification all users
+]

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>QUICKIFY</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="assets/js/socket.io.js"></script>
+</head>
+<body id="body">
+
+
+<div class="row p-0 m-0">
+    <div class="toastmessage">
+        <!-- <div class="toast show bg-dark animate__animated animate__pulse" id="toast">
+            <div class="toast-header bg-dark">
+              <span class="text-danger">Message</span>   
+             <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body text-success text-center">
+                Your Profile Is Update Successfully <i class="fa fa-check-circle text-warning"></i>
+            </div>
+        </div> -->
+    </div>
+  <div class="col-md-1 p-0 m-0">
+    <ul class="list-group">
+        <li class="list-group-item bg-dark" data-bs-toggle="collapse" data-bs-target="#tools" id="folder" type="close">
+         <center id="cente"><i class="fa fa-folder animate__animated animate__pulse animate__infinite text-primary" aria-hidden="true"></i></center>
+        </li>
+        <div class="collapse" id="tools">
+            <li class="list-group-item list" type="createroom">
+              <center><i class="fa fa-pencil-square animate__animated animate__pulse" aria-hidden="true"></i></center>
+            </li>
+            <li class="list-group-item list" type="myroom" id="myrooms">
+                 <center><i class="fa-solid fa-desktop animate__animated animate__pulse" aria-hidden="true"></i></center>
+            </li>
+            <li class="list-group-item list" type="profile">
+                 <center><i class="fa fa-user-circle animate__animated animate__pulse" aria-hidden="true"></i></center>
+            </li>
+            <li class="list-group-item" data-bs-toggle="collapse" data-bs-target="#cola">
+                 <center><i class="fa fa-handshake" aria-hidden="true"></i></center>
+            </li>
+            <div class="collapse" id="cola">
+             <li class="list-group-item list" type="adduser">
+                 <center><i class="fa fa-user-plus animate__animated animate__pulse" aria-hidden="true"></i></center>
+            </li>
+            <li class="list-group-item list" type="listuser">
+                 <center><i class="fa fa-users animate__animated animate__pulse" aria-hidden="true"></i></center>
+            </li>
+            </div>
+            <li class="list-group-item list" type="setting">
+                 <center><i class="fa fa-sign-in animate__animated animate__pulse" aria-hidden="true"></i></center>
+            </li>
+        </div>
+    </ul>
+  </div>
+  <div class="col-md-8 p-0 m-0">
+    <!-- create room  -->
+     <div class="card d-none" id="createroom">
+        <div class="card-header">
+            <span class="card-title">Create Room</span>
+        </div>
+        <div class="card-body">
+            <form  class="create_room p-5 bg-secondary text-light" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="roompic">room pic</label>
+                    <input type="file" class="roompic" id="roompic" name="roompic" accept="image/*" required>
+                </div>
+                <div class="form-group">
+                    <label for="roomname">room name</label>
+                    <input type="text" class="roomname" id="roomname" name="roomname" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="roomlimit">room limit</label>
+                    <select name="roomlimit" id="roomlimit" class="form-control">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="roomtype">select type</label>
+                    <select name="roomtype" id="roomtype" class="form-control">
+                        <option value="public">public</option>
+                        <option value="private">private</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="roompass">room password</label>
+                    <input type="password" class="roompass" id="roompass" name="roompass" value="none" disabled>
+                </div>
+                <input type="hidden" id="createrid" name="createrid">
+                <button class="btn btn-primary w-100 mt-3 mb-3" type="submit" id="createroombtn">Create Room</button>
+            </form>
+        </div>
+     </div>
+     <!-- end room  -->
+
+      <!-- my room  -->
+     <div class="card d-none" id="myroom">
+        <div class="card-header">
+            <span class="card-title">My Room</span>
+        </div>
+        <div class="card-body">
+            <ul class="list-group" id="insertmyroom"></ul>
+        </div>
+     </div>
+     <!-- my room  -->
+
+
+     <!-- group video calling  -->
+
+     <div class="card d-none" id="calling">
+        <div class="card-header">
+            <span class="card-title text-success" id="roomnameisname"></span>
+        </div>
+        <div class="card-body">
+            <div class="videobox">
+                <video id="svideo" autoplay playsine class="img-fluid img-thumbnail"></video>
+                <div class="rvideobox">
+                    <!-- <video id="rvideo" autoplay playsine class="img-fluid img-thumbnail rivideo"></video>--->
+                </div>
+            </div>
+        </div>
+        <div class="card-footer d-flex justify-content-end">
+            <button class="btn btn-warning me-5 d-none" type="button" id="room-close">room close</button>
+            <div class="btn-group">
+                <button class="btn btn-dark callingbtn" type="mute" id="mute"><i class="fa-solid fa-microphone-slash"></i></button>
+                <button class="btn btn-danger callingbtn" type="disconnected" id="disconnected"><i class="fa-solid fa-phone-slash"></i></button>
+                <button class="btn btn-dark callingbtn" type="on" id="cameraoff"><i class="fa-solid fa-video-slash"></i></button>
+            </div>
+        </div>
+     </div>
+
+     <!-- group video calling end  -->
+
+
+     <!-- userprofile  start -->
+
+     <div class="card" id="userprofile">
+        <div class="card-header">
+            <span class="card-title text-info">Profile</span>
+        </div>
+        <div class="card-body" id="insertprofile"></div>
+     </div>
+
+     <!-- userprofile  end -->
+
+
+     <!-- custom add user  -->
+
+     <div class="card d-none" id="addcustomuser">
+        <div class="card-header">
+            <div class="card-title text-info">add custom user</div>
+        </div>
+        <div class="card-body">
+            <form class="choosesearch">
+                <div class="form-group">
+                    <label for="htadd">How To Add User</label>
+                    <select name="type" id="type" class="form-control">
+                        <option value="id">Invite Id</option>
+                        <option value="email">Email</option>
+                        <option value="mobilenumber">Mobile Number</option>
+                    </select>
+                </div>
+                <div class="from-group" id="insertinput">
+                
+                </div>
+                <div class="btn-group w-50  mt-3 mb-3">
+                    <button class="btn btn-primary w-100 disabled" type="submit">Add User</button>
+                </div>
+            </form>
+        </div>
+     </div>
+
+     <!-- custom add user end  -->
+
+  </div>
+  <div class="col-md-3 p-0 m-0">
+    <div class="card" id="joinusers">
+        <div class="card-header">
+            <span class="card-title">Join Rooms</span>
+        </div>
+        <div class="card-body">
+            <ul class="list-group" id="insertuserroom"></ul>
+        </div>
+    </div>
+
+
+    <!-- setting  -->
+      <div class="card d-none" id="setting">
+        <div class="card-header">
+            <div class="card-title">setting</div>
+        </div>
+        <div class="card-body">
+            <div class="responsiv">
+              <div class="btn-group d-flex flex-column animate__animated animate__fadeInRight">       
+                    <button class="btn btn-secondary d-flex justify-content-center align-items-center flex-column" id="openchangepasswordform">
+                      <i class="fa fa-eye text-danger"></i>
+                      <span>change password</span>
+                    </button>
+                    <button class="btn btn-secondary d-flex mt-1 justify-content-center align-items-center flex-column" id="openupdateform"> 
+                      <i class="fa fa-edit text-danger"></i>
+                      <span>update account</span>
+                    </button>
+                    <button class="btn btn-secondary d-flex mt-1 justify-content-center align-items-center flex-column" id="deleteaccount">
+                      <i class="fa fa-trash text-danger"></i>
+                      <span>delete account</span>
+                    </button>
+                    <button class="btn btn-secondary d-flex mt-1 justify-content-center align-items-center flex-column" id="shareprofile">
+                      <i class="fa fa-share-square" aria-hidden="true"></i>
+                      <span>share profile</span>
+                    </button>
+                    <button class="btn btn-secondary d-flex mt-1 justify-content-center align-items-center flex-column" id="logout">
+                      <i class="fa fa-sign-out text-danger animate__animated animate__pulse" aria-hidden="true"></i>
+                      <span>logout</span>
+                    </button>
+              </div>
+            </div>
+        </div>
+        <div class="card-footer"></div>
+      </div>
+
+      <!-- setting end -->
+
+
+      <!-- setting function  -->
+
+      <!-- change password  -->
+
+      <div class="card d-none" id="changepasscard">
+        <div class="card-header">
+            <div class="card-title">change password</div>
+        </div>
+        <div class="card-body">
+            <form class="change-pass">
+                <div class="form-group">
+                    <input type="hidden" id="cpuserid">
+                    <label for="oldpass">Old Password</label>
+                    <input type="password" id="oldpass" name="oldpass" required>
+                </div>
+                <div class="form-group">
+                    <label for="newpass">New Password</label>
+                    <input type="password" id="newpass" name="newpass" required>
+                </div>
+                <div class="form-group">
+                    <label for="confrimpass">Confirm Password</label>
+                    <input type="password" id="confirmpass" name="confirmpass" required>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button class="btn btn-primary" type="submit" id="changepassbtn">Change password</button>
+                </div>
+            </form>
+        </div>
+        <div class="card-footer">
+            <button class="w-100 btn btn-danger" id="closepassfrm">close</button>
+        </div>
+      </div>
+
+      <!-- change password end  -->
+
+      <!-- update account  -->
+
+      <div class="card d-none" id="updatefrmcard">
+        <div class="card-header">
+            <div class="card-title">update account</div>
+        </div>
+        <div class="card-body">
+            <form class="update_frm" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input type="hidden" id="updateuserid" name="updateuserid">
+                    <label for="username">profilepic</label>
+                    <input type="file" id="profilepic" name="profilepic" required accept="image/*">
+                </div>
+                <div class="form-group">
+                    <label for="username">username</label>
+                    <input type="text" id="username" name="username" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="email">email</label>
+                    <input type="email" id="email" name="email" required disabled autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="mobilenumber">mobile number</label>
+                    <input type="number" id="mobilenumber" name="mobilenumber" required autocomplete="off">
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button class="btn btn-primary" type="submit" id="updatefrmbtn">update account</button>
+                </div>
+            </form>
+        </div>
+        <div class="card-footer">
+            <button class="w-100 btn btn-danger" id="closeupdatefrm">close</button>
+        </div>
+      </div>
+
+      <!-- update account end  -->
+
+  </div>
+    
+</div>
+
+
+</body>
+</html>
+<script type="module" src="assets/js/profile.js"></script>
+<script type="module" src="assets/js/createroom.js"></script>
+<script type="module" src="assets/js/myroom.js"></script>
+<script>
+    $(document).ready(function(){
+    $('.list').each(function(){
+        $(this).click(function(){
+            let type = $(this).attr('type');
+            if(type == "createroom")
+            {
+                $('#setting').addClass('d-none');
+                $('#userprofile').addClass('d-none');
+                $('#myroom').addClass('d-none');
+                $("#calling").addClass('d-none');
+                $("#addcustomuser").addClass('d-none');
+                $("#createroom").removeClass('d-none');
+                $('#joinusers').removeClass('d-none');
+            }
+            if(type == "myroom")
+            {
+                $('#setting').addClass('d-none');
+                $('#userprofile').addClass('d-none');
+                $("#calling").addClass('d-none');
+                $("#createroom").addClass('d-none');
+                $("#addcustomuser").addClass('d-none');
+                $('#myroom').removeClass('d-none');
+                $('#joinusers').removeClass('d-none');
+            }
+            if(type == 'profile')
+            {
+                $('#setting').addClass('d-none');
+                $("#calling").addClass('d-none');
+                $("#createroom").addClass('d-none');
+                $('#myroom').addClass('d-none');
+                $("#addcustomuser").addClass('d-none');
+                $('#userprofile').removeClass('d-none');
+                $('#joinusers').removeClass('d-none');
+            }
+            if(type == "setting")
+            {
+                $('#joinusers').addClass('d-none');
+                $('#setting').removeClass('d-none');
+            }
+            if(type == 'adduser')
+            {
+                $('#setting').addClass('d-none');
+                $("#calling").addClass('d-none');
+                $("#createroom").addClass('d-none');
+                $('#myroom').addClass('d-none');
+                $('#userprofile').addClass('d-none');
+                $('#joinusers').removeClass('d-none');
+                $("#addcustomuser").removeClass('d-none');
+            }
+        });
+    });
+
+    //folder
+    $("#folder").click(function(){
+        let type = $(this).attr('type');
+        if(type == 'close')
+        {
+            $('#cente').html('<i class="fa fa-folder-open text-success" aria-hidden="true"></i>');
+            $(this).attr('type','open');
+        }
+        else
+        {
+            $('#cente').html('<i class="fa fa-folder animate__animated animate__pulse animate__infinite text-primary" aria-hidden="true"></i>');
+            $(this).attr('type','close');
+        }
+    })
+});
+</script>
