@@ -1,7 +1,7 @@
 import { createConnection, customcam, deleteroom, getallroom, roomcreaterid, roomOC } from "../functions/Quickify.js";
 
 $(document).ready(async function() {
-    let socket  = io(); //'http://localhost:3000'
+    let socket  = io(); //'https://quickify-fh37.onrender.com'
     let roomuserid;
     let localstream;
     let peers = {};
@@ -9,7 +9,7 @@ $(document).ready(async function() {
     let createrid = await roomcreaterid()
     $.ajax({
         type:'get',
-        url:'http://localhost:3000/api/quickshowroom?createrid='+createrid,
+        url:'https://quickify-fh37.onrender.com/api/quickshowroom?createrid='+createrid,
         beforeSend:function(req){},
         success:function(res)
         {

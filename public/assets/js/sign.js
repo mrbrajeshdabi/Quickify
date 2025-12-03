@@ -29,7 +29,7 @@ $(document).ready(function(){
         e.preventDefault();
         $.ajax({
             type:'post',
-            url :'http://localhost:3000/api/quicksign',
+            url :'https://quickify-fh37.onrender.com/api/quicksign',
             data:new FormData(this),
             contentType:false,
             processData:false,

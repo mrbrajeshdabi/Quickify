@@ -28,7 +28,7 @@ export let deleteroom = async (delid) => {
     let response;
     await $.ajax({
         type:'delete',
-        url:'http://localhost:3000/api/delete-room?delid='+delid,
+        url:'https://quickify-fh37.onrender.com/api/delete-room?delid='+delid,
         header:{"Content-Type":"application/json"},
         beforeSend:function(req) {},
         success:function(res)
@@ -43,7 +43,7 @@ export let getallroom = async () =>{
     let response;
     await $.ajax({
         type:'get',
-        url:'http://localhost:3000/api/qshowAroom',
+        url:'https://quickify-fh37.onrender.com/api/qshowAroom',
         header:{"Content-Type":"application/json"},
         beforeSend:function(req){},
         success:function(res)
@@ -59,7 +59,7 @@ export let roomOC = async (roomid,type) => {
     let response;
     await $.ajax({
         type:'put',
-        url:'http://localhost:3000/api/updateroom?roomid='+roomid+"&type="+type,
+        url:'https://quickify-fh37.onrender.com/api/updateroom?roomid='+roomid+"&type="+type,
         header:{"Content-Type":"application/json"},
         beforeSend:function(req){},
         success:function(res)
@@ -75,7 +75,7 @@ export let customcam = async () =>{
 }
 
 export let socket = () =>{
-    return io('http://localhost:3000');
+    return io('https://quickify-fh37.onrender.com');
 }
 
 export let createConnection = async (localstream,limit) => {
@@ -86,7 +86,7 @@ export let changePass = async (userid,oldpassword,newpassword) => {
     let response;
     await $.ajax({
         type:'put',
-        url:'http://localhost:3000/api/change-password',
+        url:'https://quickify-fh37.onrender.com/api/change-password',
         header:{"Content-Type":"application/json"},
         data:{userid,oldpassword,newpassword},
         beforeSend:function(req){},

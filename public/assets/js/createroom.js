@@ -18,7 +18,7 @@ $(document).ready(function(){
         e.preventDefault();
         await $.ajax({
             type:'post',
-            url:'http://localhost:3000/api/quickroom',
+            url:'https://quickify-fh37.onrender.com/api/quickroom',
             data: new FormData(this),
             contentType:false,
             processData:false,

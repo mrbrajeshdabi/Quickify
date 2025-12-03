@@ -159,7 +159,7 @@ $(document).ready(function(){
         e.preventDefault();
         $.ajax({
         type:'put',
-        url:'http://localhost:3000/api/update-profile',
+        url:'https://quickify-fh37.onrender.com/api/update-profile',
         data : new FormData(this),
         contentType:false,
         processData:false,

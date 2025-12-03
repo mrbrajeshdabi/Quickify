@@ -5,7 +5,7 @@ $(document).ready(function(){
         e.preventDefault();
         $.ajax({
             type:'post',
-            url:'http://localhost:3000/api/quicklogin',
+            url:'https://quickify-fh37.onrender.com/api/quicklogin',
             header:{
                 "content-type":'application/json'
             },
