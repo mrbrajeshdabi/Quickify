@@ -182,6 +182,10 @@ socket.on('join-room',({type,createrroomid,joinid})=>{
             createOffer(joinid); 
         }, 1000); 
     } 
+    else
+    {
+        createOffer(joinid);
+    }
 });
 
 async function startremotevideo(params) {
@@ -195,17 +199,18 @@ async function startremotevideo(params) {
     document.querySelector("#svideo").srcObject = localstream;
 }
 
-async function createPeer(joinid)
+function createPeer(joinid)
 {
-    let config = {iceServers:[{urls:"stun:stun4.l.google.com:19302"},{
-      urls: "turn:openrelay.metered.ca:80",
-      username: "openrelayproject",
-      credential: "openrelayproject"
-    }]};
+    let config = {iceServers:[{urls:"stun:stun4.l.google.com:19302"}]};
+    // ,{
+    //   urls: "turn:openrelay.metered.ca:80",
+    //   username: "openrelayproject",
+    //   credential: "openrelayproject"
+    // }
     let pc = new RTCPeerConnection(config);
     peers[joinid] = pc;
 
-    await localstream.getTracks().forEach(track =>{
+    localstream.getTracks().forEach(track =>{
         pc.addTrack(track,localstream);
     });
 
