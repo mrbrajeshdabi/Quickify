@@ -209,7 +209,7 @@ export const updateprofile = async (req,res) => {
 export const addCustomUser = async (req,res)=>{
     let {sid,rid} = req.body;
     let getrid = await Quickusers.findOne({_id:rid});
-    if(getrid)
+    if(getrid != null)
     {
         let {profilepic,username} = getrid;
         let insertuser = new qcustomUserAdd({
