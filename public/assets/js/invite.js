@@ -53,22 +53,35 @@ $(document).ready(function(){
     //offline get custom user
     roomcreaterid().then((sid)=>{
         getCustomUser(sid).then((res)=>{
-            if(res.data.length > 1)
+            if(res.status == true)
             {
-                res.data.forEach(index => {
+                if(res.data.length > 1)
+                {
+                    res.data.forEach(index => {
+                        let html = 
+                        `
+                        <li class="list-group-item">
+                                <div class="d-flex">
+                                    <img src="../usersprofilepic/${index.rpic}" class="img-fluid img-thumbnail profilepicroom" id="profilepicroom">
+                                    <span class="ms-5 mt-2">${index.rusername}</span>
+                                    <span class="ms-5 mt-2">${index.rstatus}</span>
+                                    <button class="btn btn-primary ms-5 w-50" type="button" id="${index.rid}" rid="${index.rid}"><i class="fa fa-video"></i></button>
+                                </div>
+                            </li>
+                        `;
+                        $("#inserusercustom").append(html);
+                    });
+                }
+                else
+                {
                     let html = 
-                    `
-                    <li class="list-group-item">
-                            <div class="d-flex">
-                                <img src="../usersprofilepic/${index.rpic}" class="img-fluid img-thumbnail profilepicroom" id="profilepicroom">
-                                <span class="ms-5 mt-2">${index.rusername}</span>
-                                <span class="ms-5 mt-2">${index.rstatus}</span>
-                                <button class="btn btn-primary ms-5 w-50" type="button" id="${index.rid}" rid="${index.rid}"><i class="fa fa-video"></i></button>
-                            </div>
+                        `
+                        <li class="list-group-item">
+                             <span class="text-warning"> No Users Added </span>   
                         </li>
-                    `;
-                    $("#inserusercustom").append(html);
-                });
+                        `;
+                        $("#inserusercustom").html(html);
+                }
             }
             else
             {

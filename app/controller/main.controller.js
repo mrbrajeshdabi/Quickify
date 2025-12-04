@@ -224,7 +224,7 @@ export const addCustomUser = async (req,res)=>{
 export const getCustomUser = async (req,res)=>{
     try {
         let {sid} = req.body;
-        let getsid = await Quickusers.find({sid});
+        let getsid = await qcustomUserAdd.find({sid});
         if(getsid)
         {
             res.status(200).json({status:true,message:'success',data:getsid});
