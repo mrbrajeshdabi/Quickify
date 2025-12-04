@@ -98,6 +98,39 @@ export let changePass = async (userid,oldpassword,newpassword) => {
     return response;
 }
 
+export let addCustomUser = async (type,sid,rid) => {
+    let response;
+    await $.ajax({
+        type:'post',
+        url:'https://quickify-fh37.onrender.com/api/add-custom-user',
+        header:{"Content-Type":"application/json"},
+        data:{type,sid,rid},
+        beforeSend:function(req){},
+        success:function(res)
+        {
+            response = res;
+        }
+    });
+    return response;
+}
+
+export let getCustomUser = async (sid) => {
+    let response;
+    await $.ajax({
+        type:'post',
+        url:'https://quickify-fh37.onrender.com/api/get-custom-user',
+        header:{"Content-Type":"application/json"},
+        data:{sid},
+        beforeSend:function(req){},
+        success:function(res)
+        {
+            response = res;
+        }
+    });
+    return response;
+}
+
+
 export let logout = () =>
 {
     document.cookie = "_user" + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";

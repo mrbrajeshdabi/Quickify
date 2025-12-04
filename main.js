@@ -8,6 +8,7 @@ import {Server} from 'socket.io';
 import { router } from './app/routes/main.router.js';
 import { fileURLToPath } from "url";
 import path from 'path';
+import { qcustomUserAdd } from './app/model/custom.user.model.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const app = express();
@@ -55,7 +56,15 @@ io.on('connection',(socket)=>{
 
     socket.on('withoutjoinerid-room-close',(roomid)=>{
         socket.broadcast.emit('withoutjoinerid-room-close',roomid);
-    })
+    });
+
+    socket.on('customuseradd',async(sid)=>{
+        let getsid = await qcustomUserAdd.find({sid});
+        if(getsid)
+        {
+            socket.emit('customuseradd',getsid);
+        }
+    });
 });
     
 

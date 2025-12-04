@@ -50,7 +50,7 @@
                  <center><i class="fa fa-user-plus animate__animated animate__pulse" aria-hidden="true"></i></center>
             </li>
             <li class="list-group-item list" type="listuser">
-                 <center><i class="fa fa-users animate__animated animate__pulse" aria-hidden="true"></i></center>
+                 <center><i class="fa fa-users animate__animated animate__pulse" aria-hidden="true" id="listusericon"></i></center>
             </li>
             </div>
             <li class="list-group-item list" type="setting">
@@ -165,21 +165,37 @@
                     <label for="htadd">How To Add User</label>
                     <select name="type" id="type" class="form-control">
                         <option value="id">Invite Id</option>
-                        <option value="email">Email</option>
-                        <option value="mobilenumber">Mobile Number</option>
+                        <!-- <option value="email">Email</option>
+                        <option value="number">Mobile Number</option> -->
                     </select>
                 </div>
-                <div class="from-group" id="insertinput">
-                
+                <div class="from-group mb-1 mt-1" id="insertinput">
+
                 </div>
                 <div class="btn-group w-50  mt-3 mb-3">
-                    <button class="btn btn-primary w-100 disabled" type="submit">Add User</button>
+                    <button class="btn btn-primary w-100 disabled" type="submit" id="adduserbtn">Add User</button>
                 </div>
             </form>
         </div>
      </div>
 
      <!-- custom add user end  -->
+
+     <!-- list custom user  -->
+
+
+     <div class="card d-none" id="listcustomuser">
+        <div class="card-header">
+            <div class="card-title text-warning"><i class="fa fa-users"></i></div>
+        </div>
+        <div class="card-body">
+            <ul class="list-group" id="inserusercustom">
+                
+            </ul>
+        </div>
+     </div>
+
+     <!-- list custom user end   -->
 
   </div>
   <div class="col-md-3 p-0 m-0">
@@ -312,6 +328,7 @@
 <script type="module" src="assets/js/profile.js"></script>
 <script type="module" src="assets/js/createroom.js"></script>
 <script type="module" src="assets/js/myroom.js"></script>
+<script type="module" src="assets/js/invite.js"></script>
 <script>
     $(document).ready(function(){
     $('.list').each(function(){
@@ -319,6 +336,7 @@
             let type = $(this).attr('type');
             if(type == "createroom")
             {
+                $("#listcustomuser").addClass('d-none');
                 $('#setting').addClass('d-none');
                 $('#userprofile').addClass('d-none');
                 $('#myroom').addClass('d-none');
@@ -329,6 +347,7 @@
             }
             if(type == "myroom")
             {
+                $("#listcustomuser").addClass('d-none');
                 $('#setting').addClass('d-none');
                 $('#userprofile').addClass('d-none');
                 $("#calling").addClass('d-none');
@@ -339,6 +358,7 @@
             }
             if(type == 'profile')
             {
+                $("#listcustomuser").addClass('d-none');
                 $('#setting').addClass('d-none');
                 $("#calling").addClass('d-none');
                 $("#createroom").addClass('d-none');
@@ -354,6 +374,7 @@
             }
             if(type == 'adduser')
             {
+                $("#listcustomuser").addClass('d-none');
                 $('#setting').addClass('d-none');
                 $("#calling").addClass('d-none');
                 $("#createroom").addClass('d-none');
@@ -361,6 +382,18 @@
                 $('#userprofile').addClass('d-none');
                 $('#joinusers').removeClass('d-none');
                 $("#addcustomuser").removeClass('d-none');
+            }
+            if(type == 'listuser')
+            {
+                $('#setting').addClass('d-none');
+                $("#calling").addClass('d-none');
+                $("#createroom").addClass('d-none');
+                $('#myroom').addClass('d-none');
+                $('#userprofile').addClass('d-none');
+                $('#joinusers').removeClass('d-none');
+                $("#addcustomuser").addClass('d-none');
+                $("#listusericon").removeClass('text-success animate__infinite');
+                $("#listcustomuser").removeClass('d-none');
             }
         });
     });
