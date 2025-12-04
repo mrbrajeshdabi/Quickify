@@ -20,7 +20,9 @@ $(document).ready(function(){
         e.preventDefault();
        let rid =  $(`#${type}`).val();
        let sid = await roomcreaterid();
+       $("#adduserbtn").html('<i class="fa fa-circle-o-notch fa-spin" aria-hidden="true"></i>');
         addCustomUser(type,sid,rid).then((res)=>{
+            $("#adduserbtn").html('Add User');
             if(res.status == true)
             {
                 let html = 
@@ -40,6 +42,7 @@ $(document).ready(function(){
                     $(".toastmessage").html('');
                     $(".choosesearch")[0].reset();
                     $("#listusericon").addClass('text-success animate__infinite');
+                    socket.emit('customuseradd',sid);
                 }, 2000);
             }
             else
@@ -52,7 +55,11 @@ $(document).ready(function(){
 
     //offline get custom user
     roomcreaterid().then((sid)=>{
+        $("#listusericon").removeClass('fa fa-users')
+        $("#listusericon").addClass('fa fa-circle-o-notch fa-spin');
         getCustomUser(sid).then((res)=>{
+            $("#listusericon").removeClass(' fa fa-circle-o-notch fa-spin')
+            $("#listusericon").addClass('fa fa-users');
             if(res.status == true)
             {
                 if(res.data.length > 1)
@@ -65,7 +72,8 @@ $(document).ready(function(){
                                     <img src="../usersprofilepic/${index.rpic}" class="img-fluid img-thumbnail profilepicroom" id="profilepicroom">
                                     <span class="ms-5 mt-2">${index.rusername}</span>
                                     <span class="ms-5 mt-2">${index.rstatus}</span>
-                                    <button class="btn btn-primary ms-5 w-50" type="button" id="${index.rid}" rid="${index.rid}"><i class="fa fa-video"></i></button>
+                                    <button class="btn btn-primary ms-5 w-50" type="button" id="call${index.rid}" rid="${index.rid}"><i class="fa fa-video animate__animated animate__pulse animate__infinite"></i></button>
+                                    <button class="btn btn-danger ms-5  w-50" type="button" id="delete${index.rid}" deleteid="${index._id}"><i class="fa fa-trash animate__animated animate__pulse animate__infinite"></i></button>
                                 </div>
                             </li>
                         `;
@@ -100,7 +108,8 @@ $(document).ready(function(){
                         <img src="../usersprofilepic/${index.rpic}" class="img-fluid img-thumbnail profilepicroom" id="profilepicroom">
                         <span class="ms-5 mt-2">${index.rusername}</span>
                         <span class="ms-5 mt-2">${index.rstatus}</span>
-                        <button class="btn btn-primary ms-5 w-50" type="button" id="${index.rid}" rid="${index.rid}"><i class="fa fa-video"></i></button>
+                        <button class="btn btn-primary ms-5" type="button" id="call${index.rid}" rid="${index.rid}"><i class="fa fa-video animate__animated animate__pulse animate__infinite"></i></button>
+                        <button class="btn btn-danger ms-5" type="button" id="delete${index.rid}" deleteid="${index._id}"><i class="fa fa-trash animate__animated animate__pulse animate__infinite"></i></button>
                     </div>
                 </li>
             `;

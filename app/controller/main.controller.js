@@ -219,6 +219,10 @@ export const addCustomUser = async (req,res)=>{
             res.status(200).json({status:true,message:'success'});
         }).catch((err) =>{ res.status(500).json({status:false,message:err})});
     }
+    else
+    {
+        res.status(200).json({status:false,message:'User Not Found'});
+    }
 }
 
 export const getCustomUser = async (req,res)=>{
