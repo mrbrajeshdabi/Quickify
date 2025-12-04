@@ -229,9 +229,13 @@ export const getCustomUser = async (req,res)=>{
     try {
         let {sid} = req.body;
         let getsid = await qcustomUserAdd.find({sid});
-        if(getsid)
+        if(getsid != null)
         {
             res.status(200).json({status:true,message:'success',data:getsid});
+        }
+        else
+        {
+            res.status(200).json({status:false,message:'User Not Found'});
         }
     } catch (error) {
         res.status(500).json({status:false,message:error});
