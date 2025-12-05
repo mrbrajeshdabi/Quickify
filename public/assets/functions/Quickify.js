@@ -102,7 +102,7 @@ export let addCustomUser = async (type,sid,rid) => {
     let response;
     await $.ajax({
         type:'post',
-        url:'https://quickify-fh37.onrender.com/api/add-custom-user',
+        url:'https://quickify-fh37.onrender.com/api/add-custom-user',//https://quickify-fh37.onrender.com/api/add-custom-user
         header:{"Content-Type":"application/json"},
         data:{type,sid,rid},
         beforeSend:function(req){},
