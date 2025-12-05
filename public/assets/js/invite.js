@@ -20,7 +20,7 @@ $(document).ready(function(){
         e.preventDefault();
        let rid =  $(`#${type}`).val();
        let sid = await roomcreaterid();
-       $("#adduserbtn").html('<i class="fa fa-circle-o-notch fa-spin" aria-hidden="true"></i>');
+       $("#adduserbtn").html('<i class="fa fa-circle-o-notch fa-spin text-dark" aria-hidden="true"></i>');
         addCustomUser(type,sid,rid).then((res)=>{
             $("#adduserbtn").html('Add User');
             if(res.status == true)
@@ -47,9 +47,26 @@ $(document).ready(function(){
             }
             else
             {
-                alert(res.message);
+                let html = 
+                `
+                <div class="toast show bg-dark animate__animated animate__pulse" id="toast">
+                    <div class="toast-header bg-dark">
+                    <span class="text-danger">Error Message</span>   
+                    <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+                    </div>
+                    <div class="toast-body text-success text-center">
+                        ${res.message} <i class="fa fa-times text-danger"></i>
+                    </div>
+                </div>
+                `;
+                $(".toastmessage").html(html);
+                setTimeout(() => {
+                    $(".toastmessage").html('');
+                    $(".choosesearch")[0].reset();
+                }, 2000);
             }
         });
+        
     });
 
 
