@@ -28,7 +28,7 @@ export let deleteroom = async (delid) => {
     let response;
     await $.ajax({
         type:'delete',
-        url:'https://quickify-fh37.onrender.com/api/delete-room?delid='+delid,
+        url:'https://quickify-fh37.onrender.com/api/delete-room?delid='+delid, //https://quickify-fh37.onrender.com
         header:{"Content-Type":"application/json"},
         beforeSend:function(req) {},
         success:function(res)

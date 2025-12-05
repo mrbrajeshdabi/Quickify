@@ -5,6 +5,7 @@ import { QroomUsers } from "../model/room.model.js";
 import path from 'path'; 
 import {unlinkSync} from 'fs';
 import { qcustomUserAdd } from "../model/custom.user.model.js";
+import cloudinary from "../middleware/config.js";
 
 export const quickify = async (req,res) => {
     res.status(200).json({status:true,message:"QuickiFy Is On"});
@@ -91,22 +92,19 @@ export const quickshowroom = async (req,res) => {
 
 export const deleteroom = async (req,res) => {
     try {
+        // cloudinary.uploader.destroy("uploads/profile_123");
         let fetchpic = await QroomUsers.findOne({createrid:req.query.delid});
         if(fetchpic)
         {
-            let filename = fetchpic.roompic;
-            let folder = path.join('usersprofilepic',filename);
-            if(unlinkSync(folder) == undefined)
+            let picname = fetchpic.roompic.split('https://res.cloudinary.com/dqfrjev7k/image/upload/v1764928311/quickify_profiles/')[1];
+            let removepic = cloudinary.uploader.destroy(`quickify_profiles/${picname}`);
+            if(removepic)
             {
                 let deleterooM = await QroomUsers.deleteOne({createrid:req.query.delid});
                 if(deleterooM)
                 {
                     res.status(200).json({status:true,message:'delete success'});
                 }
-            }
-            else
-            {
-                res.status(200).json({status:false,message:'room pic not deletede'});
             }
         }
     } catch (error) {
@@ -174,15 +172,24 @@ export const updateprofile = async (req,res) => {
         let getuser = await Quickusers.findOne({_id:updateuserid});
         if(getuser)
         {
-            let updateuser = await Quickusers.updateOne({_id:updateuserid},{$set:{profilepic:userpicname,username,mobilenumber}});
-            if(updateuser)
+            let picname = getuser.profilepic.split('https://res.cloudinary.com/dqfrjev7k/image/upload/v1764928311/quickify_profiles/')[1];
+            let removepic = cloudinary.uploader.destroy(`quickify_profiles/${picname}`);
+            if(removepic)
             {
-                let getprofile = await Quickusers.findOne({_id:updateuserid});
-                res.status(200).json({status:true,message:'success',data:getprofile});
+                let updateuser = await Quickusers.updateOne({_id:updateuserid},{$set:{profilepic:userpicname,username,mobilenumber}});
+                if(updateuser)
+                {
+                    let getprofile = await Quickusers.findOne({_id:updateuserid});
+                    res.status(200).json({status:true,message:'success',data:getprofile});
+                }
+                else
+                {
+                    res.status(200).json({status:false,message:'user not update'});
+                }
             }
             else
             {
-                res.status(200).json({status:false,message:'user not update'});
+                res.status(200).json({status:false,message:'cloudnary pic not deleted'});
             }
         }
         else
@@ -210,7 +217,6 @@ export const addCustomUser = async (req,res)=>{
         });
 
 }
-
 
 export const getCustomUser = async (req,res)=>{
     try {
