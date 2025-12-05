@@ -65,7 +65,7 @@ export const quickroom = async (req,res) => {
     }
 
     let insertroom = new QroomUsers({
-        createrid,roompic:roompic.filename,roomname,roomlimit,roomtype,roompassword:roompasss,roomstartorclose:'close',roomstatus:'none'
+        createrid,roompic,roomname,roomlimit,roomtype,roompassword:roompasss,roomstartorclose:'close',roomstatus:'none'
     });
     insertroom.save().then(()=>{
         res.status(200).json({status:true,message:'room created success'});
