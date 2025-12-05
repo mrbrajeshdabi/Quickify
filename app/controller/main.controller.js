@@ -13,12 +13,11 @@ export const quickify = async (req,res) => {
 export const quicksign = async (req,res) => {
     try {
         let {username,email,mobilenumber,password} = req.body;
-        let profilepic = req.file;
-        let filename = profilepic.filename;
+        const profilePicUrl = req.file?.path || "";
         let pass = password;
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(`${pass}`, salt);
-        let insertuser = new Quickusers({profilepic:filename,username,email,mobilenumber,password:hash});
+        let insertuser = new Quickusers({profilepic:profilePicUrl,username,email,mobilenumber,password:hash});
         insertuser.save().then(()=>{
             res.status(200).json({status:true,message:'success'});
         }).catch((err)=>{res.status(200).json({status:false,message:'Error',err})})
@@ -54,7 +53,7 @@ export const quicklogin = async (req,res) => {
 
 export const quickroom = async (req,res) => {
     let {roomname,roomlimit,roomtype,roompass,createrid} = req.body;
-    let roompic = req.file;
+    let roompic = req.file?.path || "";
     let roompasss;
     if(roomtype == 'public')
     {
@@ -170,31 +169,20 @@ export const changepass = async (req,res) => {
 export const updateprofile = async (req,res) => {
     //update-profile
     try {
-        let userpicname = req.file.filename;
+        let userpicname = req.file?.path || "";
         let {mobilenumber,username,updateuserid} = req.body;
-        console.log(updateuserid)
         let getuser = await Quickusers.findOne({_id:updateuserid});
-        console.log(getuser)
         if(getuser)
         {
-            let oldpicname = getuser.profilepic;
-            let filename = path.join('usersprofilepic',oldpicname);
-            if(unlinkSync(filename) == undefined)
+            let updateuser = await Quickusers.updateOne({_id:updateuserid},{$set:{profilepic:userpicname,username,mobilenumber}});
+            if(updateuser)
             {
-                let updateuser = await Quickusers.updateOne({_id:updateuserid},{$set:{profilepic:userpicname,username,mobilenumber}});
-                if(updateuser)
-                {
-                    let getprofile = await Quickusers.findOne({_id:updateuserid});
-                    res.status(200).json({status:true,message:'success',data:getprofile});
-                }
-                else
-                {
-                    res.status(200).json({status:false,message:'user not update'});
-                }
+                let getprofile = await Quickusers.findOne({_id:updateuserid});
+                res.status(200).json({status:true,message:'success',data:getprofile});
             }
             else
             {
-                res.status(200).json({status:false,message:'pic not delete'});
+                res.status(200).json({status:false,message:'user not update'});
             }
         }
         else

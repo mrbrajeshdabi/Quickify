@@ -11,7 +11,7 @@ $(document).ready(function(){
         let html =
         `<center>
                 <div class="profilebox mb-3">
-                    <div class="imgbox"><img src="usersprofilepic/${data.profilepic}" class="img-fluid img-thumbnail" id="profileimg"></div>
+                    <div class="imgbox"><img src="${data.profilepic}" class="img-fluid img-thumbnail" id="profileimg"></div>
                 </div>
                 <table class="table">
                     <tr>

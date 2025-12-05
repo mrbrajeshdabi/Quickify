@@ -17,7 +17,7 @@ $(document).ready(async function() {
                 if(room.roomstartorclose == 'close')
                 {
                     let li = `<li class="list-group-item" id="delid${room.createrid}">
-                            <img src="usersprofilepic/${room.roompic}" class="profilepicroom  img-fluid img-thumbnail">
+                            <img src="${room.roompic}" class="profilepicroom  img-fluid img-thumbnail">
                             <span class="ms-5">${room.roomname}</span>
                             <span class="ms-5">${room.roomlimit}</span><!-- user joined total -->
                             <button class="btn btn-success animate__animated animate__pulse animate__infinite ms-5 startbtnopenroom" type="button" roomid='${room._id}' createrid='${room.createrid}' roomlimit ='${room.roomlimit}' roomname='${room.roomname}' >start room</button>
@@ -28,7 +28,7 @@ $(document).ready(async function() {
                 else
                 {
                     let li = `<li class="list-group-item">
-                            <img src="usersprofilepic/${room.roompic}" class="profilepicroom  img-fluid img-thumbnail">
+                            <img src="${room.roompic}" class="profilepicroom  img-fluid img-thumbnail">
                             <span class="ms-5">${room.roomname}</span>
                             <span class="ms-5">${room.roomlimit}</span><!-- user joined total -->
                             <button class="btn btn-danger animate__animated animate__pulse animate__infinite ms-5" type="button">close room</button>
@@ -94,7 +94,7 @@ $(document).ready(async function() {
                 if(user.roomstartorclose == "close")
                 {
                     li = `<li class="list-group-item">
-                                <img src="usersprofilepic/${user.roompic}" class="profilepicroom  img-fluid img-thumbnail">
+                                <img src="${user.roompic}" class="profilepicroom  img-fluid img-thumbnail">
                                 <button class="btn btn-primary ms-1 joinroombtn disabled" type="${user.roomtype}" createrid="${user.createrid}" id='roombtnid${user._id}' roomname='${user.roomname}' ><i class="fa fa-video"></i></button>
                                 <span class="ms-2">${user.roomname}</span>
                                 <span class="ms-2">${user.roomlimit}</span><!-- user joined total -->
@@ -107,7 +107,7 @@ $(document).ready(async function() {
                 {
                     if(user.roomtype == "private"){
                          li = `<li class="list-group-item">
-                                    <img src="usersprofilepic/${user.roompic}" class="profilepicroom  img-fluid img-thumbnail">
+                                    <img src="${user.roompic}" class="profilepicroom  img-fluid img-thumbnail">
                                     <button class="btn btn-primary joinroombtn animate__animated animate__pulse animate__infinite ms-1" type="${user.roomtype}" createrid='${user.createrid}' roomname='${user.roomname}'><i class="fa fa-video"></i></button>
                                     <span class="ms-1">${user.roomname}</span>
                                     <span class="ms-1">${user.roomlimit}</span><!-- user joined total -->
@@ -119,7 +119,7 @@ $(document).ready(async function() {
                     else
                     {
                         li = `<li class="list-group-item">
-                                    <img src="usersprofilepic/${user.roompic}" class="profilepicroom  img-fluid img-thumbnail">
+                                    <img src="${user.roompic}" class="profilepicroom  img-fluid img-thumbnail">
                                     <button class="btn btn-primary joinroombtn animate__animated animate__pulse animate__infinite ms-1" type="${user.roomtype}" createrid='${user.createrid}'><i class="fa fa-video"></i></button>
                                     <span class="ms-1">${user.roomname}</span>
                                     <span class="ms-1">${user.roomlimit}</span><!-- user joined total -->
