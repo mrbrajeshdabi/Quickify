@@ -130,6 +130,20 @@ export let getCustomUser = async (sid) => {
     return response;
 }
 
+export let deletecustomuser = async (id) => {
+    let response;
+    await $.ajax({
+        type:'delete',
+        url:'https://quickify-fh37.onrender.com/api/delete-custom-room?delid='+id,
+        header:{"Content-Type":"application/json"},
+        beforeSend:function(req){},
+        success:function(res)
+        {
+            response = res;
+        }
+    });
+    return response;
+}
 
 export let logout = () =>
 {

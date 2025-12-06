@@ -1,14 +1,15 @@
-import { addCustomUser, getCustomUser, roomcreaterid } from "../functions/Quickify.js";
+import { addCustomUser, customcam, deletecustomuser, getCustomUser, roomcreaterid, userprofile } from "../functions/Quickify.js";
 
 $(document).ready(function(){
     let socket = io();
     let type;
+    let localstream;
     $("#type").click(function(){
        type =  $(this).val();
        let html =
         `
         <label> Enter Your ${type} </label>
-        <input type='${type}' id='${type}' name='${type}' required />
+        <input type='${type}' id='${type}' name='${type}' required autocomplete='off' />
 
        `;
        $("#insertinput").html(html);
@@ -79,22 +80,53 @@ $(document).ready(function(){
             $("#listusericon").addClass('fa fa-users');
             if(res.status == true)
             {
-                if(res.data.length > 1)
+                if(res.data.length > 0)
                 {
                     res.data.forEach(index => {
                         let html = 
                         `
-                        <li class="list-group-item">
+                        <li class="list-group-item" id="dellist${index._id}">
                                 <div class="d-flex">
                                     <img src="${index.rpic}" class="img-fluid img-thumbnail profilepicroom" id="profilepicroom">
                                     <span class="ms-5 mt-2">${index.rusername}</span>
                                     <span class="ms-5 mt-2">${index.rstatus}</span>
-                                    <button class="btn btn-primary ms-5 w-50" type="button" id="call${index.rid}" rid="${index.rid}"><i class="fa fa-video animate__animated animate__pulse animate__infinite"></i></button>
-                                    <button class="btn btn-danger ms-5  w-50" type="button" id="delete${index.rid}" deleteid="${index._id}"><i class="fa fa-trash animate__animated animate__pulse animate__infinite"></i></button>
+                                    <div class="btn-group ms-5 w-50">
+                                    <button class="btn btn-primary callanddel" type="call" id="call${index.rid}" rid="${index.rid}"><i class="fa fa-video animate__animated animate__pulse animate__infinite"></i></button>
+                                    <button class="btn btn-danger callanddel " type="delete" id="delete${index.rid}" deleteid="${index._id}"><i class="fa fa-trash animate__animated animate__pulse animate__infinite"></i></button>
+                                    </div>
                                 </div>
                             </li>
                         `;
                         $("#inserusercustom").append(html);
+                    });
+
+
+                    //get call and delete
+                    $(".callanddel").each(function(){
+                        $(this).click(function(){
+                            if($(this).attr('type') == 'call')
+                            {
+                                let type = $(this).attr('type'); //jab call chle tab jo cookie ki id usko busy karni padegi
+                                let rid = $(this).attr('rid');
+                                OneTwoOneCall(rid);
+                            }
+                            else
+                            {
+                                let delid = $(this).attr('deleteid');
+                                $(this).html('Please Wait..');
+                                deletecustomuser(delid).then((res)=>{
+                                    if(res.status == true)
+                                    {
+                                        $(`#dellist${delid}`).addClass('d-none');
+                                        $(this).html('<i class="fa fa-trash animate__animated animate__pulse animate__infinite"></i>');
+                                    }
+                                    else
+                                    {
+                                        console.log(res);
+                                    }
+                                });
+                            }
+                        });
                     });
                 }
                 else
@@ -125,12 +157,161 @@ $(document).ready(function(){
                         <img src="${index.rpic}" class="img-fluid img-thumbnail profilepicroom" id="profilepicroom">
                         <span class="ms-5 mt-2">${index.rusername}</span>
                         <span class="ms-5 mt-2">${index.rstatus}</span>
-                        <button class="btn btn-primary ms-5" type="button" id="call${index.rid}" rid="${index.rid}"><i class="fa fa-video animate__animated animate__pulse animate__infinite"></i></button>
-                        <button class="btn btn-danger ms-5" type="button" id="delete${index.rid}" deleteid="${index._id}"><i class="fa fa-trash animate__animated animate__pulse animate__infinite"></i></button>
+                        <div class="btn-group ms-5 w-50">
+                        <button class="btn btn-primary callanddel" type="call" id="call${index.rid}" rid="${index.rid}"><i class="fa fa-video animate__animated animate__pulse animate__infinite"></i></button>
+                        <button class="btn btn-danger callanddel " type="delete" id="delete${index.rid}" deleteid="${index._id}"><i class="fa fa-trash animate__animated animate__pulse animate__infinite"></i></button>
+                        </div>
                     </div>
                 </li>
             `;
             $("#inserusercustom").append(html);
         });
     });
+
+
+
+let PC = (function(){
+
+    let peerconnection;
+    let createPeerConnetion = ()=>{
+        let config = {iceServers:[{urls:"stun:stun4.l.google.com:19302"}]};
+        peerconnection = new RTCPeerConnection(config);
+
+        //gettracks
+        localstream.getTracks().forEach(track => {
+            peerconnection.addTrack(track,localstream);
+        });
+
+        //ontrack
+        peerconnection.ontrack = function(event)
+        {
+            //create reciver video
+            let video = document.createElement("video");
+            video.setAttribute('class','img-fluid img-thumbnail rivideo');
+            video.autoplay = true;
+            video.playsInline = true;
+            video.srcObject = event.streams[0];
+            document.querySelector(".rvideobox").append(video);
+        }
+
+        //onicecandidate
+        peerconnection.onicecandidate = function(event)
+        {
+            if(event.candidate)
+            {
+                //socket send candidate to from
+                socket.emit('custom-candidate',event.candidate);
+            }
+        }
+
+        return peerconnection;
+    }
+
+
+    return {
+        getInstance : ()=>{
+            if(!peerconnection)
+            {
+                peerconnection = createPeerConnetion();
+            }
+            return peerconnection;
+        }
+    }
+})();
+
+
+ function OneTwoOneCall(rid)
+ {
+    $("#listcustomuser").addClass('d-none');
+    $("#calling").removeClass('d-none');
+    customcam().then((localvideo)=>{
+        document.getElementById('svideo').srcObject = localvideo;
+        localstream = localvideo;
+        setTimeout(() => {
+            createoffer(rid);
+        }, 1000);
+    });
+ } 
+ 
+ async function createoffer(rid) {
+    userprofile().then(async (user)=>{
+        let pc = await PC.getInstance();
+        let sid = user._id;
+        let sname = user.username;
+        let spic = user.profilepic;
+        let offer = await pc.createOffer();
+        await pc.setLocalDescription(offer);
+        socket.emit('custom-offer',{from:sid,to:rid,fromname:sname,frompic:spic,offer:pc.localDescription});
+    });
+ }
+
+ async function createAnswers(from,to,fromname,frompic,offer) {
+    let pc = await PC.getInstance();
+    await pc.setRemoteDescription(offer);
+    let answer = await pc.createAnswer();
+    await pc.setLocalDescription(answer);
+    socket.emit('custom-answer',{from,to,frompic,fromname,answer:pc.localDescription});
+ }
+
+ async function setAnswer(answer) {
+    let pc = await PC.getInstance();
+    await pc.setRemoteDescription(new RTCSessionDescription(answer));
+ }
+
+ //listener 
+ socket.on('r-custom-offer',async ({from,to,fromname,frompic,offer})=>{
+    let rid = await roomcreaterid();
+    if(to == rid)
+    {
+        let html =
+        `<div class="toast show bg-dark animate__animated animate__bounceInDown" id="callingtoast">
+            <div class="toast-header bg-dark">
+            </div>
+            <div class="toast-body text-success text-center">
+                <div class="d-flex">
+                    <img src="${frompic}" class="img-fluid img-thumbnail profilepicroom">
+                    <span class="text-warning ms-5 mt-2">calling from ${fromname}</span>
+                </div><br>
+                <div class="btn-group w-100">
+                    <button class="btn btn-success animate__animated animate__pulse animate__infinite asnweranddecline " type="answer">Answer</button>
+                    <button class="btn btn-danger  animate__animated animate__pulse animate__infinite asnweranddecline " type="decline">Decline</button>
+                </div>
+            </div>
+        </div>`;
+        $(".callingmsg").html(html);
+
+        //asnweranddecline
+        $(".asnweranddecline").click(function(){
+            if($(this).attr("type") == "decline") alert('decline answer');
+            $("#listcustomuser").addClass('d-none');
+            $("#createroom").addClass("d-none");
+            $("#myroom").addClass("d-none");
+            $("#userprofile").addClass("d-none");
+            $("#addcustomuser").addClass("d-none");
+            $("#calling").removeClass('d-none');
+            $(".callingmsg").html('');
+            customcam().then((localvideo)=>{
+                document.getElementById("svideo").srcObject = localvideo;
+                localstream = localvideo;
+            });
+            setTimeout(() => {
+                createAnswers(from,to,fromname,frompic,offer);
+            }, 1000);
+        });
+    }
+ });
+
+ socket.on('custom-answer',async({from,to,fromname,frompic,answer})=>{
+    let sid = await roomcreaterid();
+    if(from == sid)
+    {
+        setAnswer(answer);
+    }
+ });
+
+ socket.on('custom-candidate',async(candidate)=>{
+    let pc = await PC.getInstance();
+    pc.addIceCandidate(new RTCIceCandidate(candidate));
+ });
+
 });

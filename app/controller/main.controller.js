@@ -235,5 +235,15 @@ export const getCustomUser = async (req,res)=>{
     }
 }
 
+export const deleteCustomUser = async (req,res) => {
+    try {
+        let delid = req.query.delid;
+        let deleteuser = await qcustomUserAdd.deleteOne({_id:delid});
+        if(deleteuser)res.status(200).json({status:true,message:'Deleted users successfully'});
+    } catch (error) {
+        res.status(500).json({status:false,message:'Error',error});
+    }   
+}
+
 
 

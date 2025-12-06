@@ -65,6 +65,18 @@ io.on('connection',(socket)=>{
             socket.emit('customuseradd',getsid);
         }
     });
+
+    //custom user one to one call
+    socket.on('custom-offer',({from,to,fromname,frompic,offer})=>{
+        socket.broadcast.emit('r-custom-offer',{from,to,fromname,frompic,offer});
+    });
+
+    socket.on('custom-answer',({from,to,fromname,frompic,answer})=>{
+        socket.broadcast.emit('custom-answer',{from,to,fromname,frompic,answer});
+        socket.on('custom-candidate',(candidate)=>{
+            socket.broadcast.emit('custom-candidate',candidate);
+        });
+    });
 });
     
 
