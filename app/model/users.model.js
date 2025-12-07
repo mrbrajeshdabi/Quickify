@@ -19,6 +19,10 @@ let qusers = mongoose.Schema({
         required:true,
         unique:true
     },
+    otp:{
+        type:String,
+        required:true
+    },
     password:{
         type:String,
         required:true,
