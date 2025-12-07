@@ -91,7 +91,7 @@ $(document).ready(function(){
                                     <span class="ms-5 mt-2">${index.rusername}</span>
                                     <span class="ms-5 mt-2">${index.rstatus}</span>
                                     <div class="btn-group ms-5 w-50">
-                                    <button class="btn btn-primary callanddel" type="call" id="call${index.rid}" rid="${index.rid}"><i class="fa fa-video animate__animated animate__pulse animate__infinite"></i></button>
+                                    <button class="btn btn-primary callanddel" type="call" id="call${index.rid}" rid="${index.rid}" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa fa-video animate__animated animate__pulse animate__infinite"></i></button>
                                     <button class="btn btn-danger callanddel " type="delete" id="delete${index.rid}" deleteid="${index._id}"><i class="fa fa-trash animate__animated animate__pulse animate__infinite"></i></button>
                                     </div>
                                 </div>
@@ -152,19 +152,47 @@ $(document).ready(function(){
         array.forEach(index => {
             let html = 
             `
-            <li class="list-group-item">
+            <li class="list-group-item" id="dellist${index._id}">
                     <div class="d-flex">
                         <img src="${index.rpic}" class="img-fluid img-thumbnail profilepicroom" id="profilepicroom">
                         <span class="ms-5 mt-2">${index.rusername}</span>
                         <span class="ms-5 mt-2">${index.rstatus}</span>
                         <div class="btn-group ms-5 w-50">
-                        <button class="btn btn-primary callanddel" type="call" id="call${index.rid}" rid="${index.rid}"><i class="fa fa-video animate__animated animate__pulse animate__infinite"></i></button>
+                        <button class="btn btn-primary callanddel" type="call" id="call${index.rid}" rid="${index.rid}" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa fa-video animate__animated animate__pulse animate__infinite"></i></button>
                         <button class="btn btn-danger callanddel " type="delete" id="delete${index.rid}" deleteid="${index._id}"><i class="fa fa-trash animate__animated animate__pulse animate__infinite"></i></button>
                         </div>
                     </div>
                 </li>
             `;
             $("#inserusercustom").append(html);
+        });
+
+        //get call and delete
+        $(".callanddel").each(function(){
+            $(this).click(function(){
+                if($(this).attr('type') == 'call')
+                {
+                    let type = $(this).attr('type'); //jab call chle tab jo cookie ki id usko busy karni padegi
+                    let rid = $(this).attr('rid');
+                    OneTwoOneCall(rid);
+                }
+                else
+                {
+                    let delid = $(this).attr('deleteid');
+                    $(this).html('Please Wait..');
+                    deletecustomuser(delid).then((res)=>{
+                        if(res.status == true)
+                        {
+                            $(`#dellist${delid}`).addClass('d-none');
+                            $(this).html('<i class="fa fa-trash animate__animated animate__pulse animate__infinite"></i>');
+                        }
+                        else
+                        {
+                            console.log(res);
+                        }
+                    });
+                }
+            });
         });
     });
 
@@ -186,12 +214,7 @@ let PC = (function(){
         peerconnection.ontrack = function(event)
         {
             //create reciver video
-            let video = document.createElement("video");
-            video.setAttribute('class','img-fluid img-thumbnail rivideo');
-            video.autoplay = true;
-            video.playsInline = true;
-            video.srcObject = event.streams[0];
-            document.querySelector(".rvideobox").append(video);
+            document.getElementById("customsvideo").srcObject=event.streams[0];
         }
 
         //onicecandidate
@@ -222,10 +245,18 @@ let PC = (function(){
 
  function OneTwoOneCall(rid)
  {
-    $("#listcustomuser").addClass('d-none');
-    $("#calling").removeClass('d-none');
     customcam().then((localvideo)=>{
-        document.getElementById('svideo').srcObject = localvideo;
+        //create reciver video
+        //document.getElementById("customrvideo").srcObject=lvideo;
+        document.getElementById("customsvideo").srcObject=localvideo;
+            // let video = document.createElement("video");
+            // video.setAttribute('class','img-fluid img-thumbnail');
+            // video.setAttribute("id","customsvideo");
+            // video.autoplay = true;
+            // video.playsInline = true;
+            // video.srcObject = localvideo;
+            // document.querySelector(".customvideobox").append(video);
+        // document.getElementById('svideo').srcObject = localvideo;
         localstream = localvideo;
         setTimeout(() => {
             createoffer(rid);
@@ -256,6 +287,7 @@ let PC = (function(){
  async function setAnswer(answer) {
     let pc = await PC.getInstance();
     await pc.setRemoteDescription(new RTCSessionDescription(answer));
+    document.getElementById("customrvideo").srcObject=localstream;
  }
 
  //listener 
@@ -263,6 +295,12 @@ let PC = (function(){
     let rid = await roomcreaterid();
     if(to == rid)
     {
+        $("#cmute").attr('to',to);
+        $("#cdisconnected").attr('to',to);
+        $("#ccameraoff").attr('to',to);
+        $("#cmute").attr('from',from);
+        $("#cdisconnected").attr('from',from);
+        $("#ccameraoff").attr('from',from);
         let html =
         `<div class="toast show bg-dark animate__animated animate__bounceInDown" id="callingtoast">
             <div class="toast-header bg-dark">
@@ -273,8 +311,8 @@ let PC = (function(){
                     <span class="text-warning ms-5 mt-2">calling from ${fromname}</span>
                 </div><br>
                 <div class="btn-group w-100">
-                    <button class="btn btn-success animate__animated animate__pulse animate__infinite asnweranddecline " type="answer">Answer</button>
-                    <button class="btn btn-danger  animate__animated animate__pulse animate__infinite asnweranddecline " type="decline">Decline</button>
+                    <button class="btn btn-success animate__animated animate__pulse animate__infinite asnweranddecline" type="answer" data-bs-toggle="modal" data-bs-target="#myModal">Answer</button>
+                    <button class="btn btn-danger  animate__animated animate__pulse animate__infinite asnweranddecline" type="decline">Decline</button>
                 </div>
             </div>
         </div>`;
@@ -291,7 +329,7 @@ let PC = (function(){
             $("#calling").removeClass('d-none');
             $(".callingmsg").html('');
             customcam().then((localvideo)=>{
-                document.getElementById("svideo").srcObject = localvideo;
+                document.getElementById("customrvideo").srcObject = localvideo;
                 localstream = localvideo;
             });
             setTimeout(() => {
@@ -305,6 +343,12 @@ let PC = (function(){
     let sid = await roomcreaterid();
     if(from == sid)
     {
+        $("#cmute").attr('to',to);
+        $("#cdisconnected").attr('to',to);
+        $("#ccameraoff").attr('to',to);
+        $("#cmute").attr('from',from);
+        $("#cdisconnected").attr('from',from);
+        $("#ccameraoff").attr('from',from);
         setAnswer(answer);
     }
  });
@@ -312,6 +356,77 @@ let PC = (function(){
  socket.on('custom-candidate',async(candidate)=>{
     let pc = await PC.getInstance();
     pc.addIceCandidate(new RTCIceCandidate(candidate));
+ });
+
+ socket.on("customcalldisconnect",async ({from,to})=>{
+    let id = await roomcreaterid();
+    if(from == id)
+    {
+        let pc = await PC.getInstance();
+        if(pc)
+        {
+            pc.close();
+            setTimeout(() => {
+                history.go();
+            }, 1000);
+        }
+    }
+    else if(to == id)
+    {
+        let pc = await PC.getInstance();
+        if(pc)
+        {
+            pc.close();
+            setTimeout(() => {
+                history.go();
+            }, 1000);
+        }
+    }
+ });
+
+ //mute disconnetced and video close event
+ $("#cmute").click(function(){
+    let type = $(this).attr('type');
+    if(type == 'mute')
+    {
+        $("#cmute").html('<i class="fa fa-microphone"></i>');
+        $("#cmute").attr('type','unmute');
+        localstream.getTracks()[0].enabled = false;
+    }
+    else
+    {
+        $("#cmute").html('<i class="fa fa-microphone-slash"></i>');
+        $("#cmute").attr('type','mute');
+        localstream.getTracks()[0].enabled = true;
+    }
+ });
+
+ $("#ccameraoff").click(function(){
+    let type = $(this).attr('type');
+    if(type == "on")
+    {
+        $("#ccameraoff").html('<i class="fa fa-video"></i>');
+        $("#ccameraoff").attr('type','off');
+        localstream.getTracks()[1].enabled = false;
+    }
+    else
+    {
+        $("#ccameraoff").html('<i class="fa fa-video-slash"></i>');
+        $("#ccameraoff").attr('type','on');
+        localstream.getTracks()[1].enabled = true;
+    }
+ });
+
+ $("#cdisconnected").click( async function(){
+    let from = $(this).attr('from');
+    let to = $(this).attr('to');
+    let pc = await PC.getInstance();
+    if(pc)
+    {
+        pc.close();
+        socket.emit('customcalldisconnect',{from,to});
+        setTimeout(()=>{history.go();},1000);
+    }
  });
 
 });

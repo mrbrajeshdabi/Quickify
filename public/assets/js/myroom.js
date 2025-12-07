@@ -218,7 +218,6 @@ function createPeer(joinid)
     {
         if (!remoteStreams[joinid]) {
             remoteStreams[joinid] = new MediaStream();
-            
             let video = document.createElement("video");
             video.setAttribute('class','img-fluid img-thumbnail rivideo');
             video.id = "video-" + joinid;

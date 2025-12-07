@@ -121,3 +121,15 @@ input{
     top: 0;
     left: 0;
 }
+.customvideobox
+{
+    width: 480px;
+    height: 50%;
+}
+.customrvideobox{
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 20px;
+    right: 0;
+}

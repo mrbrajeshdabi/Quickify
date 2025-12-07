@@ -77,6 +77,10 @@ io.on('connection',(socket)=>{
             socket.broadcast.emit('custom-candidate',candidate);
         });
     });
+
+    socket.on('customcalldisconnect',({from,to})=>{
+        socket.broadcast.emit('customcalldisconnect',{from,to});
+    });
 });
     
 
