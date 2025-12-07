@@ -247,5 +247,34 @@ export const deleteCustomUser = async (req,res) => {
     }   
 }
 
+export const searchUser = async (req,res) => {
+    try {
+        let username = req.query.username;
+        let getuser = await Quickusers.find({ username: new RegExp(username, 'i') });
+        if(getuser != '')
+        {
+            let array = new Array();
+            let i = 0;
+            while(i < getuser.length)
+            {
+                let username = getuser[i].username;
+                let userpic = getuser[i].profilepic;
+                let inviteid = getuser[i]._id;
+                array.push([{username,userpic,inviteid}])
+                i++;
+            }
+            setTimeout(() => {
+                res.status(200).json({status:true,message:"search users",array});
+            }, 1000);
+        }
+        else
+        {
+            res.status(200).json({status:false,message:"no users"});
+        }
+    } catch (error) {
+        res.status(500).json({status:false,message:error});
+    }
+}
+
 
 

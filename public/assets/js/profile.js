@@ -29,7 +29,16 @@ $(document).ready(function(){
                     <tr>
                         <td>Total Created Room</td>
                         <td>coming</td>
+                        <td>Total Add Custom User</td>
+                        <td>coming</td>
                     </tr>
+                    <tr>
+                        <td>Likes</td>
+                        <td><button class="btn btn-light text-dark" type="button" disabled>Coming</button></td>
+                        <td>Profile View</td>
+                        <td><button class="btn btn-light text-dark" type="button" disabled>Coming</button></td>
+                    </tr>
+
                 </table>
     </center>`;
     $("#insertprofile").html(html);

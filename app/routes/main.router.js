@@ -1,5 +1,5 @@
 import express from 'express';
-import { addCustomUser, changepass, deleteCustomUser, deleteroom, getCustomUser, quickify, quicklogin, quickroom, quickshowroom, quicksign, showallroom, updateprofile, updateroom } from '../controller/main.controller.js';
+import { addCustomUser, changepass, deleteCustomUser, deleteroom, getCustomUser, quickify, quicklogin, quickroom, quickshowroom, quicksign, searchUser, showallroom, updateprofile, updateroom } from '../controller/main.controller.js';
 import { checklogin } from '../middleware/checklogin.js';
 import { upload } from '../middleware/upload.js';
 export const router = express.Router();
@@ -17,3 +17,4 @@ router.put('/update-profile',upload.single('profilepic'),updateprofile);
 router.post('/add-custom-user',addCustomUser);
 router.post('/get-custom-user',getCustomUser);
 router.delete('/delete-custom-room',deleteCustomUser);
+router.get('/search-user',searchUser);

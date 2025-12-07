@@ -28,9 +28,9 @@
         </div> -->
     </div>
   <div class="col-md-1 p-0 m-0">
-    <ul class="list-group">
+    <ul class="list-group animate__animated animate__fadeIn">
         <li class="list-group-item bg-dark" data-bs-toggle="collapse" data-bs-target="#tools" id="folder" type="close">
-         <center id="cente"><i class="fa fa-folder animate__animated animate__pulse animate__infinite text-primary" aria-hidden="true"></i></center>
+         <center id="cente"><i class="fa fa-folder animate__animated animate__pulse animate__infinite text-light" aria-hidden="true"></i></center>
         </li>
         <div class="collapse" id="tools">
             <li class="list-group-item list" type="createroom">
@@ -46,6 +46,9 @@
                  <center><i class="fa fa-handshake" aria-hidden="true"></i></center>
             </li>
             <div class="collapse" id="cola">
+            <li class="list-group-item list" type="searchuser">
+                 <center><i class="fa fa-search animate__animated animate__pulse" aria-hidden="true" id="seachusericon"></i></center>
+            </li>
              <li class="list-group-item list" type="adduser">
                  <center><i class="fa fa-user-plus animate__animated animate__pulse" aria-hidden="true"></i></center>
             </li>
@@ -64,7 +67,7 @@
         <div class="callingmsg"></div>
     </center>
     <!-- create room  -->
-     <div class="card d-none" id="createroom">
+     <div class="card d-none animate__animated animate__fadeIn" id="createroom">
         <div class="card-header">
             <span class="card-title">Create Room</span>
         </div>
@@ -106,7 +109,7 @@
      <!-- end room  -->
 
       <!-- my room  -->
-     <div class="card d-none" id="myroom">
+     <div class="card d-none animate__animated animate__fadeIn" id="myroom">
         <div class="card-header">
             <span class="card-title">My Room</span>
         </div>
@@ -119,7 +122,7 @@
 
      <!-- group video calling  -->
 
-     <div class="card d-none" id="calling">
+     <div class="card d-none animate__animated animate__fadeIn" id="calling">
         <div class="card-header">
             <span class="card-title text-success" id="roomnameisname"></span>
         </div>
@@ -146,7 +149,7 @@
 
      <!-- userprofile  start -->
 
-     <div class="card" id="userprofile">
+     <div class="card animate__animated animate__fadeIn" id="userprofile">
         <div class="card-header">
             <span class="card-title text-info">Profile</span>
         </div>
@@ -158,7 +161,7 @@
 
      <!-- custom add user  -->
 
-     <div class="card d-none" id="addcustomuser">
+     <div class="card animate__animated animate__fadeIn d-none" id="addcustomuser">
         <div class="card-header">
             <div class="card-title text-info">add custom user</div>
         </div>
@@ -167,9 +170,10 @@
                 <div class="form-group">
                     <label for="htadd">How To Add User</label>
                     <select name="type" id="type" class="form-control">
+                        <option value="select">select</option>
                         <option value="id">Invite Id</option>
-                         <option value="email">Email</option>
-                        <option value="number">Mobile Number</option>
+                         <!-- <option value="email">Email</option>
+                        <option value="number">Mobile Number</option> -->
                     </select>
                 </div>
                 <div class="from-group mb-1 mt-1" id="insertinput">
@@ -187,7 +191,7 @@
      <!-- list custom user  -->
 
 
-     <div class="card d-none" id="listcustomuser">
+     <div class="card animate__animated animate__fadeIn d-none" id="listcustomuser">
         <div class="card-header">
             <div class="card-title text-warning"><i class="fa fa-users"></i></div>
         </div>
@@ -200,9 +204,21 @@
 
      <!-- list custom user end   -->
 
+
+     <!-- search profile  -->
+
+     <div class="card animate__animated animate__fadeIn d-none" id="searchresult">
+        <div class="card-header"><span class="card-title">Search Result</span></div>
+        <div class="card-body">
+            <ul class="list-group" id="insertsearchuser"></ul>
+        </div>
+     </div>
+
+    <!-- search profile end  -->
+
   </div>
   <div class="col-md-3 p-0 m-0">
-    <div class="card" id="joinusers">
+    <div class="card animate__animated animate__fadeIn" id="joinusers">
         <div class="card-header">
             <span class="card-title">Join Rooms</span>
         </div>
@@ -213,7 +229,7 @@
 
 
     <!-- setting  -->
-      <div class="card d-none" id="setting">
+      <div class="card d-none animate__animated animate__fadeIn" id="setting">
         <div class="card-header">
             <div class="card-title">setting</div>
         </div>
@@ -253,7 +269,7 @@
 
       <!-- change password  -->
 
-      <div class="card d-none" id="changepasscard">
+      <div class="card d-none animate__animated animate__fadeIn" id="changepasscard">
         <div class="card-header">
             <div class="card-title">change password</div>
         </div>
@@ -286,7 +302,7 @@
 
       <!-- update account  -->
 
-      <div class="card d-none" id="updatefrmcard">
+      <div class="card d-none animate__animated animate__fadeIn" id="updatefrmcard">
         <div class="card-header">
             <div class="card-title">update account</div>
         </div>
@@ -320,6 +336,28 @@
       </div>
 
       <!-- update account end  -->
+
+
+      <!-- searc user frm  -->
+      <div class="card d-none animate__animated animate__fadeIn" id="searchuserfrm">
+        <div class="card header">
+            <span class="card-title">Search User</span>
+        </div>
+        <div class="card-body">
+            <form class="search_user_frm p-3">
+                <div class="form-group">
+                    <label for="susername">Enter Username</label>
+                    <input type="search" id="searchuser" name="searchuser">
+                </div>
+                <center>
+                <div class="btn-group w-50">
+                    <button class="btn btn-warning"><i class="fa fa-search"></i></button>
+                </div>
+                </center>
+            </form>
+        </div>
+      </div>
+      <!-- search user frm end  -->
 
   </div>
     
@@ -366,6 +404,7 @@
 <script type="module" src="assets/js/createroom.js"></script>
 <script type="module" src="assets/js/myroom.js"></script>
 <script type="module" src="assets/js/invite.js"></script>
+<script type="module" src="assets/js/search-user-frm.js"></script>
 <script>
     $(document).ready(function(){
     $('.list').each(function(){
@@ -373,6 +412,8 @@
             let type = $(this).attr('type');
             if(type == "createroom")
             {
+                $("#searchresult").addClass('d-none');
+                $("#searchuserfrm").addClass('d-none');
                 $("#listcustomuser").addClass('d-none');
                 $('#setting').addClass('d-none');
                 $('#userprofile').addClass('d-none');
@@ -384,6 +425,8 @@
             }
             if(type == "myroom")
             {
+                $("#searchresult").addClass('d-none');
+                $("#searchuserfrm").addClass('d-none');
                 $("#listcustomuser").addClass('d-none');
                 $('#setting').addClass('d-none');
                 $('#userprofile').addClass('d-none');
@@ -395,6 +438,8 @@
             }
             if(type == 'profile')
             {
+                $("#searchresult").addClass('d-none');
+                $("#searchuserfrm").addClass('d-none');
                 $("#listcustomuser").addClass('d-none');
                 $('#setting').addClass('d-none');
                 $("#calling").addClass('d-none');
@@ -406,11 +451,15 @@
             }
             if(type == "setting")
             {
+                $("#searchresult").addClass('d-none');
+                $("#searchuserfrm").addClass('d-none');
                 $('#joinusers').addClass('d-none');
                 $('#setting').removeClass('d-none');
             }
             if(type == 'adduser')
             {
+                $("#searchresult").addClass('d-none');
+                $("#searchuserfrm").addClass('d-none');
                 $("#listcustomuser").addClass('d-none');
                 $('#setting').addClass('d-none');
                 $("#calling").addClass('d-none');
@@ -422,6 +471,8 @@
             }
             if(type == 'listuser')
             {
+                $("#searchresult").addClass('d-none');
+                $("#searchuserfrm").addClass('d-none');
                 $('#setting').addClass('d-none');
                 $("#calling").addClass('d-none');
                 $("#createroom").addClass('d-none');
@@ -432,6 +483,13 @@
                 $("#listusericon").removeClass('text-success animate__infinite');
                 $("#listcustomuser").removeClass('d-none');
             }
+            if(type == "searchuser")
+            {
+                $("#searchresult").addClass('d-none');
+                $('#joinusers').addClass('d-none');
+                $('#setting').addClass('d-none');
+                $("#searchuserfrm").removeClass('d-none');
+            }
         });
     });
 
@@ -440,12 +498,12 @@
         let type = $(this).attr('type');
         if(type == 'close')
         {
-            $('#cente').html('<i class="fa fa-folder-open text-success" aria-hidden="true"></i>');
+            $('#cente').html('<i class="fa fa-folder-open text-primary" aria-hidden="true"></i>');
             $(this).attr('type','open');
         }
         else
         {
-            $('#cente').html('<i class="fa fa-folder animate__animated animate__pulse animate__infinite text-primary" aria-hidden="true"></i>');
+            $('#cente').html('<i class="fa fa-folder animate__animated animate__pulse animate__infinite text-light" aria-hidden="true"></i>');
             $(this).attr('type','close');
         }
     })

@@ -145,6 +145,21 @@ export let deletecustomuser = async (id) => {
     return response;
 }
 
+export let searchuser = async (username) => {
+    let response;
+    await $.ajax({
+        type:'get',
+        url:'https://quickify-fh37.onrender.com/api/search-user?username='+username,
+        header:{"Content-Type":"application/json"},
+        beforeSend:function(req){},
+        success:function(res)
+        {
+            response = res;
+        }
+    });
+    return response;
+}
+
 export let logout = () =>
 {
     document.cookie = "_user" + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
