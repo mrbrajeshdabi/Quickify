@@ -246,8 +246,11 @@ let PC = (function(){
 })();
 
 
- function OneTwoOneCall(rid)
+ async function OneTwoOneCall(rid)
  {
+    let id = await roomcreaterid();
+    $("#cdisconnected").attr('to',rid);
+    $("#cdisconnected").attr('from',id);
     customcam().then((localvideo)=>{
         document.getElementById("customsvideo").srcObject=localvideo;
         localstream = localvideo;
@@ -297,21 +300,12 @@ let PC = (function(){
     let id = await roomcreaterid();
     if(from == id)
     {
-        let html =
-            `<div class="toast show bg-dark animate__animated animate__bounceInDown" id="callingtoast">
-                <div class="toast-header bg-dark">
-                </div>
-                <div class="toast-body text-success text-center">
-                    <div class="d-flex">
-                        <span class="text-warning ms-5 mt-2">Call In Busy</span>
-                    </div>
-                </div>
-            </div>`;
-            $(".callingmsg").html(html);
+        let html ='<span id="errorcall" class="text-warning">Calling User Busy</span>';
+        $("#insertmsg").html(html);
             setTimeout(() => {
-                $(".callingmsg").html('');
+                $("#insertmsg").html('');
                 history.go();
-            }, 1000);
+            }, 2000);
     }
  }
 
@@ -362,16 +356,18 @@ let PC = (function(){
                 $("#addcustomuser").addClass("d-none");
                 $("#calling").addClass('d-none');
                 $(".callingmsg").html('');
+                let html ='<span id="errorcall" class="text-success">Call Connected</span>';
+                $("#insertmsg").html(html);
                 reciver.pause();
                 reciver.currentTime = 0;
                 customcam().then((localvideo)=>{
                     document.getElementById("customrvideo").srcObject = localvideo;
                     localstream = localvideo;
+                    setTimeout(() => {
+                        createAnswers(from,to,fromname,frompic,offer);
+                        checkbusy = true;
+                },  1000);
                 });
-                setTimeout(() => {
-                    createAnswers(from,to,fromname,frompic,offer);
-                    checkbusy = true;
-                }, 1000);
             });
         }
     }
@@ -388,6 +384,8 @@ let PC = (function(){
         $("#cmute").attr('from',from);
         $("#cdisconnected").attr('from',from);
         $("#ccameraoff").attr('from',from);
+        let html ='<span id="errorcall" class="text-success">Call Connected</span>';
+        $("#insertmsg").html(html);
         caller.pause();
         caller.currentTime = 0;
         setAnswer(answer);
@@ -414,6 +412,9 @@ let PC = (function(){
     }
     else if(to == id)
     {
+        setTimeout(() => {
+            history.go();
+        }, 1000);
         let pc = await PC.getInstance();
         if(pc)
         {
