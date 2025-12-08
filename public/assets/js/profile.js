@@ -13,7 +13,8 @@ $(document).ready(function(){
                 <div class="profilebox mb-3">
                     <div class="imgbox"><img src="${data.profilepic}" class="img-fluid img-thumbnail" id="profileimg"></div>
                 </div>
-                <table class="table">
+                <div class="table-responsive">
+                    <table class="table">
                     <tr>
                         <td>Username</td>
                         <td>${data.username}</td>
@@ -40,6 +41,7 @@ $(document).ready(function(){
                     </tr>
 
                 </table>
+                </div>
     </center>`;
     $("#insertprofile").html(html);
     

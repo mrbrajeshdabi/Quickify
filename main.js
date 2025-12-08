@@ -81,6 +81,14 @@ io.on('connection',(socket)=>{
     socket.on('customcalldisconnect',({from,to})=>{
         socket.broadcast.emit('customcalldisconnect',{from,to});
     });
+
+    socket.on("decline-without-answer-call",(from)=>{
+        socket.broadcast.emit('decline-without-answer-call',from);
+    });
+
+    socket.on('busy',(from)=>{
+        socket.broadcast.emit('busy',from);
+    });
 });
     
 

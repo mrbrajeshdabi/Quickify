@@ -4,6 +4,9 @@ $(document).ready(function(){
     let socket = io();
     let type;
     let localstream;
+    let caller;
+    let reciver;
+    let checkbusy = false;
     $("#type").click(function(){
        type =  $(this).val();
        let html =
@@ -246,17 +249,7 @@ let PC = (function(){
  function OneTwoOneCall(rid)
  {
     customcam().then((localvideo)=>{
-        //create reciver video
-        //document.getElementById("customrvideo").srcObject=lvideo;
         document.getElementById("customsvideo").srcObject=localvideo;
-            // let video = document.createElement("video");
-            // video.setAttribute('class','img-fluid img-thumbnail');
-            // video.setAttribute("id","customsvideo");
-            // video.autoplay = true;
-            // video.playsInline = true;
-            // video.srcObject = localvideo;
-            // document.querySelector(".customvideobox").append(video);
-        // document.getElementById('svideo').srcObject = localvideo;
         localstream = localvideo;
         setTimeout(() => {
             createoffer(rid);
@@ -266,6 +259,9 @@ let PC = (function(){
  
  async function createoffer(rid) {
     userprofile().then(async (user)=>{
+        caller = new Audio('assets/call/caller.mp3');
+        caller.loop = true;
+        caller.play();
         let pc = await PC.getInstance();
         let sid = user._id;
         let sname = user.username;
@@ -285,58 +281,101 @@ let PC = (function(){
  }
 
  async function setAnswer(answer) {
+    checkbusy = true;
     let pc = await PC.getInstance();
     await pc.setRemoteDescription(new RTCSessionDescription(answer));
     document.getElementById("customrvideo").srcObject=localstream;
  }
 
+ function declineCall(from) {
+    socket.emit('decline-without-answer-call',from);
+    history.go();
+ }
+
+ async function busyuser(from)
+ {
+    let id = await roomcreaterid();
+    if(from == id)
+    {
+        let html =
+            `<div class="toast show bg-dark animate__animated animate__bounceInDown" id="callingtoast">
+                <div class="toast-header bg-dark">
+                </div>
+                <div class="toast-body text-success text-center">
+                    <div class="d-flex">
+                        <span class="text-warning ms-5 mt-2">Call In Busy</span>
+                    </div>
+                </div>
+            </div>`;
+            $(".callingmsg").html(html);
+            setTimeout(() => {
+                $(".callingmsg").html('');
+                history.go();
+            }, 1000);
+    }
+ }
+
  //listener 
  socket.on('r-custom-offer',async ({from,to,fromname,frompic,offer})=>{
     let rid = await roomcreaterid();
-    if(to == rid)
+    if(checkbusy == true)
     {
-        $("#cmute").attr('to',to);
-        $("#cdisconnected").attr('to',to);
-        $("#ccameraoff").attr('to',to);
-        $("#cmute").attr('from',from);
-        $("#cdisconnected").attr('from',from);
-        $("#ccameraoff").attr('from',from);
-        let html =
-        `<div class="toast show bg-dark animate__animated animate__bounceInDown" id="callingtoast">
-            <div class="toast-header bg-dark">
-            </div>
-            <div class="toast-body text-success text-center">
-                <div class="d-flex">
-                    <img src="${frompic}" class="img-fluid img-thumbnail profilepicroom">
-                    <span class="text-warning ms-5 mt-2">calling from ${fromname}</span>
-                </div><br>
-                <div class="btn-group w-100">
-                    <button class="btn btn-success animate__animated animate__pulse animate__infinite asnweranddecline" type="answer" data-bs-toggle="modal" data-bs-target="#myModal">Answer</button>
-                    <button class="btn btn-danger  animate__animated animate__pulse animate__infinite asnweranddecline" type="decline">Decline</button>
+        socket.emit('busy' ,from);
+    } 
+    else
+    {
+        if(to == rid)
+        {
+            reciver = new Audio('assets/call/reciver.mp3');
+            reciver.loop = true;
+            reciver.play();
+            $("#cmute").attr('to',to);
+            $("#cdisconnected").attr('to',to);
+            $("#ccameraoff").attr('to',to);
+            $("#cmute").attr('from',from);
+            $("#cdisconnected").attr('from',from);
+            $("#ccameraoff").attr('from',from);
+            let html =
+            `<div class="toast show bg-dark animate__animated animate__bounceInDown" id="callingtoast">
+                <div class="toast-header bg-dark">
                 </div>
-            </div>
-        </div>`;
-        $(".callingmsg").html(html);
+                <div class="toast-body text-success text-center">
+                    <div class="d-flex">
+                        <img src="${frompic}" class="img-fluid img-thumbnail profilepicroom">
+                        <span class="text-warning ms-5 mt-2">calling from ${fromname}</span>
+                    </div><br>
+                    <div class="btn-group w-100">
+                        <button class="btn btn-success animate__animated animate__pulse animate__infinite asnweranddecline" type="answer" data-bs-toggle="modal" data-bs-target="#myModal">Answer</button>
+                        <button class="btn btn-danger  animate__animated animate__pulse animate__infinite asnweranddecline" type="decline">Decline</button>
+                    </div>
+                </div>
+            </div>`;
+            $(".callingmsg").html(html);
 
-        //asnweranddecline
-        $(".asnweranddecline").click(function(){
-            if($(this).attr("type") == "decline") alert('decline answer');
-            $("#listcustomuser").addClass('d-none');
-            $("#createroom").addClass("d-none");
-            $("#myroom").addClass("d-none");
-            $("#userprofile").addClass("d-none");
-            $("#addcustomuser").addClass("d-none");
-            $("#calling").removeClass('d-none');
-            $(".callingmsg").html('');
-            customcam().then((localvideo)=>{
-                document.getElementById("customrvideo").srcObject = localvideo;
-                localstream = localvideo;
+            //asnweranddecline
+            $(".asnweranddecline").click(function(){
+                if($(this).attr("type") == "decline") declineCall(from);
+                $("#listcustomuser").addClass('d-none');
+                $("#createroom").addClass("d-none");
+                $("#myroom").addClass("d-none");
+                $("#userprofile").addClass("d-none");
+                $("#addcustomuser").addClass("d-none");
+                $("#calling").addClass('d-none');
+                $(".callingmsg").html('');
+                reciver.pause();
+                reciver.currentTime = 0;
+                customcam().then((localvideo)=>{
+                    document.getElementById("customrvideo").srcObject = localvideo;
+                    localstream = localvideo;
+                });
+                setTimeout(() => {
+                    createAnswers(from,to,fromname,frompic,offer);
+                    checkbusy = true;
+                }, 1000);
             });
-            setTimeout(() => {
-                createAnswers(from,to,fromname,frompic,offer);
-            }, 1000);
-        });
+        }
     }
+    
  });
 
  socket.on('custom-answer',async({from,to,fromname,frompic,answer})=>{
@@ -349,6 +388,8 @@ let PC = (function(){
         $("#cmute").attr('from',from);
         $("#cdisconnected").attr('from',from);
         $("#ccameraoff").attr('from',from);
+        caller.pause();
+        caller.currentTime = 0;
         setAnswer(answer);
     }
  });
@@ -382,6 +423,15 @@ let PC = (function(){
             }, 1000);
         }
     }
+ });
+
+ socket.on('decline-without-answer-call',async (from)=>{
+    let id = await roomcreaterid();
+    if(from == id) history.go();
+ });
+
+ socket.on('busy',(from)=>{
+    busyuser(from);
  });
 
  //mute disconnetced and video close event
