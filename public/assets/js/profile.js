@@ -179,7 +179,7 @@ $(document).ready(function(){
         {
             $("#updatefrmbtn").removeClass('btn btn-primary');
             $("#updatefrmbtn").addClass('btn btn-dark');
-            $("#updatefrmbtn").html('<i class="fa fa-circle-o-notch fa-spin text-warning" aria-hidden="true"></i>')
+            $("#updatefrmbtn").html('<i class="fa fa-circle-notch fa-spin text-dark" aria-hidden="true"></i>')
         },
         success:function(res)
         {

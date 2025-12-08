@@ -38,7 +38,7 @@ $(document).ready(function(){
             {
                 $("#signup_frm_btn").removeClass('btn btn-light');
                 $("#signup_frm_btn").addClass('btn btn-dark');
-                $("#signup_frm_btn").html('<i class="fa fa-circle-o-notch text-warning fa-spin" aria-hidden="true"></i>');
+                $("#signup_frm_btn").html('<i class="fa fa-circle-notch text-dark fa-spin" aria-hidden="true"></i>');
 
             },
             success:function(res) {

@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="shortcut icon" href="assets/images/icon.png" type="image/x-icon">
   <script src="assets/js/socket.io.js"></script>
 </head>
 <body id="body">
@@ -28,7 +29,7 @@
         </div> -->
     </div>
   <div class="col-md-1 p-0 m-0">
-    <ul class="list-group animate__animated animate__fadeIn">
+    <ul class="list-group animate__animated animate__fadeIn" id="laptop-responsive">
         <li class="list-group-item bg-dark" data-bs-toggle="collapse" data-bs-target="#tools" id="folder" type="close">
          <center id="cente"><i class="fa fa-folder animate__animated animate__pulse animate__infinite text-light" aria-hidden="true"></i></center>
         </li>
@@ -53,7 +54,7 @@
                  <center><i class="fa fa-user-plus animate__animated animate__pulse" aria-hidden="true"></i></center>
             </li>
             <li class="list-group-item list" type="listuser">
-                 <center><i class="fa fa-users-circle animate__animated animate__pulse" aria-hidden="true" id="listusericon"></i></center>
+                 <center><i class="fa fa-users animate__animated animate__pulse" aria-hidden="true" id="listusericon"></i></center>
             </li>
             </div>
             <li class="list-group-item list" type="setting">
@@ -61,6 +62,19 @@
             </li>
         </div>
     </ul>
+
+    <div class="mobile-responsive">
+        <div class="btn-group">
+            <button class="btn btn-light text-dark ms-2 list" type="createroom"><i class="fs-4 fa fa-pencil-square animate__animated animate__pulse" aria-hidden="true"></i></button>
+            <button class="btn btn-light text-dark ms-2 list" type="myroom"><i class="fs-4 fa-solid fa-desktop animate__animated animate__pulse" aria-hidden="true"></i></button>
+            <button class="btn btn-light text-dark ms-2 list" type="profile"><i class="fs-4 fa fa-user-circle animate__animated animate__pulse" aria-hidden="true"></i></button>
+            <button class="btn btn-light text-dark ms-2 list" type="searchuser"><i class="fs-4 fa fa-search animate__animated animate__pulse" aria-hidden="true"></i></button>
+            <button class="btn btn-light text-dark ms-2 list" type="adduser"><i class="fs-4 fa fa-user-plus animate__animated animate__pulse" aria-hidden="true"></i></button>
+            <button class="btn btn-light text-dark ms-2 list" type="listuser"><i class="fa fa-users animate__animated animate__pulse" aria-hidden="true" id="listusericon"></i></button>
+            <button class="btn btn-light text-dark ms-2 list" type="setting"><i class="fs-4 fa fa-sign-in animate__animated animate__pulse" aria-hidden="true"></i></button>
+        </div>
+    </div>
+
   </div>
   <div class="col-md-8 p-0 m-0">
     <center>

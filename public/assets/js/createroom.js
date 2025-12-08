@@ -23,12 +23,12 @@ $(document).ready(function(){
             contentType:false,
             processData:false,
             cache:false,
-            beforeSend:function(req){$("#createroombtn").html('<i class="fa fa-circle-o-notch text-warning fa-spin" aria-hidden="true"></i>');},
+            beforeSend:function(req){$("#createroombtn").html('<i class="fa fa-circle-notch text-warning fa-spin" aria-hidden="true"></i>');},
             success:function(res)
             {
                 if(res.status == true)
                 {
-                   $("#createroombtn").html('<i class="fa fa-check-circle text-success" aria-hidden="true"></i>'); 
+                   $("#createroombtn").html('<i class="fa fa-check-circle text-dark" aria-hidden="true"></i>'); 
                    let html = 
                     `<div class="toast show bg-dark animate__animated animate_pulse" id="toast">
                         <div class="toast-header bg-dark">

@@ -15,7 +15,7 @@ $(document).ready(function(){
             },
             cache:false,
             beforeSend:function(req) {
-                $("#login_frm_btn").html('<i class="fa fa-circle-o-notch text-success fa-spin" aria-hidden="true"></i>')
+                $("#login_frm_btn").html('<i class="fa fa-circle-notch text-dark fa-spin" aria-hidden="true"></i>')
             },
             success:function(res)
             {
