@@ -52,7 +52,7 @@ export const quicklogin = async (req,res) => {
                 res.status(200).json({status:true,message:'success',session:getuser._id,user:getuser});
             }
             else{
-                req.status(200).json({status:false,message:"user account disabled"});
+                res.status(200).json({status:false,message:"user account disabled"});
             }
         }
         else
