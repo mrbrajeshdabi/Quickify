@@ -7,6 +7,7 @@ import {unlinkSync} from 'fs';
 import { qcustomUserAdd } from "../model/custom.user.model.js";
 import cloudinary from "../middleware/config.js";
 import { generateOTP } from "../middleware/email.js";
+import { equal } from "assert";
 
 export const quickify = async (req,res) => {
     res.status(200).json({status:true,message:"QuickiFy Is On"});
@@ -40,12 +41,19 @@ export const quicklogin = async (req,res) => {
     {
         //check password
         let hashpass = getuser.password;
+        let checkdisabled = getuser.otp;
         let compare = bcrypt.compareSync(lpassword, hashpass); // true
         if(compare == true)
         {
-            // var decoded = jwt.verify(token, 'shhhhh');
-            var token = jwt.sign(JSON.stringify(getuser),'Papakipari123@@');
-            res.status(200).json({status:true,message:'success',session:getuser._id,user:getuser});
+            if(checkdisabled != "disabled")
+            {
+                // var decoded = jwt.verify(token, 'shhhhh');
+                var token = jwt.sign(JSON.stringify(getuser),'Papakipari123@@');
+                res.status(200).json({status:true,message:'success',session:getuser._id,user:getuser});
+            }
+            else{
+                req.status(200).json({status:false,message:"user account disabled"});
+            }
         }
         else
         {
@@ -273,6 +281,32 @@ export const searchUser = async (req,res) => {
         }
     } catch (error) {
         res.status(500).json({status:false,message:error});
+    }
+}
+
+export const deactivateaccount = async (req,res) => {
+    let {id,pass} = req.query;
+    let checkpasswithid = await Quickusers.findOne({_id:id});
+    if(checkpasswithid)
+    {
+        let hashpass = checkpasswithid.password;
+        let comparepass = await bcrypt.compare(pass,hashpass);
+        if(comparepass == true)
+        {
+            let deactivated = await Quickusers.updateOne({_id:id},{$set:{otp:'disabled'}});
+            if(deactivated)
+            {
+                res.status(200).json({status:true,message:'success'});
+            }
+            else
+            {
+                res.status(200).json({status:false,message:'Not Updated'});
+            }
+        }
+        else
+        {
+            res.status(200).json({status:false,message:'Wrong Password'});
+        }
     }
 }
 

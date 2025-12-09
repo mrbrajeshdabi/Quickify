@@ -1,4 +1,4 @@
-import { changePass, checkcookie, logout, roomcreaterid, token,userprofile} from "../functions/Quickify.js";
+import { changePass, checkcookie, deactivatedAccount, logout, roomcreaterid, todayDate, token,userprofile} from "../functions/Quickify.js";
 // socket.on('connect',()=>{
 //     console.log('connected')
 // })
@@ -7,11 +7,26 @@ $(document).ready(function(){
     // user profile setup
     userprofile().then((data)=>{
         //setcreate room createrid
+        let year = new Date().getFullYear();
+        let month = new Date().getMonth();
+        let day = new Date().getDate();
+        let today = `${day} - ${month} - ${year}`;
+        $("#fulldte").html(`${today} :: `);
+        $("#day").html(`${todayDate()} :: `);
+        setInterval(() => {
+            let hour = new Date().getHours();
+            let minute = new Date().getMinutes();
+            let second = new Date().getSeconds();
+            document.getElementById("rtime").innerHTML =`${hour} : ${minute} : ${second}`; 
+            
+        }, 1000);
         $("#createrid").val(data._id);
         let html =
         `<center>
                 <div class="profilebox mb-3">
-                    <div class="imgbox"><img src="${data.profilepic}" class="img-fluid img-thumbnail" id="profileimg"></div>
+                    <div class="imgbox">
+                    <img src="${data.profilepic}" class="img-fluid img-thumbnail" id="profileimg">
+                    </div>
                 </div>
                 <div class="table-responsive">
                     <table class="table">
@@ -100,17 +115,34 @@ $(document).ready(function(){
     });
 
     //delete account
-    $("#deleteaccount").click(function(){
-        let email = window.prompt("Enter Email - ");
-        if(email != '')
+    $("#deleteaccount").click( async function(){
+        let password = window.prompt("Enter password :  ");
+        if(password != '' && password != null)
         {
-            let pass = window.prompt('Enter Password - ');
-            if(pass != '')
+            let confirmpass = window.prompt('Enter Confirm Password - ');
+            if(confirmpass != '' && confirmpass != null)
             {
-                let confirm = window.confirm('Are You Sure delete account -');
-                if(confirm == true)
+                if(password == confirmpass)
                 {
-                    console.log({email,pass});
+                    let confirm = window.confirm('Are You Sure delete account : ');
+                    if(confirm == true)
+                    {
+                        let id = await roomcreaterid();
+                        deactivatedAccount(id,confirmpass).then((res)=>{
+                            if(res.status == true)
+                            {
+                                let remove = localStorage.removeItem('profile');
+                                if(remove == undefined)
+                                {
+                                    logout();
+                                }
+                            }
+                        });
+                    }
+                }
+                else
+                {
+                    alert('Password Not Matched');
                 }
             }
         }

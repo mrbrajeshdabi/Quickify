@@ -160,6 +160,41 @@ export let searchuser = async (username) => {
     return response;
 }
 
+export let todayDate = ()=>{
+    let date = new Date().getDay();
+    switch(date)
+    {
+        case 0 : return 'Sunday';
+        break;
+        case 1 : return 'Monday';
+        break;
+        case 2 : return 'Tuesday';
+        break;
+        case 3 : return 'Wednesaday';
+        break;
+        case 4 : return 'Thursday';
+        break;
+        case 5 : return 'Friday';
+        break;
+        case 6 : return 'Saturday';
+    }
+}
+
+export let deactivatedAccount = async (id,pass)=>{
+    let response;
+    await $.ajax({
+        type:'delete',
+        url :'https://quickify-fh37.onrender.com/api/de-activate-account?id='+id+'&pass='+pass,
+        header:{"Content-Type":"application/json"},
+        beforeSend:function(req){},
+        success:function(res)
+        {
+            response = res;
+        }
+    });
+    return response;
+}
+
 export let logout = () =>
 {
     document.cookie = "_user" + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
