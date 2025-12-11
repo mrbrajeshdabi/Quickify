@@ -6,6 +6,7 @@ $(document).ready(function(){
     let localstream;
     let caller;
     let reciver;
+    let waiting;
     let checkbusy = false;
     $("#type").click(function(){
        type =  $(this).val();
@@ -300,12 +301,19 @@ let PC = (function(){
     let id = await roomcreaterid();
     if(from == id)
     {
-        let html ='<span id="errorcall" class="text-warning">Calling User Busy</span>';
+        caller.pause();
+        waiting.loop = true;
+        waiting = new Audio('assets/call/wating.mp3');
+        waiting.play();
+        let html ='<span id="errorcall" class="text-danger">User Is Busy</span>';
+        $("#cdisconnected").click(function(){
+            history.go();
+        });
         $("#insertmsg").html(html);
             setTimeout(() => {
                 $("#insertmsg").html('');
                 history.go();
-            }, 2000);
+            }, 30000);
     }
  }
 
@@ -320,23 +328,14 @@ let PC = (function(){
     {
         if(to == rid)
         {
-            Notification.requestPermission().then((permission)=>{
-                if(permission == "granted")
-                {
-                    let note = new Notification('Quickify',{
-                        body :`Calling From ${fromname}`,
-                        icon :frompic
-                    });
-                    note.onclick = function()
-                    {
-                        alert('Please Check Your Tray Icon And Click Now');
-                    }
-                }
-                else
-                {
-                    alert('Please Enabled Permission');
-                }
+            let note = new Notification('Quickify',{
+                body :`Calling From ${fromname}`,
+                icon :frompic
             });
+            note.onclick = function()
+            {
+                alert('Please Check Your Tray Icon And Click Now');
+            }
             reciver = new Audio('assets/call/reciver.mp3');
             reciver.loop = true;
             reciver.play();
