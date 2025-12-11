@@ -40,6 +40,13 @@ $(document).ready(function(){
                     },1000);
                 }
             }
-        })
+        });
     });
+
+    //chec user login 
+    let cookie = document.cookie.split('_user=')[1];
+    if(cookie != undefined)
+    {
+        window.location.href='profile.html';
+    }
 });

@@ -8,6 +8,7 @@ import { qcustomUserAdd } from "../model/custom.user.model.js";
 import cloudinary from "../middleware/config.js";
 import { generateOTP } from "../middleware/email.js";
 import { equal } from "assert";
+import { sendMailEmail } from "../middleware/resend.js";
 
 export const quickify = async (req,res) => {
     res.status(200).json({status:true,message:"QuickiFy Is On"});
@@ -16,6 +17,7 @@ export const quickify = async (req,res) => {
 export const quicksign = async (req,res) => {
     try {
         let {username,email,mobilenumber,password} = req.body;
+        // let otp = await sendMailEmail(email);
         let otp = generateOTP();
         const profilePicUrl = req.file?.path || "";
         let pass = password;

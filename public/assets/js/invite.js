@@ -320,6 +320,23 @@ let PC = (function(){
     {
         if(to == rid)
         {
+            Notification.requestPermission().then((permission)=>{
+                if(permission == "granted")
+                {
+                    let note = new Notification('Quickify',{
+                        body :`Calling From ${fromname}`,
+                        icon :frompic
+                    });
+                    note.onclick = function()
+                    {
+                        alert('Please Check Your Tray Icon And Click Now');
+                    }
+                }
+                else
+                {
+                    alert('Please Enabled Permission');
+                }
+            });
             reciver = new Audio('assets/call/reciver.mp3');
             reciver.loop = true;
             reciver.play();
