@@ -50,12 +50,16 @@ export let deleteroom = async (delid) => {
     return response;
 }
 
+export let getTokanLocal = () => {
+    return JSON.parse(localStorage.getItem('tokan'));
+}
+
 export let getallroom = async () =>{
     let response;
     await $.ajax({
         type:'get',
         url:'https://quickify-fh37.onrender.com/api/qshowAroom', //
-        headers:{"Content-Type":"application/json","Authorization":`Bearer ${Htokan()}`},
+        headers:{"Content-Type":"application/json","Authorization":`Bearer ${getTokanLocal()}`},
         beforeSend:function(req){},
         success:function(res)
         {
@@ -210,5 +214,6 @@ export let logout = () =>
 {
     document.cookie = "_user" + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     localStorage.removeItem('profile');
+    localStorage.removeItem('tokan');
     history.go();
 }

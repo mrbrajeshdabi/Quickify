@@ -24,7 +24,8 @@ $(document).ready(function(){
                 {
                     $("#login_frm_btn").html('Login');
                     setCookie('_user',res.session,30);
-                    setTokan(res.tokan);
+                    // setTokan(res.tokan);
+                    localStorage.setItem('tokan',JSON.stringify(res.tokan));
                     localStorage.setItem('profile',JSON.stringify(res.user));
                     setTimeout(() => {
                         window.location.href='profile.html';

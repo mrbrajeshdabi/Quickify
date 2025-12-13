@@ -1,4 +1,4 @@
-import { createConnection, customcam, deleteroom, getallroom, roomcreaterid, roomOC } from "../functions/Quickify.js";
+import { createConnection, customcam, deleteroom, getallroom, getTokanLocal, roomcreaterid, roomOC } from "../functions/Quickify.js";
 
 $(document).ready(async function() {
     let socket  = io(); //'https://quickify-fh37.onrender.com'
@@ -286,17 +286,24 @@ socket.on('candidate',async({from,to,candidate})=>{
 });
 
 socket.on('user-exit',({roomuserid,joinid})=>{
-    if(createrid == roomuserid)
-    {
-        if (peers[joinid]) peers[joinid].close();
-        delete peers[joinid];
+    // if(createrid == roomuserid)
+    // {
+    //     if (peers[joinid]) peers[joinid].close();
+    //     delete peers[joinid];
 
-        if (remoteStreams[joinid]) {
-            delete remoteStreams[joinid];
-        }
-        let vid = document.getElementById("video-" + joinid);
-        if (vid) vid.remove();
+    //     if (remoteStreams[joinid]) {
+    //         delete remoteStreams[joinid];
+    //     }
+    //     let vid = document.getElementById("video-" + joinid);
+    //     if (vid) vid.remove();
+    // }
+    if (peers[joinid]) peers[joinid].close();
+    delete peers[joinid];
+    if (remoteStreams[joinid]) {
+        delete remoteStreams[joinid];
     }
+    let vid = document.getElementById("video-" + joinid);
+    if (vid) vid.remove();
 });
 
 socket.on('joinerid-room-close',(joinerid)=>{
@@ -387,5 +394,15 @@ $("#room-close").click(function(){
     }
    });
 });
+
+// ✔ Disconnect pe 3 cheez clean karo
+
+// peer.close()
+
+// delete peers[joinid]
+
+// delete remoteStreams[joinid]
+
+// ✔ Reconnect pe naya MediaStream + video element banao
 
 });
