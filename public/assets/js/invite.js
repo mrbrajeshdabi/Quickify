@@ -328,14 +328,14 @@ let PC = (function(){
     {
         if(to == rid)
         {
-            let note = new Notification('Quickify',{
-                body :`Calling From ${fromname}`,
-                icon :frompic
-            });
-            note.onclick = function()
-            {
-                alert('Please Check Your Tray Icon And Click Now');
-            }
+            // let note = new Notification('Quickify',{
+            //     body :`Calling From ${fromname}`,
+            //     icon :frompic
+            // });
+            // note.onclick = function()
+            // {
+            //     alert('Please Check Your Tray Icon And Click Now');
+            // }
             reciver = new Audio('assets/call/reciver.mp3');
             reciver.loop = true;
             reciver.play();

@@ -12,15 +12,15 @@ function openlogin()
     document.querySelector('.login_frm').classList.remove('d-none');
 }
 
-async function requestNotification(params) {
-    let permission = Notification.requestPermission();
-    if(permission == "denied")
-    {
-        alert("PLease Enalbled Permisiion Othervise Sender Call Not Recived");
+// async function requestNotification(params) {
+//     let permission = Notification.requestPermission();
+//     if(permission == "denied")
+//     {
+//         alert("PLease Enalbled Permisiion Othervise Sender Call Not Recived");
         
-    }
-}
-requestNotification();
+//     }
+// }
+// requestNotification();
 
 
 
