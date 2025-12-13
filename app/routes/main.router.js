@@ -2,6 +2,7 @@ import express from 'express';
 import { addCustomUser, changepass, deactivateaccount, deleteCustomUser, deleteroom, getCustomUser, quickify, quicklogin, quickroom, quickshowroom, quicksign, searchUser, showallroom, updateprofile, updateroom } from '../controller/main.controller.js';
 import { checklogin } from '../middleware/checklogin.js';
 import { upload } from '../middleware/upload.js';
+import { veryfiTokan } from '../middleware/tokan.js';
 export const router = express.Router();
 
 router.get('/quickify',quickify);
@@ -10,7 +11,7 @@ router.post('/quicklogin',checklogin,quicklogin);
 router.post('/quickroom',upload.single('roompic'),quickroom);
 router.get('/quickshowroom',quickshowroom);
 router.delete('/delete-room',deleteroom);
-router.get('/qshowAroom',showallroom);
+router.get('/qshowAroom',veryfiTokan,showallroom);
 router.put('/updateroom',updateroom);
 router.put('/change-password',changepass);
 router.put('/update-profile',upload.single('profilepic'),updateprofile);

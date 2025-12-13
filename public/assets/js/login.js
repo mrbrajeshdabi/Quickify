@@ -1,11 +1,11 @@
-import { setCookie } from "../functions/Quickify.js";
+import { setCookie, setTokan } from "../functions/Quickify.js";
 
 $(document).ready(function(){
     $(".login_frm").submit(function(e){
         e.preventDefault();
         $.ajax({
             type:'post',
-            url:'https://quickify-fh37.onrender.com/api/quicklogin',
+            url:'https://quickify-fh37.onrender.com/api/quicklogin',//https://quickify-fh37.onrender.com
             header:{
                 "content-type":'application/json'
             },
@@ -19,10 +19,12 @@ $(document).ready(function(){
             },
             success:function(res)
             {
+                
                 if(res.status == true)
                 {
                     $("#login_frm_btn").html('Login');
                     setCookie('_user',res.session,30);
+                    setTokan(res.tokan);
                     localStorage.setItem('profile',JSON.stringify(res.user));
                     setTimeout(() => {
                         window.location.href='profile.html';

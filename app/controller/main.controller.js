@@ -1,14 +1,12 @@
 import { Quickusers } from "../model/users.model.js";
 import bcrypt from "bcryptjs";
-import jwt from 'jsonwebtoken';
 import { QroomUsers } from "../model/room.model.js";
 import path from 'path'; 
 import {unlinkSync} from 'fs';
 import { qcustomUserAdd } from "../model/custom.user.model.js";
 import cloudinary from "../middleware/config.js";
 import { generateOTP } from "../middleware/email.js";
-import { equal } from "assert";
-import { sendMailEmail } from "../middleware/resend.js";
+import { sendTokan } from "../middleware/tokan.js";
 
 export const quickify = async (req,res) => {
     res.status(200).json({status:true,message:"QuickiFy Is On"});
@@ -49,9 +47,8 @@ export const quicklogin = async (req,res) => {
         {
             if(checkdisabled != "disabled")
             {
-                // var decoded = jwt.verify(token, 'shhhhh');
-                var token = jwt.sign(JSON.stringify(getuser),'Papakipari123@@');
-                res.status(200).json({status:true,message:'success',session:getuser._id,user:getuser});
+                let tokan = await sendTokan(lemail);
+                res.status(200).json({status:true,message:'success',session:getuser._id,user:getuser,tokan});
             }
             else{
                 res.status(200).json({status:false,message:"user account disabled"});

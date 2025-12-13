@@ -6,7 +6,7 @@ $(document).ready(async function() {
     let localstream;
     let peers = {};
     let remoteStreams = {};
-    let createrid = await roomcreaterid()
+    let createrid = await roomcreaterid();
     $.ajax({
         type:'get',
         url:'https://quickify-fh37.onrender.com/api/quickshowroom?createrid='+createrid,
@@ -86,84 +86,94 @@ $(document).ready(async function() {
     });
     
     getallroom().then(async(rooms)=>{
-        let li;
-        let Createdid = await roomcreaterid();
-        rooms.getroom.forEach(async(user)=>{
-            if(user.createrid != Createdid)
-            {
-                if(user.roomstartorclose == "close")
+        if(rooms.status == true)
+        {
+            let li;
+            let Createdid = await roomcreaterid();
+            rooms.getroom.forEach(async(user)=>{
+                if(user.createrid != Createdid)
                 {
-                    li = `<li class="list-group-item">
-                                <img src="${user.roompic}" class="profilepicroom  img-fluid img-thumbnail">
-                                <button class="btn btn-primary ms-1 joinroombtn disabled" type="${user.roomtype}" createrid="${user.createrid}" id='roombtnid${user._id}' roomname='${user.roomname}' ><i class="fa fa-video"></i></button>
-                                <span class="ms-2">${user.roomname}</span>
-                                <span class="ms-2">${user.roomlimit}</span><!-- user joined total -->
-                                <span class="text-danger ms-1" id='roomidfire${user._id}'><i class="fa fa-fire" aria-hidden="true"></i></span>
-                                
-                            </li>`;
-                    $("#insertuserroom").append(li);
-                }
-                else if(user.roomstartorclose == "open")
-                {
-                    if(user.roomtype == "private"){
-                         li = `<li class="list-group-item">
-                                    <img src="${user.roompic}" class="profilepicroom  img-fluid img-thumbnail">
-                                    <button class="btn btn-primary joinroombtn animate__animated animate__pulse animate__infinite ms-1" type="${user.roomtype}" createrid='${user.createrid}' roomname='${user.roomname}'><i class="fa fa-video"></i></button>
-                                    <span class="ms-1">${user.roomname}</span>
-                                    <span class="ms-1">${user.roomlimit}</span><!-- user joined total -->
-                                    <span class="text-success ms-1" id='roomid${user._id}'><i class="fa fa-fire" aria-hidden="true"></i></span>
-                                    
-                                </li>`;
-                        $("#insertuserroom").append(li);
-                    }
-                    else
+                    if(user.roomstartorclose == "close")
                     {
                         li = `<li class="list-group-item">
                                     <img src="${user.roompic}" class="profilepicroom  img-fluid img-thumbnail">
-                                    <button class="btn btn-primary joinroombtn animate__animated animate__pulse animate__infinite ms-1" type="${user.roomtype}" createrid='${user.createrid}'><i class="fa fa-video"></i></button>
-                                    <span class="ms-1">${user.roomname}</span>
-                                    <span class="ms-1">${user.roomlimit}</span><!-- user joined total -->
-                                    <span class="text-success ms-2" id='roomid${user._id}'><i class="fa fa-fire" aria-hidden="true"></i></span>
+                                    <button class="btn btn-primary ms-1 joinroombtn disabled" type="${user.roomtype}" createrid="${user.createrid}" id='roombtnid${user._id}' roomname='${user.roomname}' ><i class="fa fa-video"></i></button>
+                                    <span class="ms-2">${user.roomname}</span>
+                                    <span class="ms-2">${user.roomlimit}</span><!-- user joined total -->
+                                    <span class="text-danger ms-1" id='roomidfire${user._id}'><i class="fa fa-fire" aria-hidden="true"></i></span>
                                     
                                 </li>`;
                         $("#insertuserroom").append(li);
                     }
-                }
-            }
-        }); 
-        $('.joinroombtn').each(function(){
-            $(this).click(function(){
-                let type = $(this).attr('type');
-                let createrid = $(this).attr('createrid');
-                let roomname = $(this).attr('roomname');
-                $("#roomnameisname").html(roomname);
-                roomuserid = createrid;
-                if(type == 'private')
-                {
-                    let confirm = window.prompt('Enter Your Password');
-                    if(confirm == 1234)
+                    else if(user.roomstartorclose == "open")
                     {
-                        startremotevideo();
-                        setTimeout(() => {
-                            socket.emit('join-room',{type,createrroomid:createrid,joinid:Createdid});
-                        }, 1000);
-                        $(this).html('joined');
-                        $(this).removeClass('btn btn-primary');
-                        $(this).addClass('btn btn-success');
+                        if(user.roomtype == "private"){
+                             li = `<li class="list-group-item">
+                                        <img src="${user.roompic}" class="profilepicroom  img-fluid img-thumbnail">
+                                        <button class="btn btn-primary joinroombtn animate__animated animate__pulse animate__infinite ms-1" type="${user.roomtype}" createrid='${user.createrid}' roomname='${user.roomname}'><i class="fa fa-video"></i></button>
+                                        <span class="ms-1">${user.roomname}</span>
+                                        <span class="ms-1">${user.roomlimit}</span><!-- user joined total -->
+                                        <span class="text-success ms-1" id='roomid${user._id}'><i class="fa fa-fire" aria-hidden="true"></i></span>
+                                        
+                                    </li>`;
+                            $("#insertuserroom").append(li);
+                        }
+                        else
+                        {
+                            li = `<li class="list-group-item">
+                                        <img src="${user.roompic}" class="profilepicroom  img-fluid img-thumbnail">
+                                        <button class="btn btn-primary joinroombtn animate__animated animate__pulse animate__infinite ms-1" type="${user.roomtype}" createrid='${user.createrid}'><i class="fa fa-video"></i></button>
+                                        <span class="ms-1">${user.roomname}</span>
+                                        <span class="ms-1">${user.roomlimit}</span><!-- user joined total -->
+                                        <span class="text-success ms-2" id='roomid${user._id}'><i class="fa fa-fire" aria-hidden="true"></i></span>
+                                        
+                                    </li>`;
+                            $("#insertuserroom").append(li);
+                        }
                     }
                 }
-                else
-                {
-                    startremotevideo();
-                    setTimeout(() => {
-                        socket.emit('join-room',{type,createrroomid:createrid,joinid:Createdid});
-                    }, 1000);
-                    $(this).html('joined');
-                    $(this).removeClass('btn btn-primary');
-                    $(this).addClass('btn btn-success');
-                }
-            })
-        });
+            }); 
+            $('.joinroombtn').each(function(){
+                $(this).click(function(){
+                    let type = $(this).attr('type');
+                    let createrid = $(this).attr('createrid');
+                    let roomname = $(this).attr('roomname');
+                    $("#roomnameisname").html(roomname);
+                    roomuserid = createrid;
+                    if(type == 'private')
+                    {
+                        let confirm = window.prompt('Enter Your Password');
+                        if(confirm == 1234)
+                        {
+                            startremotevideo().then(()=>{
+                                setTimeout(() => {
+                                 socket.emit('join-room',{type,createrroomid:createrid,joinid:Createdid});
+                                }, 1000);
+                                $(this).html('joined');
+                                $(this).removeClass('btn btn-primary');
+                                $(this).addClass('btn btn-success');
+                            });
+                            
+                        }
+                    }
+                    else
+                    {
+                        startremotevideo().then((remote)=>{
+                                setTimeout(() => {
+                                socket.emit('join-room',{type,createrroomid:createrid,joinid:Createdid});
+                            }, 1000);
+                            $(this).html('joined');
+                            $(this).removeClass('btn btn-primary');
+                            $(this).addClass('btn btn-success');
+                        });
+                    }
+                })
+            });
+        }
+        else
+        {
+            console.log(rooms.message);
+        }
     });
 
 //listener
@@ -202,11 +212,6 @@ async function startremotevideo(params) {
 function createPeer(joinid)
 {
     let config = {iceServers:[{urls:"stun:stun4.l.google.com:19302"}]};
-    // ,{
-    //   urls: "turn:openrelay.metered.ca:80",
-    //   username: "openrelayproject",
-    //   credential: "openrelayproject"
-    // }
     let pc = new RTCPeerConnection(config);
     peers[joinid] = pc;
 
@@ -286,6 +291,9 @@ socket.on('user-exit',({roomuserid,joinid})=>{
         if (peers[joinid]) peers[joinid].close();
         delete peers[joinid];
 
+        if (remoteStreams[joinid]) {
+            delete remoteStreams[joinid];
+        }
         let vid = document.getElementById("video-" + joinid);
         if (vid) vid.remove();
     }
@@ -355,7 +363,6 @@ $('.callingbtn').each(function(){
 
 $("#disconnected").click(function(){
     let from = $(this).attr('from');
-    console.log(from);
     if (peers[from])
     {
         peers[from].close();

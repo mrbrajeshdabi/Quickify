@@ -14,6 +14,17 @@ export let setCookie = async (cname, cvalue, exdays) => {
   document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 
+export let setTokan = async (tokan) => {
+    const d  = new Date();
+    d.setTime(d.getTime() + (30 /*30day*/ * 24 * 60 * 1000));
+    let expires = 'expires='+d.toUTCString();
+    document.cookie = `_lorem200=${tokan}; ${expires}; path=/`;
+}
+
+export let Htokan = () =>{
+    return document.cookie.split('_lorem200=')[1];
+}
+
 export let checkcookie = async (params) => {
     let cookie = document.cookie.split('_user=')[1];
     return cookie;
@@ -43,8 +54,8 @@ export let getallroom = async () =>{
     let response;
     await $.ajax({
         type:'get',
-        url:'https://quickify-fh37.onrender.com/api/qshowAroom',
-        header:{"Content-Type":"application/json"},
+        url:'https://quickify-fh37.onrender.com/api/qshowAroom', //
+        headers:{"Content-Type":"application/json","Authorization":`Bearer ${Htokan()}`},
         beforeSend:function(req){},
         success:function(res)
         {

@@ -6,7 +6,3 @@ export let checklogin = async (req,res,next) => {
     }
     next();
 }
-
-export let checktokan =  async (req,res,next) => {
-    
-}
