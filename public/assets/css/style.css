@@ -115,6 +115,15 @@ input{
 }
 
 @media (max-width:768px) {
+    .customrvideobox{
+        width: 300px;
+        height: 500px;
+        margin-top: 160px;
+        margin-right: -20px;
+    }
+    #customrvideo{
+        width: 100%;
+    }
     .mobile-responsive{
         display: block;
     }
@@ -132,37 +141,32 @@ input{
     #setfronteimg{
       display: none;
     }
-    .customvideobox
-    {
-        width: 100%;
-        height: auto;
-    }
-    .customrvideobox{
-        width: 100px;
-        height: 100px;
-        position: absolute;
-        top: 20px;
-        right: 20px;
-    }
 }
 .callingtoast{
     position: absolute;
     top: 0;
     left: 0;
 }
-.customvideobox
-{
-    width: 100%; /* 480 */
-    height: 300px; /* 300 */
-}
-/* #customsvideo{
-    width: 900px;
+.customvidebox{
+    width: 100%;
     height: 500px;
+    /* border: 1px solid red; */
+    background-image: linear-gradient(to left,black,rgb(61, 36, 36));
 }
 .customrvideobox{
-    width: 500px;
-    height: 500px;
+    width: 100px;
+    height: 100px;
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: 5px;
+    right: 30px;
+    z-index: 10000000000000000000000000000000000;
+}
+.customsvideobox{
+    width: 100%;
+    height: 100%;
+    /* border: 1px solid red; */
+}
+/* #customsvideobox{
+    width: 100%;
+    height: 400px;
 } */

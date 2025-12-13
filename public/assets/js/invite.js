@@ -95,7 +95,7 @@ $(document).ready(function(){
                                     <span class="ms-5 mt-2">${index.rusername}</span>
                                     <span class="ms-5 mt-2">${index.rstatus}</span>
                                     <div class="btn-group ms-5 w-50">
-                                    <button class="btn btn-primary callanddel" type="call" id="call${index.rid}" rid="${index.rid}" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa fa-video animate__animated animate__pulse animate__infinite"></i></button>
+                                    <button class="btn btn-primary callanddel" type="call" id="call${index.rid}" rid="${index.rid}"><i class="fa fa-video animate__animated animate__pulse animate__infinite"></i></button>
                                     <button class="btn btn-danger callanddel " type="delete" id="delete${index.rid}" deleteid="${index._id}"><i class="fa fa-trash animate__animated animate__pulse animate__infinite"></i></button>
                                     </div>
                                 </div>
@@ -162,7 +162,7 @@ $(document).ready(function(){
                         <span class="ms-5 mt-2">${index.rusername}</span>
                         <span class="ms-5 mt-2">${index.rstatus}</span>
                         <div class="btn-group ms-5 w-50">
-                        <button class="btn btn-primary callanddel" type="call" id="call${index.rid}" rid="${index.rid}" data-bs-toggle="modal" data-bs-target="#myModal"><i class="fa fa-video animate__animated animate__pulse animate__infinite"></i></button>
+                        <button class="btn btn-primary callanddel" type="call" id="call${index.rid}" rid="${index.rid}"><i class="fa fa-video animate__animated animate__pulse animate__infinite"></i></button>
                         <button class="btn btn-danger callanddel " type="delete" id="delete${index.rid}" deleteid="${index._id}"><i class="fa fa-trash animate__animated animate__pulse animate__infinite"></i></button>
                         </div>
                     </div>
@@ -256,6 +256,8 @@ let PC = (function(){
         document.getElementById("customsvideo").srcObject=localvideo;
         localstream = localvideo;
         setTimeout(() => {
+            $("#listcustomuser").addClass('d-none');
+            $("#customcalling").removeClass('d-none');
             createoffer(rid);
         }, 1000);
     });
@@ -328,14 +330,6 @@ let PC = (function(){
     {
         if(to == rid)
         {
-            // let note = new Notification('Quickify',{
-            //     body :`Calling From ${fromname}`,
-            //     icon :frompic
-            // });
-            // note.onclick = function()
-            // {
-            //     alert('Please Check Your Tray Icon And Click Now');
-            // }
             reciver = new Audio('assets/call/reciver.mp3');
             reciver.loop = true;
             reciver.play();
@@ -380,6 +374,17 @@ let PC = (function(){
                     document.getElementById("customrvideo").srcObject = localvideo;
                     localstream = localvideo;
                     setTimeout(() => {
+                        $("#searchresult").addClass('d-none');
+                         $("#searchuserfrm").addClass('d-none');
+                         $('#setting').addClass('d-none');
+                         $('#userprofile').addClass('d-none');
+                         $('#myroom').addClass('d-none');
+                         $("#calling").addClass('d-none');
+                         $("#addcustomuser").addClass('d-none');
+                         $("#createroom").addClass('d-none');
+                        //  $('#joinusers').addClass('d-none');
+                         $("#listcustomuser").addClass('d-none');
+                         $("#customcalling").removeClass('d-none');
                         createAnswers(from,to,fromname,frompic,offer);
                         checkbusy = true;
                 },  1000);
