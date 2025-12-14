@@ -13,23 +13,84 @@
   <link rel="shortcut icon" href="assets/images/icon.png" type="image/x-icon">
   <script src="assets/js/socket.io.js"></script>
   <style>
-    @media (max-width:768px) {
-        #btnssss{
-        margin-top: 650px;
-     }
-     .customvidebox{
-        width: 100%;
-        height: 300px;
-        border: 1px solid red;
-     }
-     #customsvideo{
-        width: 10px;
-     }
-     .customsvideobox{
-        width: 100%;
-        height: 100%;
-     }
-    }
+    
+ @media (max-width:468px) {
+    #customcalling {
+    height: 100vh;
+    width: 100%;
+}
+
+.customvidebox {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background: #000;
+    overflow: hidden;
+}
+
+/* ===== Remote Video (Main) ===== */
+.customsvideobox video {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    background: #000;
+}
+
+/* ===== Self Video (Floating) ===== */
+.customrvideobox {
+    position: absolute;
+    top: 300px;
+    right: 25px;
+    width: 120px;
+    height: 160px;
+    border-radius: 12px;
+    overflow: hidden;
+    z-index: 10;
+    border: 2px solid #fff;
+    background: #000;
+}
+
+.customrvideobox video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ===== Footer Buttons ===== */
+.card-footer {
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    background: transparent;
+    z-index: 20;
+}
+
+#btnssss {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.customcallingbtn,
+.callingbtn {
+    width: 55px;
+    height: 55px;
+    background: rgba(0,0,0,0.6);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.callingbtn {
+    background: #dc3545;
+}
+
+ }
+  
   </style>
 </head>
 <body id="body">
@@ -271,9 +332,13 @@
         </div>
         <div class="card-footer d-flex justify-content-end" style="border: none;">
             <div class="btn-group" style="margin:50px auto 0;" id="btnssss">
-            <button class="btn btn-dark customcallingbtn" type="mute" id="cmute"><i class="fa-solid fa-microphone-slash"></i></button>
+            <!-- <button class="btn btn-dark customcallingbtn" type="mute" id="cmute"><i class="fa-solid fa-microphone-slash"></i></button>
             <button class="btn btn-danger callingbtn" type="disconnected" id="cdisconnected"><i class="fa-solid fa-phone-slash"></i></button>
-            <button class="btn btn-dark customcallingbtn" type="on" id="ccameraoff"><i class="fa-solid fa-video-slash"></i></button>
+            <button class="btn btn-dark customcallingbtn" type="on" id="ccameraoff"><i class="fa-solid fa-video-slash"></i></button> -->
+            <i class="fa-solid fa-microphone-slash customcallingbtn text-light fs-4" type="mute" id="cmute"></i>
+            <i class="fa-solid fa-phone-slash callingbtn text-danger fs-4 ms-5" type="disconnected" id="cdisconnected"></i>
+            <i class="fa-solid fa-video-slash customcallingbtn text-light fs-4 ms-5" type="on" id="ccameraoff"></i>
+            <!-- <i class="fa fa-arrows-alt customcallingbtn text-light fs-4 ms-5" type="off" id="fsscreen" aria-hidden="true"></i> -->
         </div>
         </div>
      </div>

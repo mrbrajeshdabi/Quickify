@@ -93,8 +93,8 @@ $(document).ready(function(){
                                 <div class="d-flex">
                                     <img src="${index.rpic}" class="img-fluid img-thumbnail profilepicroom" id="profilepicroom">
                                     <span class="ms-5 mt-2">${index.rusername}</span>
-                                    <span class="ms-5 mt-2">${index.rstatus}</span>
-                                    <div class="btn-group ms-5 w-50">
+                                    <span class="ms-3 mt-2">${index.rstatus}</span>
+                                    <div class="btn-group ms-2 w-50">
                                     <button class="btn btn-primary callanddel" type="call" id="call${index.rid}" rid="${index.rid}"><i class="fa fa-video animate__animated animate__pulse animate__infinite"></i></button>
                                     <button class="btn btn-danger callanddel " type="delete" id="delete${index.rid}" deleteid="${index._id}"><i class="fa fa-trash animate__animated animate__pulse animate__infinite"></i></button>
                                     </div>
@@ -160,8 +160,8 @@ $(document).ready(function(){
                     <div class="d-flex">
                         <img src="${index.rpic}" class="img-fluid img-thumbnail profilepicroom" id="profilepicroom">
                         <span class="ms-5 mt-2">${index.rusername}</span>
-                        <span class="ms-5 mt-2">${index.rstatus}</span>
-                        <div class="btn-group ms-5 w-50">
+                        <span class="ms-3 mt-2">${index.rstatus}</span>
+                        <div class="btn-group ms-2 w-50">
                         <button class="btn btn-primary callanddel" type="call" id="call${index.rid}" rid="${index.rid}"><i class="fa fa-video animate__animated animate__pulse animate__infinite"></i></button>
                         <button class="btn btn-danger callanddel " type="delete" id="delete${index.rid}" deleteid="${index._id}"><i class="fa fa-trash animate__animated animate__pulse animate__infinite"></i></button>
                         </div>
@@ -349,7 +349,7 @@ let PC = (function(){
                         <span class="text-warning ms-5 mt-2">calling from ${fromname}</span>
                     </div><br>
                     <div class="btn-group w-100">
-                        <button class="btn btn-success animate__animated animate__pulse animate__infinite asnweranddecline" type="answer" data-bs-toggle="modal" data-bs-target="#myModal">Answer</button>
+                        <button class="btn btn-success animate__animated animate__pulse animate__infinite asnweranddecline" type="answer">Answer</button>
                         <button class="btn btn-danger  animate__animated animate__pulse animate__infinite asnweranddecline" type="decline">Decline</button>
                     </div>
                 </div>
@@ -461,13 +461,17 @@ let PC = (function(){
     let type = $(this).attr('type');
     if(type == 'mute')
     {
-        $("#cmute").html('<i class="fa fa-microphone"></i>');
+        // $("#cmute").html('<i class="fa fa-microphone"></i>');
+        $("#cmute").removeClass('fa fa-microphone-slash');
+        $("#cmute").addClass('fa fa-microphone');
         $("#cmute").attr('type','unmute');
         localstream.getTracks()[0].enabled = false;
     }
     else
     {
-        $("#cmute").html('<i class="fa fa-microphone-slash"></i>');
+        // $("#cmute").html('<i class="fa fa-microphone-slash"></i>');
+        $("#cmute").removeClass('fa fa-microphone');
+        $("#cmute").addClass('fa fa-microphone-slash');
         $("#cmute").attr('type','mute');
         localstream.getTracks()[0].enabled = true;
     }
@@ -477,13 +481,17 @@ let PC = (function(){
     let type = $(this).attr('type');
     if(type == "on")
     {
-        $("#ccameraoff").html('<i class="fa fa-video"></i>');
+        // $("#ccameraoff").html('<i class="fa fa-video"></i>');
+        $("#ccameraoff").removeClass('fa fa-video-slash');
+        $("#ccameraoff").addClass('fa fa-video');
         $("#ccameraoff").attr('type','off');
         localstream.getTracks()[1].enabled = false;
     }
     else
     {
-        $("#ccameraoff").html('<i class="fa fa-video-slash"></i>');
+        // $("#ccameraoff").html('<i class="fa fa-video-slash"></i>');
+        $("#ccameraoff").removeClass('fa fa-video');
+        $("#ccameraoff").addClass('fa fa-video-slash');
         $("#ccameraoff").attr('type','on');
         localstream.getTracks()[1].enabled = true;
     }
@@ -500,5 +508,20 @@ let PC = (function(){
         setTimeout(()=>{history.go();},1000);
     }
  });
+
+ $("#fsscreen").click(function(){
+    let checktype = $(this).attr('type');
+    let videoElem = document.getElementById("customsvideo");
+    if(checktype == "off")
+    {
+        videoElem.requestFullscreen();
+        // $(this).attr('type','on');
+    }
+    // if(checktype == 'on')
+    // {
+    //     videoElem.exitFullscreen();
+    //     $(this).attr('type','on');
+    // }
+ })
 
 });
