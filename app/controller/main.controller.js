@@ -335,7 +335,7 @@ export const logincheckgoogle = async (req,res) => {
         else
         {
             let tokan = await sendTokan(data.email);
-            res.redirect('http://localhost:3000/profile.html?tokan='+tokan);
+            res.redirect('https://quickify-fh37.onrender.com/profile.html?tokan='+tokan);
         }
     });
 }
