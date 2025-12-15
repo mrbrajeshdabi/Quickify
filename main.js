@@ -105,7 +105,7 @@ app.use(express.urlencoded({extended:true}));
 app.use('/api',router);
 //mongoose and server
 mongoose.connect(process.env.MONGODB).then(()=>{
-    server.listen(process.env.PORT || 3000 ,()=>{
+    server.listen(process.env.PORT || 8000 ,()=>{
         console.log(`Server On Port ${process.env.PORT} || And Database Connected Now`);
     });
 })

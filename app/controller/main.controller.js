@@ -324,7 +324,7 @@ export const logincheckgoogle = async (req,res) => {
                     insertuser.save().then(async ()=>{
                         await Quickusers.findOne({email:req.user.emails[0].value}).then(async(user)=>{
                             let tokan = await sendTokan(user.email);
-                            res.redirect('http://localhost:3000/profile.html?tokan='+tokan);
+                            res.redirect('https://quickify-fh37.onrender.com/profile.html?tokan='+tokan);
                         });
                     }).catch((err)=>{res.status(200).json({status:false,message:'Error',err})})
                 } catch (error) {
