@@ -309,5 +309,48 @@ export const deactivateaccount = async (req,res) => {
     }
 }
 
+export const logincheckgoogle = async (req,res) => {
+    console.log(req.user.emails[0].value);
+    Quickusers.findOne({email:req.user.emails[0].value}).then(async(data)=>{
+        if(data == null)
+        {
+            //create user
+            try {
+                //googleId: req.user.googleId,
+                //accessToken: req.user.accessToken
+                const salt = await bcrypt.genSalt(10);
+                const hash = await bcrypt.hash(`${1234}`, salt);
+                    let insertuser = new Quickusers({profilepic:req.user.photos[0].value,username:req.user.displayName,email:req.user.emails[0].value,mobilenumber:'null',otp:'null',password:hash,accountstatus:'null',userstatus:true});
+                    insertuser.save().then(async ()=>{
+                        await Quickusers.findOne({email:req.user.emails[0].value}).then(async(user)=>{
+                            let tokan = await sendTokan(user.email);
+                            res.redirect('http://localhost:3000/profile.html?tokan='+tokan);
+                        });
+                    }).catch((err)=>{res.status(200).json({status:false,message:'Error',err})})
+                } catch (error) {
+                    res.status(500).json({status:false,message:'internal server error',error});
+                }
+
+        }
+        else
+        {
+            let tokan = await sendTokan(data.email);
+            res.redirect('http://localhost:3000/profile.html?tokan='+tokan);
+        }
+    });
+}
+
+export const getuserdata = async (req,res) => {
+    try {
+        Quickusers.findOne({email:req.userEmail.email}).then((user)=>{
+            res.status(200).json({status:true,message:'user',session:user._id,user});
+        });
+    } catch (error) {
+        res.status(500).json({status:false,message:error});
+    }   
+}
+
+
+
 
 

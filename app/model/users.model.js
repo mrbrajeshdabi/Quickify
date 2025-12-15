@@ -26,6 +26,14 @@ let qusers = mongoose.Schema({
     password:{
         type:String,
         required:true,
+    },
+    userstatus : {
+        type:String,
+        required:true
+    },
+    accountstatus : {
+        type:String,
+        required:true
     }
 });
 

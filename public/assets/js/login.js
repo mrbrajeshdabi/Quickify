@@ -1,4 +1,4 @@
-import { setCookie, setTokan } from "../functions/Quickify.js";
+// import { setCookie, setTokan } from "../functions/Quickify.js";
 
 $(document).ready(function(){
     $(".login_frm").submit(function(e){
@@ -48,8 +48,9 @@ $(document).ready(function(){
 
     //chec user login 
     let cookie = document.cookie.split('_user=')[1];
-    if(cookie != undefined)
-    {
-        window.location.href='profile.html';
-    }
+    // console.log(cookie)
+    // if(cookie != undefined)
+    // {
+    //     window.location.href='profile.html';
+    // }
 });

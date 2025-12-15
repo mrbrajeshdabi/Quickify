@@ -21,11 +21,15 @@
   </div>
   <div class="col-md-4 p-0 m-0">
     <div class="p-3 text-center">
-
       <h3 class="animate__animated animate__flash">Sign in to Quickify</h3>
     <span>Welcome to Quickify please enter your dettails<br> below to using the app</span><br>
     </div>
-    <form class="signup_frm border animate__animated animate__pulse d-none" enctype="multipart/form-data">
+    <center>
+      <div class="btn-group mb-0 p-5 ">
+        <a href="/api/auth/google" class="nav-link"><button class="btn btn-dark w-100 text-warning" type="button"><i class="fa-brands fa-google-plus-g text-primary animate__animated animate__pulse animate__infinite"></i> Sign/Login With Google </button></a>
+    </div>
+    </center>
+    <form class="signup_frm d-none border animate__animated animate__pulse d-none" enctype="multipart/form-data">
       <center>
         <div class="picbox img-thumnail img-fluid d-none">
         <img src="assets/images/friends-family-making-videocall-catching-up.jpg" class="img-thumnail img-fluid" id="storeimg">
@@ -55,7 +59,7 @@
       </div>
     </form>
 
-    <form class="login_frm animate__animated animate__pulse" enctype="multipart/form-data">
+    <form class="login_frm d-none animate__animated animate__pulse" enctype="multipart/form-data">
       <div class="from-group">
         <input type="email" id="lemail" name="lemail" autocomplete="off" required placeholder="Email Address">
       </div>
@@ -76,6 +80,13 @@
       </pre>
 
     </form>
+    <pre class="mt-3">
+
+ 1️⃣ Login so fast, you might blink and miss it.
+ 2️⃣ Works everywhere — even on your friend's old phone.
+ 3️⃣ Auto-reconnect that sticks to you like a clingy best friend.
+ 4️⃣ Powered by Quickify — because speed is our love language.
+      </pre>
   </div>
 </div>
 
@@ -85,3 +96,6 @@
 <script type="module" src="assets/js/index.js"></script>
 <script type="module" src="assets/js/sign.js"></script>
 <script type="module" src="assets/js/login.js"></script>
+<script>
+  if(document.cookie.split('_user=')[1] != undefined) window.location.href='profile.html';
+</script>

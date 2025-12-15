@@ -210,10 +210,24 @@ export let deactivatedAccount = async (id,pass)=>{
     return response;
 }
 
+export let sendTokanAndReciveruser = async (tokan) =>{
+    let response;
+    await $.ajax({
+        type:'post',
+        url:'https://quickify-fh37.onrender.com/api/get-user',
+        headers:{"Content-Type":"application/json","Authorization":`Bearer ${tokan}`},
+        success:function(res)
+        {
+            response = res;
+        }
+    });
+    return response;
+}
+
 export let logout = () =>
 {
     document.cookie = "_user" + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     localStorage.removeItem('profile');
     localStorage.removeItem('tokan');
-    history.go();
+    window.location.href='index.html';
 }

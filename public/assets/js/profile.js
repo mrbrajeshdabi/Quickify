@@ -1,75 +1,6 @@
 import { changePass, checkcookie, deactivatedAccount, logout, roomcreaterid, todayDate, token,userprofile} from "../functions/Quickify.js";
-// socket.on('connect',()=>{
-//     console.log('connected')
-// })
 $(document).ready(function(){
     let userid;
-    // user profile setup
-    userprofile().then((data)=>{
-        //setcreate room createrid
-        let year = new Date().getFullYear();
-        let month = new Date().getMonth();
-        let day = new Date().getDate();
-        let today = `${day} - ${month} - ${year}`;
-        $("#fulldte").html(`${today} :: `);
-        $("#day").html(`${todayDate()} :: `);
-        setInterval(() => {
-            let hour = new Date().getHours();
-            let minute = new Date().getMinutes();
-            let second = new Date().getSeconds();
-            document.getElementById("rtime").innerHTML =`${hour} : ${minute} : ${second}`; 
-            
-        }, 1000);
-        $("#createrid").val(data._id);
-        let html =
-        `<center>
-                <div class="profilebox mb-3">
-                    <div class="imgbox">
-                    <img src="${data.profilepic}" class="img-fluid img-thumbnail" id="profileimg">
-                    </div>
-                </div>
-                <div class="table-responsive">
-                    <table class="table">
-                    <tr>
-                        <td>Username</td>
-                        <td>${data.username}</td>
-                        <td>Invite Id</td>
-                        <td>${data._id}</td>
-                    </tr>
-                    <tr>
-                        <td>Email</td>
-                        <td>${data.email}</td>
-                        <td>Mobile Number</td>
-                        <td>${data.mobilenumber}</td>
-                    </tr>
-                    <tr>
-                        <td>Total Created Room</td>
-                        <td>coming</td>
-                        <td>Total Add Custom User</td>
-                        <td>coming</td>
-                    </tr>
-                    <tr>
-                        <td>Likes</td>
-                        <td><button class="btn btn-light text-dark" type="button" disabled>Coming</button></td>
-                        <td>Profile View</td>
-                        <td><button class="btn btn-light text-dark" type="button" disabled>Coming</button></td>
-                    </tr>
-
-                </table>
-                </div>
-    </center>`;
-    $("#insertprofile").html(html);
-    
-    });
-
-    //checkcookie
-    checkcookie().then((data)=>{
-        if(data == undefined)
-        {
-            window.location.href = 'index.html';
-        }
-    });
-
     //room created data fetch
     roomcreaterid().then((createrid)=>{
         userid = createrid;
@@ -87,7 +18,6 @@ $(document).ready(function(){
         $("#cpuserid").val(user._id);
         $("#updateuserid").val(user._id);
     });
-
 
     //setting function
     $("#openchangepasswordform").click(function(){
@@ -248,6 +178,5 @@ $(document).ready(function(){
         }
     });
     });
-
 });
 
