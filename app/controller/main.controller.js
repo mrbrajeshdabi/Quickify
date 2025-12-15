@@ -5,7 +5,7 @@ import path from 'path';
 import {unlinkSync} from 'fs';
 import { qcustomUserAdd } from "../model/custom.user.model.js";
 import cloudinary from "../middleware/config.js";
-import { generateOTP } from "../middleware/email.js";
+import { generateOTP, sendOTP } from "../middleware/email.js";
 import { sendTokan } from "../middleware/tokan.js";
 
 export const quickify = async (req,res) => {
@@ -15,15 +15,14 @@ export const quickify = async (req,res) => {
 export const quicksign = async (req,res) => {
     try {
         let {username,email,mobilenumber,password} = req.body;
-        // let otp = await sendMailEmail(email);
-        let otp = generateOTP();
+        let otp =  await sendOTP(email);
         const profilePicUrl = req.file?.path || "";
         let pass = password;
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(`${pass}`, salt);
-        let insertuser = new Quickusers({profilepic:profilePicUrl,username,email,mobilenumber,otp,password:hash});
-        insertuser.save().then(()=>{
-            res.status(200).json({status:true,message:'success'});
+        let insertuser = new Quickusers({profilepic:profilePicUrl,username,email,mobilenumber,otp,password:hash,accountstatus:'null',userstatus:true});
+        insertuser.save().then(() =>{
+            res.status(200).json({status:true,message:'success',email});
         }).catch((err)=>{res.status(200).json({status:false,message:'Error',err})})
     } catch (error) {
         res.status(500).json({status:false,message:'internal server error',error});
@@ -348,6 +347,32 @@ export const getuserdata = async (req,res) => {
     } catch (error) {
         res.status(500).json({status:false,message:error});
     }   
+}
+
+export const verifyotp = async (req,res) => {
+    try {
+        let otp = req.otp;
+        let email = req.email;
+        Quickusers.findOne({email:email}).then((user)=>{
+            if(user != "")
+            {
+              let dbotp = user.otp;  
+              if(dbotp != otp)
+              {
+                  res.status(200).json({status:false,message:"Wrong Otp"});
+              } 
+              else
+              {
+                  Quickusers.updateOne({email:email},{$set:{otp:'verify'}}).then((user)=>{
+                      res.status(200).json({status:true,message:"Email verify success"});
+                  });
+              }
+            } 
+
+        });
+    } catch (error) {
+        res.status(500).json({status:false,message:error});
+    }
 }
 
 

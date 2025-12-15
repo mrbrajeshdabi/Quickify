@@ -38,23 +38,24 @@ $(document).ready(function(){
             {
                 $("#signup_frm_btn").removeClass('btn btn-light');
                 $("#signup_frm_btn").addClass('btn btn-dark');
-                $("#signup_frm_btn").html('<i class="fa fa-circle-notch text-dark fa-spin" aria-hidden="true"></i>');
+                $("#signup_frm_btn").html('<i class="fa fa-circle-notch text-light fa-spin" aria-hidden="true"></i>');
 
             },
             success:function(res) {
                 
                 if(res.status == true)
                 {
+                    $("#verifyemail").val(res.email);
                     $('.picbox').removeClass('d-none');
                     $("#storeimg").attr('src','');
-                    $("#signup_frm_btn").html('<i class="fa fa-check-circle text-success" aria-hidden="true"></i>')
+                    $("#signup_frm_btn").html('<i class="fa fa-check-circle text-primary" aria-hidden="true"></i>')
                     setTimeout(() => {
                         $('.signup_frm')[0].reset();
                         $("#signup_frm_btn").addClass('btn btn-dark');
                         $("#signup_frm_btn").addClass('btn btn-light');
                         $("#signup_frm_btn").html('Sign');
                         $(".signup_frm").addClass('d-none');
-                        $(".login_frm").removeClass('d-none');
+                        $(".otp_verify_frm").removeClass('d-none');
                     }, 1000);
                 }
                 else
@@ -68,6 +69,53 @@ $(document).ready(function(){
                 }
             }
         
+        });
+    });
+
+
+    $(".otp_verify_frm").submit(function(e){
+        e.preventDefault();
+        let one = $('#o').val();
+        let two = $('#t').val();
+        let three = $('#h').val();
+        let four = $('#f').val();
+        let five = $('#fi').val();
+        let six = $('#six').val();
+        let otp = one + two + three + four + five + six;
+        $.ajax({
+            type:'put',
+            url : 'https://quickify-fh37.onrender.com/api/verify-otp',
+            headers:{"Content-Type":"appliction/json",'x-verify-otp':otp,'x-email':$("#verifyemail").val(),'x-powered-by':"mr_brajesh_dabi"},
+            beforeSend:function(req){
+                $("#verifybtn").removeClass('btn btn-light');
+                $("#verifybtn").addClass('btn btn-dark');
+                $("#verifybtn").html('<i class="fa fa-circle-notch text-light fa-spin" aria-hidden="true"></i>');
+            },
+            success:function(res)
+            {
+                if(res.status == true)
+                {
+                    $("#verifybtn").removeClass('btn btn-dark');
+                    $("#verifybtn").addClass('btn btn-light');
+                    $("#verifybtn").html('<i class="fa fa-check-circle text-primary" aria-hidden="true"></i>');  
+                    setTimeout(() => {
+                        $(".otp_verify_frm")[0].reset();
+                        $(".otp_verify_frm").addClass('d-none');
+                        $(".login_frm").removeClass('d-none');
+                    }, 1000); 
+                }
+                else
+                {
+                    $("#verifybtn").removeClass('btn btn-dark');
+                    $("#verifybtn").addClass('btn btn-danger');
+                    $("#verifybtn").html(res.message);
+                    setTimeout(() => {
+                        $(".otp_verify_frm")[0].reset();
+                        $("#verifybtn").removeClass('btn btn-danger');
+                        $("#verifybtn").addClass('btn btn-light');
+                    }, 1000);   
+                }
+            }
         });
     });
 });

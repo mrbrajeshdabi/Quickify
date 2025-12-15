@@ -26,7 +26,7 @@
     </div>
     <center>
       <div class="btn-group mb-0 mt-2">
-        <a href="/api/auth/google" class="nav-link"><button class="btn btn-dark w-100" type="button"><i class="fa-brands fa-google-plus-g text-danger animate__animated animate__pulse animate__infinite"></i> Sign/Login With Google </button></a>
+        <a href="/api/auth/google" class="nav-link"><button class="btn btn-dark w-100" type="button"><img src="assets/images/cdnlogo.com_google-icon.svg" id="googlepic" style="width: 25px; height: 25px;" class="img-fluid img-thumnail me-2"> Sign / Login With Google </button></a>
     </div>
     </center>
     <form class="signup_frm d-none border animate__animated animate__pulse d-none" enctype="multipart/form-data">
@@ -55,10 +55,29 @@
       </div>
       <div class="btn-group mt-2 mb-2 w-100">
         <button class="btn btn-light" type="submit" id="signup_frm_btn">Sign</button>
-        <button class="btn btn-success" type="button" id="alreadysign">Already sign in</button>
+        <button class="btn btn-dark" type="button" id="alreadysign">Already sign in</button>
       </div>
     </form>
+    <!-- opt validation -->
 
+    <form class="otp_verify_frm d-none border p-5 mt-5">
+      <div class="p-1 mb-3 text-center">
+        <h3 class="animate__animated animate__pulse">Verify Your Email</h3>
+        <span><b>Enter 6 Digit Code</b> </span>
+      </div>
+      <div class="form-group d-flex">
+        <input type="hidden" id="verifyemail">
+        <input type="text" id="o" class="w-50 text-center"   autocomplete="off" required inputmode="numeric" pattern="[0-9]" maxlength="1">
+        <input type="text" id="t" class="w-50 text-center"   autocomplete="off" required inputmode="numeric" pattern="[0-9]" maxlength="1">
+        <input type="text" id="h" class="w-50 text-center"   autocomplete="off" required inputmode="numeric" pattern="[0-9]" maxlength="1">
+        <input type="text" id="f" class="w-50 text-center"   autocomplete="off" required inputmode="numeric" pattern="[0-9]" maxlength="1">
+        <input type="text" id="fi" class="w-50 text-center"  autocomplete="off" required inputmode="numeric" pattern="[0-9]" maxlength="1">
+        <input type="text" id="six" class="w-50 text-center" autocomplete="off" required inputmode="numeric" pattern="[0-9]" maxlength="1">
+      </div>
+      <button class="btn btn-light text-dark w-100 mt-3 mb-1 border" type="submit" id="verifybtn">Verify Now</button>
+    </form>
+
+    <!-- opt validation end  -->
     <form class="login_frm animate__animated animate__pulse" enctype="multipart/form-data">
       <div class="from-group">
         <input type="email" id="lemail" name="lemail" autocomplete="off" required placeholder="Email Address">

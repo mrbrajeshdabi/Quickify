@@ -1,11 +1,12 @@
 import express from 'express';
-import { addCustomUser, changepass, deactivateaccount, deleteCustomUser, deleteroom,getCustomUser,getuserdata,logincheckgoogle,quickify, quicklogin, quickroom, quickshowroom, quicksign, searchUser, showallroom, updateprofile, updateroom } from '../controller/main.controller.js';
+import { addCustomUser, changepass, deactivateaccount, deleteCustomUser, deleteroom,getCustomUser,getuserdata,logincheckgoogle,quickify, quicklogin, quickroom, quickshowroom, quicksign, searchUser, showallroom, updateprofile, updateroom, verifyotp } from '../controller/main.controller.js';
 import { checklogin } from '../middleware/checklogin.js';
 import { upload } from '../middleware/upload.js';
 import { veryfiTokan } from '../middleware/tokan.js';
 import { googleproceess, googleredirect } from '../middleware/googleAuth.js';
 import passport from 'passport';
 import pkg from "passport-google-oauth20";
+import { verifyOTP } from '../middleware/verify.otp.js';
 const { Strategy: GoogleStrategy } = pkg;
 export const router = express.Router();
 // Google Strategy
@@ -35,4 +36,5 @@ router.delete('/de-activate-account',deactivateaccount);
 router.get('/auth/google',passport.authenticate("google", { scope: ["profile", "email"],session:false }));
 router.get("/auth/google/callback",passport.authenticate("google", {session:false, prompt:"select_account consent", failureRedirect: "/" }),logincheckgoogle);
 router.post('/get-user',veryfiTokan,getuserdata);
+router.put('/verify-otp',verifyOTP,verifyotp);
 //http://localhost:3000/api/auth/google/callback
