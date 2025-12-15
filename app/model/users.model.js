@@ -17,7 +17,6 @@ let qusers = mongoose.Schema({
     mobilenumber:{
         type:String,
         required:true,
-        unique:true
     },
     otp:{
         type:String,

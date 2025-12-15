@@ -33,6 +33,6 @@ router.delete('/delete-custom-room',deleteCustomUser);
 router.get('/search-user',searchUser);
 router.delete('/de-activate-account',deactivateaccount);
 router.get('/auth/google',passport.authenticate("google", { scope: ["profile", "email"],session:false }));
-router.get("/auth/google/callback",passport.authenticate("google", {session:false, failureRedirect: "/" }),logincheckgoogle);
+router.get("/auth/google/callback",passport.authenticate("google", {session:false, prompt:"select_account", failureRedirect: "/" }),logincheckgoogle);
 router.post('/get-user',veryfiTokan,getuserdata);
 //http://localhost:3000/api/auth/google/callback
