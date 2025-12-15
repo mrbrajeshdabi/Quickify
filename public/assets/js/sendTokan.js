@@ -2,7 +2,9 @@ import { sendTokanAndReciveruser, setCookie, userprofile } from "../functions/Qu
 
 $(document).ready(function(){
     let tokan = window.location.search.split('?tokan=')[1];
-    sendTokanAndReciveruser(tokan).then((res)=>{
+    if(tokan != undefined)
+    {
+        sendTokanAndReciveruser(tokan).then((res)=>{
         setCookie('_user',res.session,30);
         localStorage.setItem('profile',JSON.stringify(res.user));
 
@@ -49,5 +51,7 @@ $(document).ready(function(){
     $("#insertprofile").html(html);
     
         });
-    });
+        });
+    }
+    
 });
