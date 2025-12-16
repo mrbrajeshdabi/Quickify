@@ -90,7 +90,7 @@ export async function sendOTP(email) {
   </table>
 
 </body>
-</html>`
+</html>`;
   
     let mailResponse = await transporter.sendMail({
       from: `"Quickify 🚀" <${process.env.EMAIL}>`,
@@ -99,7 +99,7 @@ export async function sendOTP(email) {
       text: `Your OTP is ${otp}`,
       html: html
   });
-  console.log("Email sent:", mailResponse.messageId);
-  return otp;
+  console.log(JSON.stringify(mailResponse, null, 2));
+  return mailResponse;
 }
 
