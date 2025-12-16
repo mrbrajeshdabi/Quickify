@@ -86,18 +86,19 @@ export async function sendOTP(email) {
     port: 587,
     secure: false,
     auth: {
-      user: `apikey`,
-      pass: `${process.env.SENDGRIDKEY}`
+      user: "apikey",
+      pass: process.env.SENDGRIDKEY
     }
   });
 
-    await transporter.sendMail({
+    let res = await transporter.sendMail({
       from: `"Quickify 🚀" <${process.env.EMAIL}>`,
       to: email,
       subject: "Quickify OTP Verification",
       text: `Your OTP is ${otp}`,
       html: html
   });
+  console.log(res);
   return otp;
 }
 

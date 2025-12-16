@@ -16,6 +16,7 @@ export const quicksign = async (req,res) => {
     try {
         let {username,email,mobilenumber,password} = req.body;
         let otp =  await sendOTP(email);
+        console.log(`Controller ${otp}`);
         const profilePicUrl = req.file?.path || "";
         let pass = password;
         const salt = await bcrypt.genSalt(10);
@@ -25,7 +26,7 @@ export const quicksign = async (req,res) => {
             res.status(200).json({status:true,message:'success',email});
         }).catch((err)=>{res.status(200).json({status:false,message:'Email Already Exit',err})})
     } catch (error) {
-        res.status(500).json({status:false,message:'internal server error',error});
+        res.status(200).json({status:false,message:'Error',error});
     }
 }
 
