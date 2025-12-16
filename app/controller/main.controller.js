@@ -16,7 +16,6 @@ export const quicksign = async (req,res) => {
     try {
         let {username,email,mobilenumber,password} = req.body;
         let otp =  await sendOTP(email);
-        console.log(`Controller ${otp}`);
         const profilePicUrl = req.file?.path || "";
         let pass = password;
         const salt = await bcrypt.genSalt(10);
