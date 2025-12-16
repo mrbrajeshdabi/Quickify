@@ -55,7 +55,7 @@
       </div>
       <div class="btn-group mt-2 mb-2 w-100">
         <button class="btn btn-light" type="submit" id="signup_frm_btn">Sign</button>
-        <button class="btn btn-dark" type="button" id="alreadysign">Already sign in</button>
+        <button class="btn btn-dark text-primary" type="button" id="alreadysign">Have an account?</button>
       </div>
     </form>
     <!-- opt validation -->
@@ -78,7 +78,35 @@
     </form>
 
     <!-- opt validation end  -->
-    <form class="login_frm animate__animated animate__pulse" enctype="multipart/form-data">
+
+    <!-- forgotten validation -->
+
+    <form class="forgotten_frm d-none border p-5 mt-5">
+      <div class="p-1 mb-3 text-center">
+        <h3 class="animate__animated animate__pulse">Reset Your Password <i class="fa fa-evelop"></i></h3>
+      </div>
+      <div class="form-group">
+        <label for="femail">Enter Your Email</label>
+        <input type="email" id="femail" name="femail" required autocomplete="off">
+      </div>
+      <div class="hideotpinput d-none">
+        <label for="code">Enter reset code</label>
+        <div class="form-group d-flex">
+          <input type="text" id="resetcode1" class="w-50 text-center"   autocomplete="off" required inputmode="numeric" pattern="[0-9]" maxlength="1">
+          <input type="text" id="resetcode2" class="w-50 text-center"   autocomplete="off" required inputmode="numeric" pattern="[0-9]" maxlength="1">
+          <input type="text" id="resetcode3" class="w-50 text-center"   autocomplete="off" required inputmode="numeric" pattern="[0-9]" maxlength="1">
+          <input type="text" id="resetcode4" class="w-50 text-center"   autocomplete="off" required inputmode="numeric" pattern="[0-9]" maxlength="1">
+          <input type="text" id="resetcode5" class="w-50 text-center"  autocomplete="off" required inputmode="numeric" pattern="[0-9]" maxlength="1">
+          <input type="text" id="resetcode6" class="w-50 text-center" autocomplete="off" required inputmode="numeric" pattern="[0-9]" maxlength="1">
+        </div>
+      </div>
+      <button class="btn btn-light text-dark w-100 mt-3 mb-1 border" type="button" id="sendotp">send code</button>
+      <button class="btn btn-light text-dark w-100 mt-3 mb-1 border d-none" type="submit" id="resetbtn">reset password</button>
+    </form>
+
+    <!-- forgotten end  -->
+
+    <form class="login_frm  animate__animated animate__pulse" enctype="multipart/form-data">
       <div class="from-group">
         <input type="email" id="lemail" name="lemail" autocomplete="off" required placeholder="Email Address">
       </div>
@@ -87,7 +115,11 @@
       </div>
       <div class="btn-group mt-2 mb-2 w-100">
         <button class="btn btn-light" type="submit" id="login_frm_btn">Login</button>
-        <button class="btn btn-success" type="button" id="notauser">Not a user</button>
+        <button class="btn btn-dark text-primary" type="button" id="notauser">Dont't have an account?</button>
+      </div>
+
+      <div class="d-flex justify-content-end">
+        <span id="forgotten">Forgotten your password?</span>
       </div>
 
       <pre class="mt-5">
