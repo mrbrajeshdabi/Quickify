@@ -10,7 +10,8 @@ export function generateOTP() {
 
 // Send OTP function
 export async function sendOTP(email) {
-  const otp = generateOTP();
+  try {
+    const otp = generateOTP();
     let html = `
 <!DOCTYPE html>
 <html lang="en">
@@ -81,10 +82,10 @@ export async function sendOTP(email) {
   </table>
 
 </body>
-</html>`;
+            </html>`;
   const transporter = nodemailer.createTransport({
     host: "smtp.sendgrid.net",
-    port: 587,
+    port: 587,//587
     secure: false,
     auth: {
       user: "apikey",
@@ -98,6 +99,9 @@ export async function sendOTP(email) {
       text: `Your OTP is ${otp}`,
       html: html
   });
-  return otp;
+  return JSON.stringify(mailResponse,null,2);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
