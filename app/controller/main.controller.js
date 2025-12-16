@@ -16,16 +16,14 @@ export const quicksign = async (req,res) => {
     try {
         let {username,email,mobilenumber,password} = req.body;
         let otp =  await sendOTP(email);
-        console.log(JSON.stringify(otp, null, 2));
-        res.send({status:true});
-        // const profilePicUrl = req.file?.path || "";
-        // let pass = password;
-        // const salt = await bcrypt.genSalt(10);
-        // const hash = await bcrypt.hash(`${pass}`, salt);
-        // let insertuser = new Quickusers({profilepic:profilePicUrl,username,email,mobilenumber,otp,password:hash,accountstatus:'null',userstatus:true});
-        // insertuser.save().then(() =>{
-        //     res.status(200).json({status:true,message:'success',email});
-        // }).catch((err)=>{res.status(200).json({status:false,message:'Email Already Exit',err})})
+        const profilePicUrl = req.file?.path || "";
+        let pass = password;
+        const salt = await bcrypt.genSalt(10);
+        const hash = await bcrypt.hash(`${pass}`, salt);
+        let insertuser = new Quickusers({profilepic:profilePicUrl,username,email,mobilenumber,otp,password:hash,accountstatus:'null',userstatus:true});
+        insertuser.save().then(() =>{
+            res.status(200).json({status:true,message:'success',email});
+        }).catch((err)=>{res.status(200).json({status:false,message:'Email Already Exit',err})})
     } catch (error) {
         res.status(200).json({status:false,message:'Error',error});
     }

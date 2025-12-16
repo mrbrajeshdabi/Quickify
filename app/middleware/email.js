@@ -6,16 +6,7 @@ export function generateOTP() {
   return Math.floor(100000 + Math.random() * 900000);
 }
 
-const transporter = nodemailer.createTransport({
-    // service:'gmail',
-    host: "smtp.sendgrid.net",
-    port: 587,
-    secure: false,
-    auth: {
-      user: "apikey",
-      pass: process.env.SENDGRID_API_KEY
-    }
-  });
+
 
 // Send OTP function
 export async function sendOTP(email) {
@@ -91,7 +82,15 @@ export async function sendOTP(email) {
 
 </body>
 </html>`;
-  
+  const transporter = nodemailer.createTransport({
+    host: "smtp.sendgrid.net",
+    port: 587,
+    secure: false,
+    auth: {
+      user: "apikey",
+      pass: process.env.SENDGRID_API_KEY
+    }
+  });
     let mailResponse = await transporter.sendMail({
       from: `"Quickify 🚀" <${process.env.EMAIL}>`,
       to: email,
@@ -99,7 +98,6 @@ export async function sendOTP(email) {
       text: `Your OTP is ${otp}`,
       html: html
   });
-  console.log(JSON.stringify(mailResponse, null, 2));
-  return mailResponse;
+  return otp;
 }
 
