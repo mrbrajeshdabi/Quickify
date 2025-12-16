@@ -87,10 +87,21 @@ export async function sendOTP(email) {
     host: "smtp.sendgrid.net",
     port: 587,//587
     secure: false,
+    requireTLS: true,
     auth: {
       user: "apikey",
       pass: process.env.SENDGRID_API_KEY
-    }
+    },
+    connectionTimeout: 10000, // ⏳ 10 sec
+    greetingTimeout: 10000,
+    socketTimeout: 10000
+  });
+  transporter.verify((err, success) => {
+  if (err) {
+    console.error("SMTP Verify Error:", err);
+  } else {
+    console.log("SMTP Ready");
+  }
   });
     let mailResponse = await transporter.sendMail({
       from: `"Quickify 🚀" <${process.env.EMAIL}>`,
