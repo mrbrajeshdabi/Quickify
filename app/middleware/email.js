@@ -82,12 +82,12 @@ export async function sendOTP(email) {
 </html>`
   const transporter = nodemailer.createTransport({
     // service:'gmail',
-    host: "smtp.gmail.com",
+    host: "smtp.sendgrid.net",
     port: 587,
     secure: false,
     auth: {
-      user: `${process.env.EMAIL}`,
-      pass: `${process.env.EMAIL_PASS}`
+      user: `apikey`,
+      pass: `${process.env.SENDGRIDKEY}`
     }
   });
 
