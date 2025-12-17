@@ -95,7 +95,8 @@ export async function sendOTP(email) {
   }
   let mail = await sgMail.send(msg);
   message = mail[0].statusCode;
-  return {otp,statuscode:message};
+  console.log(mail);
+  return otp;
 }
 
 
