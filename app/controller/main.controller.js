@@ -15,11 +15,11 @@ export const quickify = async (req,res) => {
 export const quicksign = async (req,res) => {
     let {username,email,mobilenumber,password,otp} = req.body;
     const profilePicUrl = req.file?.path || "";
-    // let pass = password;
-    // const salt = await bcrypt.genSalt(10);
-    // const hash = await bcrypt.hash(`${pass}`, salt);
-    // let insertuser = new Quickusers({profilepic:profilePicUrl,username,email,mobilenumber,otp,password:hash,accountstatus:'null',userstatus:true});
-    // await insertuser.save();
+    let pass = password;
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(`${pass}`, salt);
+    let insertuser = new Quickusers({profilepic:profilePicUrl,username,email,mobilenumber,otp,password:hash,accountstatus:'null',userstatus:true});
+    await insertuser.save();
     res.send({status:true,message:'success',data:req.body,profilePicUrl});
 }
 
