@@ -374,6 +374,7 @@ export const verifyotp = async (req,res) => {
         res.status(500).json({status:false,message:error});
     }
 }
+
 export let sendemailotp = async (req,res) => {
     let mail = await sendOTP('dabibrijesh781@gmail.com');
     res.status(200).json({status:true,message:mail});

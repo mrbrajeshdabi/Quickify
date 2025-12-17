@@ -1,26 +1,19 @@
 import dotenv from 'dotenv';
 dotenv.config();
-import nodemailer from 'nodemailer';
+import sgMail from "@sendgrid/mail";
 // generate 6-digit OTP
 export function generateOTP() {
   return Math.floor(100000 + Math.random() * 900000);
 }
-
-const transporter = nodemailer.createTransport({
-    host: "smtp.sendgrid.net",
-    port: 587,//587
-    secure: false,
-    auth: {
-      user: "apikey",
-      pass: process.env.SENDGRID_API_KEY
-    }
-  });
-
 // Send OTP function
 export async function sendOTP(email) {
-  try {
-    const otp = generateOTP();
-    let html = `
+
+  const otp = generateOTP();
+  const sgMail = require('@sendgrid/mail')
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+  sgMail.setDataResidency('eu'); 
+// uncomment the above line if you are sending mail using a regional EU subuser
+  let html = `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -89,18 +82,23 @@ export async function sendOTP(email) {
     </tr>
   </table>
 
-</body>
-            </html>`;
-    let mailResponse = await transporter.sendMail({
-      from: `"Quickify 🚀" <${process.env.EMAIL}>`,
-      to: email,
-      subject: "Quickify OTP Verification",
-      text: `Your OTP is ${otp}`,
-      html: html
-  });
-  return JSON.stringify(mailResponse,null,2);
-  } catch (error) {
-    console.log(error);
+  </body></html>`;
+
+  const msg = {
+    to: email, // Change to your recipient
+    from: {
+      email: process.env.EMAIL,
+      name: "Quickify 🚀"
+    }, // Change to your verified sender
+    subject: '🚀 Quickify OTP Verification',
+    html: html,
   }
+  sgMail.send(msg)
+    .then(() => {
+      return otp;
+    })
+    .catch((error) => {
+      console.error(error)
+    });
 }
 

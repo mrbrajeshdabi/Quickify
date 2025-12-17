@@ -98,7 +98,6 @@ io.on('connection',(socket)=>{
     
 
 //handler
-app.use(mongoSanitize());
 app.use(helmet());
 app.use(passport.initialize());
 app.use(express.static('public'));
@@ -107,10 +106,11 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use('/api',router);
+app.use(mongoSanitize());
 //mongoose and server
 mongoose.connect(process.env.MONGODB).then(()=>{
     server.listen(process.env.PORT || 8000 ,()=>{
         console.log(`Server On Port ${process.env.PORT} || And Database Connected Now`);
     });
-})
+});
 
