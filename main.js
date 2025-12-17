@@ -12,7 +12,6 @@ import { qcustomUserAdd } from './app/model/custom.user.model.js';
 import passport from 'passport';
 import pkg from "passport-google-oauth20";
 import helmet from 'helmet';
-import mongoSanitize from "express-mongo-sanitize";
 const { Strategy: GoogleStrategy } = pkg;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -106,7 +105,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use('/api',router);
-app.use(mongoSanitize());
 //mongoose and server
 mongoose.connect(process.env.MONGODB).then(()=>{
     server.listen(process.env.PORT || 8000 ,()=>{

@@ -10,7 +10,7 @@ export async function sendOTP(email) {
 
   const otp = generateOTP();
   sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-  sgMail.setDataResidency('eu'); 
+  // sgMail.setDataResidency('eu'); 
 // uncomment the above line if you are sending mail using a regional EU subuser
   let html = `
 <!DOCTYPE html>
