@@ -80,7 +80,7 @@ $(document).ready(function(){
 
             },
             success:function(res) {
-                
+                console.log(res);
                 if(res.status == true)
                 {
                     $("#verifyemail").val(res.email);
