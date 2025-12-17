@@ -19,9 +19,8 @@ export const quicksign = async (req,res) => {
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(`${pass}`, salt);
     let insertuser = new Quickusers({profilepic:profilePicUrl,username,email,mobilenumber,otp,password:hash,accountstatus:'null',userstatus:true});
-    insertuser.save().then(() =>{
-        res.send({status:true,message:'success',email});
-    }).catch((err)=>{res.send({status:false,message:err.message})})
+    await insertuser.save();
+    res.send({status:true,message:'success',email});
 }
 
 export const quicklogin = async (req,res) => {
