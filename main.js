@@ -20,7 +20,7 @@ const server = createServer(app);
 const io = new Server(server,{
 
     cors:{
-        origin:'https://quickify-fh37.onrender.com',
+        origin:'*',
         methods:['get','post'],
         credentials:true,
     }
