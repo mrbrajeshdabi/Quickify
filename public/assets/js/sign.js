@@ -29,7 +29,7 @@ $(document).ready(function(){
         e.preventDefault();
         $.ajax({
             type:'post',
-            url :'https://quickify-fh37.onrender.com/api/quicksign', 
+            url :'http://localhost:3000/api/quicksign', //https://quickify-fh37.onrender.com
             data:new FormData(this),
             contentType:false,
             processData:false,
@@ -61,6 +61,7 @@ $(document).ready(function(){
                 else
                 {
                     $("#signup_frm_btn").html(res.message);
+                    console.log(res);
                     setTimeout(() => {
                         $("#signup_frm_btn").addClass('btn btn-dark');
                         $("#signup_frm_btn").addClass('btn btn-light');

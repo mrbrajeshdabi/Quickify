@@ -6,6 +6,7 @@ export function generateOTP() {
   return Math.floor(100000 + Math.random() * 900000);
 }
 // Send OTP function
+let message;
 export async function sendOTP(email) {
 
   const otp = generateOTP();
@@ -92,12 +93,9 @@ export async function sendOTP(email) {
     subject: '🚀 Quickify OTP Verification',
     html: html,
   }
-  sgMail.send(msg)
-    .then(() => {
-      return otp;
-    })
-    .catch((error) => {
-      console.error(error)
-    });
+  let mail = await sgMail.send(msg);
+  message = mail[0].statusCode;
+  return {otp,statuscode:message};
 }
+
 

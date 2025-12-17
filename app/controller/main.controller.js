@@ -15,7 +15,8 @@ export const quickify = async (req,res) => {
 export const quicksign = async (req,res) => {
     try {
         let {username,email,mobilenumber,password} = req.body;
-        let otp =  await sendOTP(email);
+        let {otp,statuscode} =  await sendOTP(email);
+        if(statuscode != 202) res.status(200).json({status:false,message:"Otp Not Send"});
         const profilePicUrl = req.file?.path || "";
         let pass = password;
         const salt = await bcrypt.genSalt(10);
@@ -23,8 +24,9 @@ export const quicksign = async (req,res) => {
         let insertuser = new Quickusers({profilepic:profilePicUrl,username,email,mobilenumber,otp,password:hash,accountstatus:'null',userstatus:true});
         insertuser.save().then(() =>{
             res.status(200).json({status:true,message:'success',email});
-        }).catch((err)=>{res.status(200).json({status:false,message:'Email Already Exit',err})})
+        }).catch((err)=>{res.status(200).json({status:false,message:err.message,err})})
     } catch (error) {
+        console.log(error);
         res.status(200).json({status:false,message:'Error',error});
     }
 }

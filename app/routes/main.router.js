@@ -1,11 +1,11 @@
 import express from 'express';
 import { addCustomUser, changepass, deactivateaccount, deleteCustomUser, deleteroom,getCustomUser,getuserdata,logincheckgoogle,quickify, quicklogin, quickroom, quickshowroom, quicksign, searchUser, sendemailotp, showallroom, updateprofile, updateroom, verifyotp } from '../controller/main.controller.js';
-import { upload } from '../middleware/upload.js';
+// import { upload } from '../middleware/upload.js';
 import { veryfiTokan } from '../middleware/tokan.js';
-import { googleproceess, googleredirect } from '../middleware/googleAuth.js';
 import passport from 'passport';
 import pkg from "passport-google-oauth20";
 import { verifyOTP } from '../middleware/verify.otp.js';
+import multerCloudinaryConfig from 'multer-cloudinary-api';
 const { Strategy: GoogleStrategy } = pkg;
 export const router = express.Router();
 // Google Strategy
@@ -16,6 +16,7 @@ passport.use(new GoogleStrategy({
 }, (accessToken, refreshToken, profile, done) => {
   return done(null, profile);
 }));
+const upload = multerCloudinaryConfig(process.env.CLOUD_API_KEY,process.env.CLOUD_API_SECRET,process.env.CLOUD_NAME,'quickify_profiles'); 
 
 router.get('/quickify',quickify);
 router.post('/quicksign',upload.single('profilepic'),quicksign);
