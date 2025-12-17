@@ -6,12 +6,12 @@ export function generateOTP() {
   return Math.floor(100000 + Math.random() * 900000);
 }
 // Send OTP function
-export async function sendOTP(email) {
-
+export let sendOTP = async (req,res,next) => {
+  let email = req.body.email;
   const otp = generateOTP();
   sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-  // sgMail.setDataResidency('eu'); 
-// uncomment the above line if you are sending mail using a regional EU subuser
+  if(email == '') res.send({status:false,message:'Please Filled Value'});
+
   let html = `
 <!DOCTYPE html>
 <html lang="en">
@@ -93,9 +93,9 @@ export async function sendOTP(email) {
     html: html,
   }
   let mail = await sgMail.send(msg);
-  message = mail[0].statusCode;
-  console.log(mail);
-  return otp;
+  req.otp = otp;
+  req.statuscode = mail[0].statusCode;
+  next();
 }
 
 
