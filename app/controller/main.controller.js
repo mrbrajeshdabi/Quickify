@@ -14,10 +14,10 @@ export const quickify = async (req,res) => {
 
 export const quicksign = async (req,res) => {
     let {username,email,mobilenumber,password} = req.body;
-    let {otp,statuscode} =  await sendOTP(email);
-    let wait = statuscode;
-    let ots = otp;
-    if(wait != 202)
+    let mail =  await sendOTP(email);
+    let otp = mail.otp;
+    let statuscode = mail.statuscode;
+    if(statuscode != 202)
     {
       res.status(200).json({status:false,message:"Otp Not Send"});  
     }
@@ -26,10 +26,10 @@ export const quicksign = async (req,res) => {
         let pass = password;
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(`${pass}`, salt);
-        let insertuser = new Quickusers({profilepic:profilePicUrl,username,email,mobilenumber,otp:ots,password:hash,accountstatus:'null',userstatus:true});
+        let insertuser = new Quickusers({profilepic:profilePicUrl,username,email,mobilenumber,otp,password:hash,accountstatus:'null',userstatus:true});
         insertuser.save().then(() =>{
             res.status(200).json({status:true,message:'success',email});
-        }).catch((err)=>{res.status(200).json({status:false,message:err.message,err})})
+        }).catch((err)=>{console.log(err); res.status(200).json({status:false,message:err.message,err})})
     }
 }
 
