@@ -9,7 +9,6 @@ export function generateOTP() {
 export async function sendOTP(email) {
 
   const otp = generateOTP();
-  const sgMail = require('@sendgrid/mail')
   sgMail.setApiKey(process.env.SENDGRID_API_KEY)
   sgMail.setDataResidency('eu'); 
 // uncomment the above line if you are sending mail using a regional EU subuser
