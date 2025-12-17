@@ -6,7 +6,6 @@ export function generateOTP() {
   return Math.floor(100000 + Math.random() * 900000);
 }
 // Send OTP function
-let message;
 export async function sendOTP(email) {
 
   const otp = generateOTP();
