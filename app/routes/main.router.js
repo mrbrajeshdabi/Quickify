@@ -6,7 +6,6 @@ import passport from 'passport';
 import pkg from "passport-google-oauth20";
 import { verifyOTP } from '../middleware/verify.otp.js';
 import multerCloudinaryConfig from 'multer-cloudinary-api';
-import { sendOTP } from '../middleware/email.js';
 const { Strategy: GoogleStrategy } = pkg;
 export const router = express.Router();
 // Google Strategy
@@ -20,7 +19,7 @@ passport.use(new GoogleStrategy({
 const upload = multerCloudinaryConfig(process.env.CLOUD_API_KEY,process.env.CLOUD_API_SECRET,process.env.CLOUD_NAME,'quickify_profiles'); 
 
 router.get('/quickify',quickify);
-router.post('/quicksign',upload.single('profilepic'),sendOTP,quicksign);
+router.post('/quicksign',upload.single('profilepic'),quicksign);
 router.post('/quicklogin',quicklogin);
 router.post('/quickroom',upload.single('roompic'),quickroom);
 router.get('/quickshowroom',quickshowroom);

@@ -13,10 +13,7 @@ export const quickify = async (req,res) => {
 }
 
 export const quicksign = async (req,res) => {
-    let {username,email,mobilenumber,password} = req.body;
-    let otp = req.otp;
-    let statuscode = req.statuscode;
-    if(statuscode != 202) res.send({status:false,message:'otp not send'});
+    let {username,email,mobilenumber,password,otp} = req.body;
     const profilePicUrl = req.file?.path || "";
     let pass = password;
     const salt = await bcrypt.genSalt(10);
@@ -24,7 +21,7 @@ export const quicksign = async (req,res) => {
     let insertuser = new Quickusers({profilepic:profilePicUrl,username,email,mobilenumber,otp,password:hash,accountstatus:'null',userstatus:true});
     insertuser.save().then(() =>{
         res.send({status:true,message:'success',email});
-    }).catch((err)=>{console.log(err); res.send({status:false,message:err.message})})
+    }).catch((err)=>{res.send({status:false,message:err.message})})
 }
 
 export const quicklogin = async (req,res) => {
@@ -361,7 +358,7 @@ export const verifyotp = async (req,res) => {
               } 
               else
               {
-                  Quickusers.updateOne({email:email},{$set:{otp:'verify'}}).then((user)=>{
+                  Quickusers.updateOne({email:email},{$set:{accountstatus:'verify'}}).then((user)=>{
                       res.status(200).json({status:true,message:"Email verify success"});
                   });
               }
@@ -374,8 +371,9 @@ export const verifyotp = async (req,res) => {
 }
 
 export let sendemailotp = async (req,res) => {
-    let mail = await sendOTP('dabibrijesh781@gmail.com');
-    res.status(200).json({status:true,message:mail});
+    let email =  req.query.email;
+    let otp = await sendOTP(email);
+    res.status(200).json({status:true,otp});
 }
 
 

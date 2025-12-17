@@ -56,9 +56,11 @@
       </div>
       <div class="from-group">
         <input type="password" id="password" name="password" autocomplete="off" required placeholder="Password">
+        <input type="hidden" id="otp" name="otp">
       </div>
       <div class="btn-group mt-2 mb-2 w-100">
-        <button class="btn btn-light" type="submit" id="signup_frm_btn">Sign</button>
+        <button class="btn btn-primary animate__animated animate__fadeIn d-none" type="button" id="sendotp">Generate Otp</button>
+        <button class="btn btn-light animate__animated animate__fadeIn d-none" type="submit" id="signup_frm_btn">Sign</button>
         <button class="btn btn-dark text-primary" type="button" id="alreadysign">Have an account?</button>
       </div>
     </form>
@@ -104,7 +106,7 @@
           <input type="text" id="resetcode6" class="w-50 text-center" autocomplete="off" required inputmode="numeric" pattern="[0-9]" maxlength="1">
         </div>
       </div>
-      <button class="btn btn-light text-dark w-100 mt-3 mb-1 border" type="button" id="sendotp">send code</button>
+      <button class="btn btn-light text-dark w-100 mt-3 mb-1 border" type="button" id="sendcode">send code</button>
       <button class="btn btn-light text-dark w-100 mt-3 mb-1 border d-none" type="submit" id="resetbtn">reset password</button>
     </form>
 

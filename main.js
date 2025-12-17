@@ -97,7 +97,7 @@ io.on('connection',(socket)=>{
     
 
 //handler
-app.use(helmet());
+// app.use(helmet());
 app.use(passport.initialize());
 app.use(express.static('public'));
 app.use('/usersprofilepic',express.static(__dirname + '/usersprofilepic'));

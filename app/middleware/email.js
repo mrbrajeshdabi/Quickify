@@ -6,11 +6,9 @@ export function generateOTP() {
   return Math.floor(100000 + Math.random() * 900000);
 }
 // Send OTP function
-export let sendOTP = async (req,res,next) => {
-  let email = req.body.email;
+export async function sendOTP (email) {
   const otp = generateOTP();
   sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-  if(email == '') res.send({status:false,message:'Please Filled Value'});
 
   let html = `
 <!DOCTYPE html>
@@ -93,9 +91,7 @@ export let sendOTP = async (req,res,next) => {
     html: html,
   }
   let mail = await sgMail.send(msg);
-  req.otp = otp;
-  req.statuscode = mail[0].statusCode;
-  next();
+  return otp;
 }
 
 
