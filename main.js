@@ -11,6 +11,9 @@ import path from 'path';
 import { qcustomUserAdd } from './app/model/custom.user.model.js';
 import passport from 'passport';
 import pkg from "passport-google-oauth20";
+import helmet from 'helmet';
+import mongoSanitize from "express-mongo-sanitize";
+import xss from "xss-clean";
 const { Strategy: GoogleStrategy } = pkg;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -19,7 +22,7 @@ const server = createServer(app);
 const io = new Server(server,{
 
     cors:{
-        origin:'*',
+        origin:'https://quickify-fh37.onrender.com/',
         methods:['get','post'],
         credentials:true,
     }
@@ -96,6 +99,9 @@ io.on('connection',(socket)=>{
     
 
 //handler
+app.use(xss());
+app.use(mongoSanitize());
+app.use(helmet());
 app.use(passport.initialize());
 app.use(express.static('public'));
 app.use('/usersprofilepic',express.static(__dirname + '/usersprofilepic'));

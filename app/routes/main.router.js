@@ -1,6 +1,5 @@
 import express from 'express';
 import { addCustomUser, changepass, deactivateaccount, deleteCustomUser, deleteroom,getCustomUser,getuserdata,logincheckgoogle,quickify, quicklogin, quickroom, quickshowroom, quicksign, searchUser, sendemailotp, showallroom, updateprofile, updateroom, verifyotp } from '../controller/main.controller.js';
-import { checklogin } from '../middleware/checklogin.js';
 import { upload } from '../middleware/upload.js';
 import { veryfiTokan } from '../middleware/tokan.js';
 import { googleproceess, googleredirect } from '../middleware/googleAuth.js';
@@ -20,7 +19,7 @@ passport.use(new GoogleStrategy({
 
 router.get('/quickify',quickify);
 router.post('/quicksign',upload.single('profilepic'),quicksign);
-router.post('/quicklogin',checklogin,quicklogin);
+router.post('/quicklogin',quicklogin);
 router.post('/quickroom',upload.single('roompic'),quickroom);
 router.get('/quickshowroom',quickshowroom);
 router.delete('/delete-room',deleteroom);

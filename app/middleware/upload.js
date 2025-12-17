@@ -1,8 +1,10 @@
-import multer from 'multer';
-import { CloudinaryStorage } from 'multer-storage-cloudinary' ;
 import cloudinary from './config.js';
+import multer from 'multer';
+import pkg from 'multer-storage-cloudinary';
+const {pkg: CloudinaryStorage } = pkg;
 
-const storage = new CloudinaryStorage({
+
+const storage = new pkg({
   cloudinary: cloudinary,
   params: {
     folder: "quickify_profiles",       // 🔥 Cloud folder name
@@ -12,4 +14,5 @@ const storage = new CloudinaryStorage({
 });
 
 export const upload = multer({ storage });
+
 
