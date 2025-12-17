@@ -25,43 +25,43 @@ $(document).ready(function(){
 
     });
 
-    $("#password").on('input',function(){
-        if($('#email').val().length >= 1 && $('#username').val().length >= 1 && $('#mobilenumber').val().length >= 1 && $('#password').val().length >= 1)
-        {
-            $("#sendotp").removeClass('d-none');
-        }
-        else
-        {
-            $("#sendotp").addClass('d-none');
-        }
-    });
+    // $("#password").on('input',function(){
+    //     if($('#email').val().length >= 1 && $('#username').val().length >= 1 && $('#mobilenumber').val().length >= 1 && $('#password').val().length >= 1)
+    //     {
+    //         $("#sendotp").removeClass('d-none');
+    //     }
+    //     else
+    //     {
+    //         $("#sendotp").addClass('d-none');
+    //     }
+    // });
 
-    //generate otp
-    $("#sendotp").click(function(){
-        if($('#email').val().length >= 1 && $('#username').val().length >= 1 && $('#mobilenumber').val().length >= 1 && $('#password').val().length >= 1)
-        {
-            $("#sendotp").removeClass('d-none');
-            $.ajax({
-            type:'get',
-            url:'https://quickify-fh37.onrender.com/api/sendotp?email='+$('#email').val(),
-            beforeSend:function(req){$(this).html('Please Wait..')},
-            success:function(res)
-            {
-                $('#otp').val(res.otp);
-                $('#sendotp').addClass('d-none');
-                $(this).html('Generate Otp');
-                $("#signup_frm_btn").removeClass('d-none');
-            }
-            });
-        }
-        else
-        {
-            $(this).html('Please Filled All Value');
-            setTimeout(() => {
-                $(this).html('Generate Otp');
-            }, 1000);
-        }
-    });
+    // //generate otp
+    // $("#sendotp").click(function(){
+    //     if($('#email').val().length >= 1 && $('#username').val().length >= 1 && $('#mobilenumber').val().length >= 1 && $('#password').val().length >= 1)
+    //     {
+    //         $("#sendotp").removeClass('d-none');
+    //         $.ajax({
+    //         type:'get',
+    //         url:'https://quickify-fh37.onrender.com/api/sendotp?email='+$('#email').val(),
+    //         beforeSend:function(req){$(this).html('Please Wait..')},
+    //         success:function(res)
+    //         {
+    //             $('#otp').val(res.otp);
+    //             $('#sendotp').addClass('d-none');
+    //             $(this).html('Generate Otp');
+    //             $("#signup_frm_btn").removeClass('d-none');
+    //         }
+    //         });
+    //     }
+    //     else
+    //     {
+    //         $(this).html('Please Filled All Value');
+    //         setTimeout(() => {
+    //             $(this).html('Generate Otp');
+    //         }, 1000);
+    //     }
+    // });
 
     $(".signup_frm").submit(function(e){
         e.preventDefault(); 
@@ -80,7 +80,6 @@ $(document).ready(function(){
 
             },
             success:function(res) {
-                console.log(res);
                 if(res.status == true)
                 {
                     $("#verifyemail").val(res.email);
