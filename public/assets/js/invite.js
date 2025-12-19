@@ -8,22 +8,24 @@ $(document).ready(function(){
     let reciver;
     let waiting;
     let checkbusy = false;
-    $("#type").click(function(){
+    $("#type").on('change',function(){
        type =  $(this).val();
-       let html =
-        `
-        <label> Enter Your ${type} </label>
-        <input type='${type}' id='${type}' name='${type}' required autocomplete='off' />
-
-       `;
-       $("#insertinput").html(html);
-       $("#adduserbtn").removeClass('disabled');
-       $("#adduserbtn").addClass('animate__animated animate__pulse');
+       if(type == 'id')
+       {
+            $('#id').removeAttr('disabled');
+            $("#adduserbtn").removeClass('disabled');
+       }
+       else
+       {
+            $('#id').attr('disabled','disabled');
+            $("#adduserbtn").addClass('disabled');
+       }
     });
 
     $(".choosesearch").submit( async function(e){
         e.preventDefault();
-       let rid =  $(`#${type}`).val();
+       let rid =  $(`#id`).val();
+       if(rid == '') alert('Please filled Value');
        let sid = await roomcreaterid();
        $("#adduserbtn").html('<i class="fa fa-circle-o-notch fa-spin text-dark" aria-hidden="true"></i>');
         addCustomUser(type,sid,rid).then((res)=>{
@@ -89,16 +91,16 @@ $(document).ready(function(){
                     res.data.forEach(index => {
                         let html = 
                         `
-                        <li class="list-group-item" id="dellist${index._id}">
-                                <div class="d-flex">
+                        <li class="list-group-item customuserlist d-flex justify-content-between" id="dellist${index._id}">
+                                
                                     <img src="${index.rpic}" class="img-fluid img-thumbnail profilepicroom" id="profilepicroom">
-                                    <span class="ms-5 mt-2">${index.rusername}</span>
-                                    <span class="ms-3 mt-2">${index.rstatus}</span>
-                                    <div class="btn-group ms-2 w-50">
-                                    <button class="btn btn-primary callanddel" type="call" id="call${index.rid}" rid="${index.rid}"><i class="fa fa-video animate__animated animate__pulse animate__infinite"></i></button>
-                                    <button class="btn btn-danger callanddel " type="delete" id="delete${index.rid}" deleteid="${index._id}"><i class="fa fa-trash animate__animated animate__pulse animate__infinite"></i></button>
+                                    <span class="mt-4">${index.rusername}</span>
+                                    <span class="mt-4">${index.rstatus}</span>
+                                    <div class="btn-group">
+                                    <button class="btn-grad-b callanddel" type="call" id="call${index.rid}" rid="${index.rid}"><i class="fa fa-video animate__animated animate__pulse animate__infinite"></i></button>
+                                    <button class="btn-grad callanddel" type="delete" id="delete${index.rid}" deleteid="${index._id}"><i class="fa fa-trash animate__animated animate__pulse animate__infinite"></i></button>
                                     </div>
-                                </div>
+                                
                             </li>
                         `;
                         $("#inserusercustom").append(html);

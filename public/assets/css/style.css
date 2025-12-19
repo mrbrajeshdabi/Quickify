@@ -7,6 +7,7 @@
     font-weight: bold;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
+
 .picbox{
     width: 100px;
     height: 100px;
@@ -32,42 +33,157 @@
     margin: 30px auto 0;
     padding: 10px;
 }
-input{
+/* input{
     width: 100%;
     height: 50px;
     border: none;
-    /* background-color: rgba(0,0,0,0); */
     outline: auto;
     border: 10px solid rgb(245, 236, 236);
     margin-bottom: 10px;
-}
-.videobox{
-    width: 100%;
-    height: 500px;
-}
-#svideo{
-    width: 100%;
-    height: 100%;
-}
-/* #rvideo{
-    width: 100px;
-    height: 100px;
-    position: absolute;
-    right: 0;
 } */
- .rvideobox{
-    position: absolute;
-    top: 60px;
-    right: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    
+
+#createroom,#myroom,.bgchange,.list-group-item,#demo,.list-group,.list-group-item,#userprofile,#calling,#addcustomuser,#listcustomuser,#searchresult,#customcalling,#insertsearchuser,#joinusers,#setting{
+    /* backdrop-filter: blur(20px); */
+    background-color: rgb(0,0,0,0);
+}
+.form-control,.customuserlist{
+    background-color: rgba(0,0,0,0);
+}
+#desktopfilebtn{
+    width: 100%;
+    height: 30px;
+    padding: 20px;
+    border: none;
+    background-color: rgb(0,0,0,0);
+}
+
+ .videobox{
+    width: 100%;
+    height: 535px;
+    overflow: scroll;
+    scrollbar-width: 0px;
+    scrollbar-width: none;
+    scrollbar-color: red;
+    position: relative;
  }
+ #svideo{
+    width: 170px;
+    height: 150px;
+    position: absolute;
+    top: -10px;
+    right: 0.3%;
+    z-index: 10000000000000000000000000000;
+ }
+ 
+.btn-grad {background-image: linear-gradient(to right, #000000 0%, #434343  51%, #000000  100%)}
+.btn-grad {
+   margin: 10px;
+   padding: 15px 45px;
+   text-align: center;
+   text-transform: uppercase;
+   transition: 0.5s;
+   background-size: 200% auto;
+   color: white;            
+   box-shadow: 0 0 20px #eee;
+   border-radius: 10px;
+   display: block;
+}
+.btn-grad:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+}
+
+
+
+.btn-grad-b {background-image: linear-gradient(to right, #0099F7 0%, #F11712  51%, #0099F7  100%)}
+.btn-grad-b {
+   margin: 10px;
+   padding: 15px 45px;
+   text-align: center;
+   text-transform: uppercase;
+   transition: 0.5s;
+   background-size: 200% auto;
+   color: white;            
+   box-shadow: 0 0 20px #eee;
+   border-radius: 10px;
+   display: block;
+ }
+.btn-grad:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+}
+
+
+.btn-grad-c {background-image: linear-gradient(to right, #000428 0%, #004e92  51%, #000428  100%)}
+.btn-grad-c {
+   margin: 10px;
+   padding: 15px 45px;
+   border: 1px solid red;
+   text-align: center;
+   text-transform: uppercase;
+   transition: 0.5s;
+   background-size: 200% auto;
+   color: white;            
+   box-shadow: 0 0 20px #eee;
+   border-radius: 10px;
+   display: block;
+ }
+
+.btn-grad:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+}
+         
+                  
+         
+ /* 1 user */
+/* .grid-1 {
+  grid-template-columns: 1fr;
+}
+
+2 se teen user
+
+.grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+3 se 4 user
+
+.grid-4 {
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: 1fr;
+} */
+
+ .rvideobox{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 1px;
+  width: 80%;
+  height: 100%;
+}
+
 .rivideo{
-    width: 100px;
-    height: 100px;
+  background: #222;
+  color: white;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#roombtn{
+    position: absolute;
+    top: 50%;
+    right: 3.7%;
+}
+
+#room-close{
+    position: absolute;
+    top: 100%;
+    right: 10px;
 }
 .profilebox{
     width: 100px;
@@ -106,10 +222,7 @@ input{
     top: 22px;
     left: -20px; */
 }
-#setfronteimg{
-    padding: 100px;
-    margin-top: -40px;
-}
+
 .mobile-responsive{
     display: none;
 }

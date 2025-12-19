@@ -91,7 +91,26 @@
 }
 
  }
-  
+    body{
+      background-image: url('assets/images/background.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      /* height: 100dvh;
+      width: 100dvh; */
+    }
+    .list{
+            background-color: rgba(0,0,0,0);
+            color:white;
+        }
+    .bgchange,.showroomsbgcange,.customuserlist{
+        background-color: rgba(0,0,0,0);
+        color: black;
+    }
+    .list:hover{
+        border: 1px solid black;
+        background-image: url('assets/images/background.png');
+    }
   </style>
 </head>
 <body id="body">
@@ -109,92 +128,99 @@
             </div>
         </div> -->
     </div>
+
   <div class="col-md-1 p-0 m-0">
-    <ul class="list-group animate__animated animate__fadeIn" id="laptop-responsive">
-        <li class="list-group-item bg-dark" data-bs-toggle="collapse" data-bs-target="#tools" id="folder" type="close">
-         <center id="cente"><i class="fa fa-folder animate__animated animate__pulse animate__infinite text-light" aria-hidden="true"></i></center>
-        </li>
-        <div class="collapse" id="tools">
-            <li class="list-group-item list" type="createroom">
-              <center><i class="fa fa-pencil-square animate__animated animate__pulse" aria-hidden="true"></i></center>
+    <!-- Offcanvas Sidebar -->
+     <div class="offcanvas offcanvas-start" id="demo">
+       <div class="offcanvas-header">
+         <h1 class="offcanvas-title text-primary"><img src="assets/images/icon.png" alt=""> <h2 class="text-danger"> <h3 class="text-danger">QUICK <b class="text-primary">IFY</b></h3></h1>
+         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+       </div>
+       <div class="offcanvas-body">
+         
+            <li class="list-group-item list border p-3 mb-2" type="createroom">
+              <center><i class="fa fa-pencil-square animate__animated animate__pulse" aria-hidden="true"></i> Create Room</center>
             </li>
-            <li class="list-group-item list" type="myroom" id="myrooms">
-                 <center><i class="fa-solid fa-desktop animate__animated animate__pulse" aria-hidden="true"></i></center>
+            <li class="list-group-item list border p-3 mb-2" type="myroom" id="myrooms">
+                 <center><i class="fa-solid fa-desktop animate__animated animate__pulse" aria-hidden="true"></i> Show Room</center>
             </li>
-            <li class="list-group-item list" type="profile">
-                 <center><i class="fa fa-user-circle animate__animated animate__pulse" aria-hidden="true"></i></center>
+            <li class="list-group-item list border p-3 mb-2" type="profile">
+                 <center><i class="fa fa-user-circle animate__animated animate__pulse" aria-hidden="true"></i> My Profile</center>
             </li>
-            <li class="list-group-item" data-bs-toggle="collapse" data-bs-target="#cola">
-                 <center><i class="fa fa-handshake" aria-hidden="true"></i></center>
+            <li class="list-group-item border p-3 mb-2 text-light" data-bs-toggle="collapse" data-bs-target="#cola">
+                 <center><i class="fa fa-handshake" aria-hidden="true"></i> Custom Setting</center>
             </li>
             <div class="collapse" id="cola">
-            <li class="list-group-item list" type="searchuser">
-                 <center><i class="fa fa-search animate__animated animate__pulse" aria-hidden="true" id="seachusericon"></i></center>
+            <li class="list-group-item list border p-3 mb-2" type="searchuser">
+                 <center><i class="fa fa-search animate__animated animate__pulse" aria-hidden="true" id="seachusericon"></i> Search Custom User</center>
             </li>
-             <li class="list-group-item list" type="adduser">
-                 <center><i class="fa fa-user-plus animate__animated animate__pulse" aria-hidden="true"></i></center>
+             <li class="list-group-item list border p-3 mb-2" type="adduser">
+                 <center><i class="fa fa-user-plus animate__animated animate__pulse" aria-hidden="true"></i> Add Custom User</center>
             </li>
-            <li class="list-group-item list" type="listuser">
-                 <center><i class="fa fa-users animate__animated animate__pulse" aria-hidden="true" id="listusericon"></i></center>
+            <li class="list-group-item list border p-3 mb-2" type="listuser">
+                 <center><i class="fa fa-users animate__animated animate__pulse" aria-hidden="true" id="listusericon"></i> Show Custom User</center>
             </li>
             </div>
-            <li class="list-group-item list" type="setting">
-                 <center><i class="fa fa-sign-in animate__animated animate__pulse" aria-hidden="true"></i></center>
+            <li class="list-group-item list border p-3 mb-2" type="setting">
+                 <center><i class="fa fa-sign-in animate__animated animate__pulse" aria-hidden="true"></i> Setting</center>
             </li>
-        </div>
-    </ul>
 
-    <div class="mobile-responsive">
-        <div class="btn-group">
-            <button class="btn btn-light text-dark ms-2 list" type="createroom"><i class="fs-4 fa fa-pencil-square animate__animated animate__pulse" aria-hidden="true"></i></button>
-            <button class="btn btn-light text-dark ms-2 list" type="myroom"><i class="fs-4 fa-solid fa-desktop animate__animated animate__pulse" aria-hidden="true"></i></button>
-            <button class="btn btn-light text-dark ms-2 list" type="profile"><i class="fs-4 fa fa-user-circle animate__animated animate__pulse" aria-hidden="true"></i></button>
-            <button class="btn btn-light text-dark ms-2 list" type="searchuser"><i class="fs-4 fa fa-search animate__animated animate__pulse" aria-hidden="true"></i></button>
-            <button class="btn btn-light text-dark ms-2 list" type="adduser"><i class="fs-4 fa fa-user-plus animate__animated animate__pulse" aria-hidden="true"></i></button>
-            <button class="btn btn-light text-dark ms-2 list" type="listuser"><i class="fa fa-users animate__animated animate__pulse" aria-hidden="true" id="listusericon"></i></button>
-            <button class="btn btn-light text-dark ms-2 list" type="setting"><i class="fs-4 fa fa-sign-in animate__animated animate__pulse" aria-hidden="true"></i></button>
-        </div>
-    </div>
-
+       </div>
+    </div>                                                                          
+<button data-bs-toggle="offcanvas" data-bs-target="#demo" id="desktopfilebtn"><i class="fa fa-quora animate__animated animate__pulse animate__infinite text-dark fs-1" aria-hidden="true"></i><br> Show Menu</button>
+   
   </div>
   <div class="col-md-8 p-0 m-0">
     <center>
         <div class="callingmsg"></div>
     </center>
     <!-- create room  -->
-     <div class="card d-none animate__animated animate__fadeIn" id="createroom">
+     <div class="card d-none shadow-lg animate__animated animate__fadeIn" id="createroom">
         <div class="card-header">
             <span class="card-title">Create Room</span>
         </div>
         <div class="card-body">
-            <form  class="create_room p-5 bg-secondary text-light" enctype="multipart/form-data">
-                <div class="form-group">
-                    <label for="roompic">room pic</label>
-                    <input type="file" class="roompic" id="roompic" name="roompic" accept="image/*" required>
+            <form  class="create_room p-5 text-light" enctype="multipart/form-data">
+                <div class="input-group mb-2">
+                    <span class="input-group-text"><i class="fa fa-file-image-o" aria-hidden="true"></i></span>
+                    <input type="file" class="roompic form-control" id="roompic" name="roompic" accept="image/*" required />
                 </div>
-                <div class="form-group">
-                    <label for="roomname">room name</label>
-                    <input type="text" class="roomname" id="roomname" name="roomname" required autocomplete="off">
+                <div class="input-group mb-2 text-dark">
+                    <span class="input-group-text">@</span>
+                    <div class="form-floating">
+                        <input type="text" class="roomname form-control" placeholder="room name" id="roomname" name="roomname" required autocomplete="off">
+                        <label for="roomname">room name</label>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="roomlimit">room limit</label>
-                    <select name="roomlimit" id="roomlimit" class="form-control">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                    </select>
+                <div class="input-group mb-2 text-dark">
+                    <span class="input-group-text"><i class="fa fa-shield" aria-hidden="true"></i></span>
+                    <div class="form-floating">
+                        <select name="roomlimit" id="roomlimit" class="form-control">
+                            <option value="select">select limit</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="roomtype">select type</label>
-                    <select name="roomtype" id="roomtype" class="form-control">
-                        <option value="public">public</option>
-                        <option value="private">private</option>
-                    </select>
+                <div class="input-group mb-2 text-dark">
+                    <span class="input-group-text"><i class="fa fa-shield" aria-hidden="true"></i></span>
+                    <div class="form-floating">
+                        <!-- <label for="roomtype">select type</label> -->
+                        <select name="roomtype" id="roomtype" class="form-control">
+                            <option value="select">select type</option>
+                            <option value="public">public</option>
+                            <option value="private">private</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="roompass">room password</label>
-                    <input type="password" class="roompass" id="roompass" name="roompass" value="none" disabled>
+                <div class="input-group mb-2 text-dark">
+                    <span class="input-group-text"><i class="fa fa-lock" aria-hidden="true"></i></span>
+                    <div class="form-floating">
+                        <!-- <label for="roompass">room password</label> -->
+                        <input type="password" class="roompass form-control" id="roompass" name="roompass" value="none" disabled>
+                    </div>
                 </div>
                 <input type="hidden" id="createrid" name="createrid">
                 <button class="btn btn-primary w-100 mt-3 mb-3" type="submit" id="createroombtn">Create Room</button>
@@ -204,7 +230,7 @@
      <!-- end room  -->
 
       <!-- my room  -->
-     <div class="card d-none animate__animated animate__fadeIn" id="myroom">
+     <div class="card d-none shadow-lg animate__animated animate__fadeIn" id="myroom">
         <div class="card-header">
             <span class="card-title">My Room</span>
         </div>
@@ -217,26 +243,35 @@
 
      <!-- group video calling  -->
 
-     <div class="card d-none animate__animated animate__fadeIn" id="calling">
+     <div class="card d-none shadow-lg  animate__animated animate__fadeIn p-0 m-0" id="calling">
         <div class="card-header">
             <span class="card-title text-success" id="roomnameisname"></span>
         </div>
         <div class="card-body">
-            <div class="videobox">
-                <video id="svideo" autoplay playsine class="img-fluid img-thumbnail"></video>
+            <div class="videobox bg-dark">
+                <video id="svideo" autoplay playsine class="img-fluid"></video>
                 <div class="rvideobox">
-                    <!-- <video id="rvideo" autoplay playsine class="img-fluid img-thumbnail rivideo"></video>- -->
+                    <!-- <video id="rvideo" autoplay playsine class="img-fluid mb-1"></video>
+                    <video id="vvideo" autoplay playsine class="img-fluid mb-1"></video>
+                    <video id="pvideo" autoplay playsine class="img-fluid mb-1"></video>
+                    <video id="dvideo" autoplay playsine class="img-fluid mb-1"></video> -->
                 </div>
+                    <div class="btn-group" id="roombtn">
+                        <button class="btn btn-warning mt-5 d-none" type="button" id="room-close">room close</button>
+                        <i class="fa fa-microphone-slash  callingbtn text-light fs-4 " type="mute" id="mute"></i>
+                        <i class="fa-solid fa-phone-slash callingbtn text-danger fs-4 ms-3" type="disconnected" id="disconnected"></i></button>
+                        <i class="fa-solid fa-video-slash callingbtn text-light fs-4 ms-3" type="on" id="cameraoff"></i>
+                    </div>
             </div>
         </div>
-        <div class="card-footer d-flex justify-content-end">
+        <!-- <div class="card-footer d-flex justify-content-end">
             <button class="btn btn-warning me-5 d-none" type="button" id="room-close">room close</button>
             <div class="btn-group">
                 <button class="btn btn-dark callingbtn" type="mute" id="mute"><i class="fa-solid fa-microphone-slash"></i></button>
                 <button class="btn btn-danger callingbtn" type="disconnected" id="disconnected"><i class="fa-solid fa-phone-slash"></i></button>
                 <button class="btn btn-dark callingbtn" type="on" id="cameraoff"><i class="fa-solid fa-video-slash"></i></button>
             </div>
-        </div>
+        </div> -->
      </div>
 
      <!-- group video calling end  -->
@@ -244,7 +279,7 @@
 
      <!-- userprofile  start -->
 
-     <div class="card animate__animated animate__fadeIn" id="userprofile">
+     <div class="card animate__animated animate__fadeIn border-none shadow-lg  p-0 m-0" id="userprofile">
         <div class="card-header">
             <span class="card-title text-info" id="fulldte"></span>
             <span class="text-warning" id="day"></span>
@@ -258,24 +293,33 @@
 
      <!-- custom add user  -->
 
-     <div class="card animate__animated animate__fadeIn d-none" id="addcustomuser">
+     <div class="card animate__animated animate__fadeIn d-none shadow-lg" id="addcustomuser">
         <div class="card-header">
             <div class="card-title text-info">add custom user</div>
         </div>
         <div class="card-body">
             <form class="choosesearch">
-                <div class="form-group">
-                    <label for="htadd">How To Add User</label>
-                    <select name="type" id="type" class="form-control">
-                        <option value="select">select</option>
-                        <option value="id">Invite Id</option>
-                         <!-- <option value="email">Email</option>
-                        <option value="number">Mobile Number</option> -->
-                    </select>
+                <div class="input-group mb-2">
+                    <span class="input-group-text">@</span>
+                    <div class="form-floating">
+                        <!-- <label for="htadd">How To Add User</label> -->
+                        <select name="type" id="type" class="form-control">
+                            <option value="select">Select Id</option>
+                            <option value="id">Invite Id</option>
+                             <!-- <option value="email">Email</option>
+                            <option value="number">Mobile Number</option> -->
+                        </select>
+                    </div>
                 </div>
-                <div class="from-group mb-1 mt-1" id="insertinput">
 
-                </div>
+                <div class='input-group text-dark mb-2'>
+                        <span class='input-group-text'><i class="fa fa-user-plus" aria-hidden="true"></i></span>
+                        <div class='form-floating'>
+                            <input type='text' id='id' name='id' class='form-control' disabled placeholder='Enter Your Id' required autocomplete='off' />
+                            <label for="eid"> Enter Your Id</label>
+                        </div>
+                    </div>
+                
                 <div class="btn-group w-50  mt-3 mb-3">
                     <button class="btn btn-primary w-100 disabled" type="submit" id="adduserbtn">Add User</button>
                 </div>
@@ -288,7 +332,7 @@
      <!-- list custom user  -->
 
 
-     <div class="card animate__animated animate__fadeIn d-none" id="listcustomuser">
+     <div class="card animate__animated animate__fadeIn d-none shadow-lg" id="listcustomuser">
         <div class="card-header">
             <div class="card-title text-warning"><i class="fa fa-users"></i></div>
         </div>
@@ -304,7 +348,7 @@
 
      <!-- search profile  -->
 
-     <div class="card animate__animated animate__fadeIn d-none" id="searchresult">
+     <div class="card animate__animated animate__fadeIn d-none shadow-lg" id="searchresult">
         <div class="card-header"><span class="card-title">Search Result</span></div>
         <div class="card-body">
             <ul class="list-group" id="insertsearchuser"></ul>
@@ -317,7 +361,7 @@
     <!-- custom video calling  -->
 
 
-    <div class="card animate__animated animate__fadeIn d-none" id="customcalling">
+    <div class="card animate__animated animate__fadeIn d-none shadow-lg" id="customcalling">
         <!-- <div class="card-header">
             <span class="card-title text-success" id="roomnameisname"></span>
         </div> -->
@@ -347,7 +391,7 @@
     <!-- custom video calling end  -->
   </div>
   <div class="col-md-3 p-0 m-0">
-    <div class="card animate__animated animate__fadeIn" id="joinusers">
+    <div class="card animate__animated animate__fadeIn border-0" id="joinusers">
         <div class="card-header">
             <span class="card-title">Join Rooms</span>
         </div>
@@ -358,7 +402,7 @@
 
 
     <!-- setting  -->
-      <div class="card d-none animate__animated animate__fadeIn" id="setting">
+      <div class="card d-none animate__animated animate__fadeIn border-0" id="setting">
         <div class="card-header">
             <div class="card-title">setting</div>
         </div>
@@ -398,26 +442,35 @@
 
       <!-- change password  -->
 
-      <div class="card d-none animate__animated animate__fadeIn" id="changepasscard">
+      <div class="card d-none animate__animated animate__fadeIn" id="changepasscard" style="background-color:rgba(0,0,0,0) ;">
         <div class="card-header">
             <div class="card-title">change password</div>
         </div>
         <div class="card-body">
             <form class="change-pass">
-                <div class="form-group">
+                <div class="input-group mb-2">
                     <input type="hidden" id="cpuserid">
-                    <label for="oldpass">Old Password</label>
-                    <input type="password" id="oldpass" name="oldpass" required>
+                    <span class="input-group-text"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
+                    <div class="form-floating">
+                        <input type="password" id="oldpass" name="oldpass" required class="form-control" placeholder="Old Password">
+                        <label for="oldpass">Old Password</label>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="newpass">New Password</label>
-                    <input type="password" id="newpass" name="newpass" required>
+                <div class="input-group mb-2">
+                    <span class="input-group-text"><i class="fa fa-lock" aria-hidden="true"></i></span>
+                    <div class="form-floating">
+                        <input type="password" id="newpass" name="newpass" required class="form-control" placeholder="New Password">
+                        <label for="newpass">New Password</label>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="confrimpass">Confirm Password</label>
-                    <input type="password" id="confirmpass" name="confirmpass" required>
+                <div class="input-group mb-2">
+                    <span class="input-group-text"><i class="fa fa-lock" aria-hidden="true"></i></span>
+                    <div class="form-floating">
+                        <input type="password" id="confirmpass" name="confirmpass" required class="form-control" placeholder="Confirm Password">
+                        <label for="confrimpass">Confirm Password</label>
+                    </div>
                 </div>
-                <div class="d-flex justify-content-end">
+                <div class="d-flex justify-content-end mt-3 mb-2">
                     <button class="btn btn-primary" type="submit" id="changepassbtn">Change password</button>
                 </div>
             </form>
@@ -431,29 +484,39 @@
 
       <!-- update account  -->
 
-      <div class="card d-none animate__animated animate__fadeIn" id="updatefrmcard">
+      <div class="card d-none  animate__animated animate__fadeIn" id="updatefrmcard" style="background-color:rgba(0,0,0,0) ;">
         <div class="card-header">
             <div class="card-title">update account</div>
         </div>
         <div class="card-body">
             <form class="update_frm" enctype="multipart/form-data">
-                <div class="form-group">
+                <div class="input-group mb-2">
+                    <span class="input-group-text"><i class="fa fa-image-o"></i></span>
                     <input type="hidden" id="updateuserid" name="updateuserid">
-                    <label for="username">profilepic</label>
-                    <input type="file" id="profilepic" name="profilepic" required accept="image/*">
+                    <input type="file" id="profilepic" name="profilepic" class="form-control" required accept="image/*">             
                 </div>
-                <div class="form-group">
-                    <label for="username">username</label>
-                    <input type="text" id="username" name="username" required autocomplete="off">
+                <div class="input-group mb-2">
+                    <span class="input-group-text">@</span>
+                    <div class="form-floating">
+                        <input type="text" id="username" name="username" class="form-control" required autocomplete="off">
+                        <label for="username">username</label>
+                    </div>
+                    
                 </div>
-                <div class="form-group">
-                    <label for="email">email</label>
-                    <input type="email" id="email" name="email" required disabled autocomplete="off">
+                <div class="input-group mb-2">
+                   <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                    <div class="form-floating">
+                        <input type="email" id="email" name="email" class="form-control" required disabled autocomplete="off">
+                        <label for="email">email</label>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="mobilenumber">mobile number</label>
-                    <input type="number" id="mobilenumber" name="mobilenumber" required autocomplete="off">
-                </div>
+
+                <div class="input-group mb-2">
+                     <span class="input-group-text"><i class="fa fa-phone"></i></span>
+                     <div class="form-floating">
+                       <input type="number" id="mobilenumber" class="form-control" name="mobilenumber" required autocomplete="off">
+                       <label for="mobilenumber">mobile number</label></div>
+                    </div>
                 <div class="d-flex justify-content-end">
                     <button class="btn btn-primary" type="submit" id="updatefrmbtn">update account</button>
                 </div>
@@ -468,19 +531,22 @@
 
 
       <!-- searc user frm  -->
-      <div class="card d-none animate__animated animate__fadeIn" id="searchuserfrm">
+      <div class="card d-none animate__animated animate__fadeIn" id="searchuserfrm" style="background-color:rgba(0,0,0,0) ;">
         <div class="card header">
             <span class="card-title">Search User</span>
         </div>
         <div class="card-body">
             <form class="search_user_frm p-3">
-                <div class="form-group">
-                    <label for="susername">Enter Username</label>
-                    <input type="search" id="searchuser" name="searchuser">
+                <div class="input-group mb-2">
+                    <span class="input-group-text">@</span>
+                    <div class="form-floating text-dark">
+                        <input type="search" id="searchuser" class="form-control text-dark" name="searchuser" placeholder="Enter Username">
+                        <label for="susername">Enter Username</label>
+                    </div>
                 </div>
                 <center>
-                <div class="btn-group w-50">
-                    <button class="btn btn-warning"><i class="fa fa-search"></i></button>
+                <div class="btn-group w-100">
+                    <button class="btn btn-outline-primary"><i class="fa fa-search"></i></button>
                 </div>
                 </center>
             </form>
@@ -604,6 +670,17 @@
             $(this).attr('type','close');
         }
     })
+
+
+        async function video(params) {
+            let stream = await navigator.mediaDevices.getUserMedia({video:true,audio:false});
+            document.getElementById('svideo').srcObject=stream;
+            document.getElementById('rvideo').srcObject=stream;
+            document.getElementById('vvideo').srcObject=stream;
+            document.getElementById('pvideo').srcObject=stream;
+            document.getElementById('dvideo').srcObject=stream;
+        }
+        // video();
 
     });
 </script>
