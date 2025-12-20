@@ -91,14 +91,6 @@
 }
 
  }
-    body{
-      background-image: url('assets/images/background.png');
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: cover;
-      /* height: 100dvh;
-      width: 100dvh; */
-    }
     .list{
             background-color: rgba(0,0,0,0);
             color:white;
@@ -256,22 +248,16 @@
                     <video id="pvideo" autoplay playsine class="img-fluid mb-1"></video>
                     <video id="dvideo" autoplay playsine class="img-fluid mb-1"></video> -->
                 </div>
-                    <div class="btn-group" id="roombtn">
-                        <button class="btn btn-warning mt-5 d-none" type="button" id="room-close">room close</button>
-                        <i class="fa fa-microphone-slash  callingbtn text-light fs-4 " type="mute" id="mute"></i>
-                        <i class="fa-solid fa-phone-slash callingbtn text-danger fs-4 ms-3" type="disconnected" id="disconnected"></i></button>
-                        <i class="fa-solid fa-video-slash callingbtn text-light fs-4 ms-3" type="on" id="cameraoff"></i>
-                    </div>
             </div>
         </div>
-        <!-- <div class="card-footer d-flex justify-content-end">
-            <button class="btn btn-warning me-5 d-none" type="button" id="room-close">room close</button>
-            <div class="btn-group">
-                <button class="btn btn-dark callingbtn" type="mute" id="mute"><i class="fa-solid fa-microphone-slash"></i></button>
+        <div class="card-footer d-flex justify-content-between">
+            <div class="btn-group w-100">
+                <button class="btn btn-light text-dark callingbtn" type="mute" id="mute"><i class="fa-solid fa-microphone-slash"></i></button>
                 <button class="btn btn-danger callingbtn" type="disconnected" id="disconnected"><i class="fa-solid fa-phone-slash"></i></button>
-                <button class="btn btn-dark callingbtn" type="on" id="cameraoff"><i class="fa-solid fa-video-slash"></i></button>
+                <button class="btn btn-light text-dark callingbtn" type="on" id="cameraoff"><i class="fa-solid fa-video-slash"></i></button>
+                <button class="btn btn-primary d-none" type="button" id="room-close">close room</button>
             </div>
-        </div> -->
+        </div>
      </div>
 
      <!-- group video calling end  -->

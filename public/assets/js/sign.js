@@ -67,7 +67,7 @@ $(document).ready(function(){
         e.preventDefault(); 
         $.ajax({
             type:'post',
-            url :'https://quickify-fh37.onrender.com/api/quicksign', // https://quickify-fh37.onrender.com
+            url:'https://quickify-fh37.onrender.com/api/quicksign', // https://quickify-fh37.onrender.com
             data:new FormData(this),
             contentType:false,
             processData:false,
@@ -91,14 +91,13 @@ $(document).ready(function(){
                         $("#signup_frm_btn").addClass('btn btn-dark');
                         $("#signup_frm_btn").addClass('btn btn-light');
                         $("#signup_frm_btn").html('Sign');
-                        $(".signup_frm").addClass('d-none');
-                        $(".otp_verify_frm").removeClass('d-none');
+                        $("#signupcard").addClass('d-none');
+                        $("#otp_verify").removeClass('d-none');
                     }, 1000);
                 }
                 else
                 {
                     $("#signup_frm_btn").html(res.message);
-                    console.log(res);
                     setTimeout(() => {
                         $("#signup_frm_btn").addClass('btn btn-dark');
                         $("#signup_frm_btn").addClass('btn btn-light');
@@ -113,16 +112,16 @@ $(document).ready(function(){
 
     $(".otp_verify_frm").submit(function(e){
         e.preventDefault();
-        let one = $('#o').val();
-        let two = $('#t').val();
-        let three = $('#h').val();
-        let four = $('#f').val();
-        let five = $('#fi').val();
-        let six = $('#six').val();
+        let one = $('#digit1').val();
+        let two = $('#digit2').val();
+        let three = $('#digit3').val();
+        let four = $('#digit4').val();
+        let five = $('#digit5').val();
+        let six = $('#digit6').val();
         let otp = one + two + three + four + five + six;
         $.ajax({
             type:'put',
-            url : 'https://quickify-fh37.onrender.com/api/verify-otp',
+            url : 'https://quickify-fh37.onrender.com/api/verify-otp', //https://quickify-fh37.onrender.com
             headers:{"Content-Type":"appliction/json",'x-verify-otp':otp,'x-email':$("#verifyemail").val(),'x-powered-by':"mr_brajesh_dabi"},
             beforeSend:function(req){
                 $("#verifybtn").removeClass('btn btn-light');
@@ -138,8 +137,8 @@ $(document).ready(function(){
                     $("#verifybtn").html('<i class="fa fa-check-circle text-primary" aria-hidden="true"></i>');  
                     setTimeout(() => {
                         $(".otp_verify_frm")[0].reset();
-                        $(".otp_verify_frm").addClass('d-none');
-                        $(".login_frm").removeClass('d-none');
+                        $("#otp_verify").addClass('d-none');
+                        window.location.href='login.html';
                     }, 1000); 
                 }
                 else
@@ -151,6 +150,7 @@ $(document).ready(function(){
                         $(".otp_verify_frm")[0].reset();
                         $("#verifybtn").removeClass('btn btn-danger');
                         $("#verifybtn").addClass('btn btn-light');
+                        $("#verifybtn").html('Verify OTP');
                     }, 1000);   
                 }
             }

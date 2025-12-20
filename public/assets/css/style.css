@@ -3,10 +3,11 @@
     margin: 0;
     box-sizing: border-box;
 }
-#body{
-    font-weight: bold;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
+body {
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #eaf1ff, #f5f7fb);
+      font-family: 'Segoe UI', sans-serif;
+    }
 
 .picbox{
     width: 100px;
@@ -33,14 +34,6 @@
     margin: 30px auto 0;
     padding: 10px;
 }
-/* input{
-    width: 100%;
-    height: 50px;
-    border: none;
-    outline: auto;
-    border: 10px solid rgb(245, 236, 236);
-    margin-bottom: 10px;
-} */
 
 #createroom,#myroom,.bgchange,.list-group-item,#demo,.list-group,.list-group-item,#userprofile,#calling,#addcustomuser,#listcustomuser,#searchresult,#customcalling,#insertsearchuser,#joinusers,#setting{
     /* backdrop-filter: blur(20px); */
@@ -75,88 +68,6 @@
     z-index: 10000000000000000000000000000;
  }
  
-.btn-grad {background-image: linear-gradient(to right, #000000 0%, #434343  51%, #000000  100%)}
-.btn-grad {
-   margin: 10px;
-   padding: 15px 45px;
-   text-align: center;
-   text-transform: uppercase;
-   transition: 0.5s;
-   background-size: 200% auto;
-   color: white;            
-   box-shadow: 0 0 20px #eee;
-   border-radius: 10px;
-   display: block;
-}
-.btn-grad:hover {
-  background-position: right center; /* change the direction of the change here */
-  color: #fff;
-  text-decoration: none;
-}
-
-
-
-.btn-grad-b {background-image: linear-gradient(to right, #0099F7 0%, #F11712  51%, #0099F7  100%)}
-.btn-grad-b {
-   margin: 10px;
-   padding: 15px 45px;
-   text-align: center;
-   text-transform: uppercase;
-   transition: 0.5s;
-   background-size: 200% auto;
-   color: white;            
-   box-shadow: 0 0 20px #eee;
-   border-radius: 10px;
-   display: block;
- }
-.btn-grad:hover {
-  background-position: right center; /* change the direction of the change here */
-  color: #fff;
-  text-decoration: none;
-}
-
-
-.btn-grad-c {background-image: linear-gradient(to right, #000428 0%, #004e92  51%, #000428  100%)}
-.btn-grad-c {
-   margin: 10px;
-   padding: 15px 45px;
-   border: 1px solid red;
-   text-align: center;
-   text-transform: uppercase;
-   transition: 0.5s;
-   background-size: 200% auto;
-   color: white;            
-   box-shadow: 0 0 20px #eee;
-   border-radius: 10px;
-   display: block;
- }
-
-.btn-grad:hover {
-  background-position: right center; /* change the direction of the change here */
-  color: #fff;
-  text-decoration: none;
-}
-         
-                  
-         
- /* 1 user */
-/* .grid-1 {
-  grid-template-columns: 1fr;
-}
-
-2 se teen user
-
-.grid-2 {
-  grid-template-columns: repeat(2, 1fr);
-}
-
-3 se 4 user
-
-.grid-4 {
-  grid-template-columns: repeat(2, 1fr);
-  grid-auto-rows: 1fr;
-} */
-
  .rvideobox{
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -178,12 +89,6 @@
     position: absolute;
     top: 50%;
     right: 3.7%;
-}
-
-#room-close{
-    position: absolute;
-    top: 100%;
-    right: 10px;
 }
 .profilebox{
     width: 100px;
@@ -214,29 +119,6 @@
     display: flex;
     margin-left: -20px;
 }
-.responsiv{
-    /* width: 150px; */
-    height: auto;
-    /* padding: 20px;
-    position: fixed;
-    top: 22px;
-    left: -20px; */
-}
-
-.mobile-responsive{
-    display: none;
-}
-
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-input[type=number] {
-  -moz-appearance: textfield;
-}
-
 
 @media (max-width:768px) {
     .customrvideobox{
@@ -290,7 +172,3 @@ input[type=number] {
     height: 100%;
     /* border: 1px solid red; */
 }
-/* #customsvideobox{
-    width: 100%;
-    height: 400px;
-} */

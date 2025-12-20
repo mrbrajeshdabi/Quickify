@@ -229,5 +229,5 @@ export let logout = () =>
     document.cookie = "_user" + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     localStorage.removeItem('profile');
     localStorage.removeItem('tokan');
-    window.location.href='index.html';
+    window.location.href='login.html';
 }

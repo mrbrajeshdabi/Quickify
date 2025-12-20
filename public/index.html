@@ -1,122 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>QUICKIFY</title>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <title>Quickify – Sign Up</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="shortcut icon" href="assets/images/icon.png" type="image/x-icon">
-  <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/bootstrap.min.css">
   <link rel="stylesheet" href="assets/css/animate.min.css">
   <link rel="stylesheet" href="assets/css/all.min.css">
   <script src="assets/js/all.min.js"></script>
   <script src="assets/js/bootstrap.min.js"></script>
   <script src="assets/js/jquery-3.7.1.min.js"></script>
-  <script type="module" src="assets/js/index.js"></script>
-  <script type="module" src="assets/js/sign.js"></script>
-  <script type="module" src="assets/js/login.js"></script>
-  <style>
-    body{
-      background-image: url('assets/images/background.png');
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: cover;
-      /* height: 100dvh;
-      width: 100dvh; */
-    }
-  </style>
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/sign.css">
 </head>
 <body>
 
-  <div class="container">
-      <div class="row p-0 m-0">
-      <div class="col-md-12 p-5 m-0 border border">
-          <div class="p-0 text-center">
-            <h3 class="animate__animated animate__flash">Sign in to Quickify</h3>
-            <span>Welcome to Quickify please enter your dettails<br> below to using the app</span><br>
-          </div>
-
-          <!-- login div  -->
-
-          <form class="login_frm p-3 animate__animated animate__pulse" enctype="multipart/form-data">
-            <h4>Log In</h4>    
-            <div class="input-group mb-2">
-                  <span class="input-group-text"><i class="fa fa-envelope" aria-hidden="true"></i></span>
-                  <input type="email" id="lemail" name="lemail" class="form-control" autocomplete="off" required placeholder="Email Address">
-                </div>
-              <div class="input-group mb-2">
-                <span class="input-group-text"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
-                <input type="password" id="lpassword" class="form-control" name="lpassword" autocomplete="off" required placeholder="Password">
-              </div>
-              <div class="btn-group mt-2 mb-2 w-100">
-                <button class="btn btn-light" type="submit" id="login_frm_btn">Login</button>
-                <button class="btn btn-dark text-primary" type="button" id="notauser">Dont't have an account?</button>
-              </div>
-          </form>
-
-          <!-- login div end  -->
-
-
-          <!-- signup div  -->
-
-           <form class="signup_frm p-2 d-none animate__animated animate__pulse" enctype="multipart/form-data">
-            <h4>Sign In</h4>    
-            <center>
-                <div class="picbox img-thumnail img-fluid d-none">
-                  <img src="assets/images/friends-family-making-videocall-catching-up.jpg" class="img-thumnail img-fluid" id="storeimg">
-                </div>
-                <div class="progress d-none mb-2">
-                  <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-              </center>
-                <div class="input-group mb-2">
-                  <span class="input-group-text"><i class="fa fa-file-image-o" aria-hidden="true"></i></span>
-                  <input type="file" id="profilepic" name="profilepic" class="form-control" autocomplete="off" required accept="image/*">
-                </div>
-                <div class="input-group mb-2">
-                  <span class="input-group-text">@</span>
-                  <input type="text" id="username" name="username" class="form-control" autocomplete="off" required placeholder="Main Username">
-                </div>
-                <div class="input-group mb-2">
-                  <span class="input-group-text"><i class="fa fa-envelope" aria-hidden="true"></i></span>
-                  <input type="email" id="email" name="email" class="form-control" autocomplete="off" required placeholder="Email Address">
-                </div>
-                <div class="input-group mb-2">
-                  <span class="input-group-text"><i class="fa fa-phone" aria-hidden="true"></i></span>
-                  <input type="number" id="mobilenumber" name="mobilenumber" class="form-control" autocomplete="off" required placeholder="Mobile Number">
-                </div>
-                <div class="input-group mb-2">
-                  <span class="input-group-text"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
-                  <input type="password" id="password" name="password" class="form-control" autocomplete="off" required placeholder="Password">
-                  <input type="hidden" id="otp" name="otp">
-                </div>
-                <div class="btn-group mt-2 mb-2 w-100">
-                  <!-- <button class="btn btn-primary animate__animated animate__fadeIn d-none" type="button" id="sendotp">Generate Otp</button> -->
-                  <button class="btn btn-light animate__animated animate__fadeInLeft" type="submit" id="signup_frm_btn">Sign</button>
-                  <button class="btn btn-dark text-primary animate__animated animate__fadeInRight" type="button" id="alreadysign">Have an account?</button>
-                </div>
-            </form>
-
-          <!-- signup div end  -->
-
-          <!-- direct google login  -->
-          <div class="button d-flex justify-content-center">
-              <a href="/api/auth/google" class="nav-link">
-                <button class="btn btn-light text-dark border border-info border-1" type="button">
-                <img src="assets/images/cdnlogo.com_google-icon.svg" id="googlepic" style="width: 25px; height: 25px;" class="img-fluid img-thumnail me-2"> Continue With Google 
-              </button></a>
-          </div>
-          <!-- direct google login  -->
-
-      </div>
+  <div class="card auth-card p-4">
+    <div class="text-center mb-1">
+      <div class="logo">⚡<span>Quick</span>ify</div>
     </div>
+
+    <h5 class="text-center fw-bold">Welcome to Quickify</h5>
+    <p class="text-center text-muted small-text">
+      Please enter your details below to start using the app.
+    </p>
+
+    <!-- Google Button -->
+    <a href="/api/auth/google" class="nav-link">
+        <button class="btn w-100 google-btn mb-2">
+          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+               width="18" class="me-2">
+          Continue with Google
+        </button>
+    </a>
+
+    <div class="text-center text-muted small">— Sign Up to Quickify —</div>
+
+    
+
+    <p class="text-center mt-3 small-text">
+      Already have an account?
+      <a href="login.html" class="fw-semibold text-primary text-decoration-none" id="alreadysign">Sign In</a>
+    </p>
   </div>
 
 </body>
 </html>
-<!-- <script type="module" src="assets/js/index.js"></script>
-<script type="module" src="assets/js/sign.js"></script>
-<script type="module" src="assets/js/login.js"></script> -->
-<!-- <script>
+<script>
   if(document.cookie.split('_user=')[1] != undefined) window.location.href='profile.html';
-</script> -->
+</script>

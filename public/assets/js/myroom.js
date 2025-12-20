@@ -21,8 +21,8 @@ $(document).ready(async function() {
                             <span class="mt-2">${room.roomname}</span>
                             <span class="mt-2">${room.roomlimit}</span><!-- user joined total -->
                             <div class='btn-group'>
-                                <button class="btn-grad-b animate__animated animate__pulse animate__infinite startbtnopenroom" type="button" roomid='${room._id}' createrid='${room.createrid}' roomlimit ='${room.roomlimit}' roomname='${room.roomname}' >start room</button>
-                                <button class="btn-grad animate__animated animate__pulse animate__infinite deleteroom" type="button" deleteid='${room.createrid}'>delete room</button>
+                                <button class="btn btn-primary animate__animated animate__pulse animate__infinite startbtnopenroom" type="button" roomid='${room._id}' createrid='${room.createrid}' roomlimit ='${room.roomlimit}' roomname='${room.roomname}' >start room</button>
+                                <button class="btn btn-danger  animate__animated animate__pulse animate__infinite deleteroom" type="button" deleteid='${room.createrid}'>delete room</button>
                             </div>
                         </li>`;
                         $("#insertmyroom").append(li);
@@ -33,7 +33,7 @@ $(document).ready(async function() {
                             <img src="${room.roompic}" class="profilepicroom  img-fluid img-thumbnail">
                             <span class="mt-2">${room.roomname}</span>
                             <span class="mt-2">${room.roomlimit}</span><!-- user joined total -->
-                            <button class="btn-grad animate__animated animate__pulse animate__infinite" type="button">close room</button>
+                            <button class="btn btn-primary animate__animated animate__pulse animate__infinite" type="button">close room</button>
                         </li>`;
                         $("#insertmyroom").append(li);
                 }
@@ -99,7 +99,7 @@ $(document).ready(async function() {
                     {
                         li = `<li class="list-group-item bgchange mb-2 d-flex justify-content-between">
                                     <img src="${user.roompic}" class="profilepicroom  img-fluid img-thumbnail">
-                                    <button class="btn btn-primary joinroombtn disabled" type="${user.roomtype}" createrid="${user.createrid}" id='roombtnid${user._id}' roomname='${user.roomname}' roomname='${user.limit}'><i class="fa fa-video"></i></button>
+                                    <button class="btn btn-primary joinroombtn disabled" type="${user.roomtype}" createrid="${user.createrid}" id="roombtnid${user._id}" roomname="${user.roomname}" roomname="${user.limit}"><i class="fa fa-video"></i></button>
                                     <span class="mt-1">${user.roomname}</span>
                                     <span class="mt-1">${user.roomlimit}</span><!-- user joined total -->
                                     <span class="text-danger mt-1" id='roomidfire${user._id}'><i class="fa fa-fire" aria-hidden="true"></i></span>
@@ -111,10 +111,10 @@ $(document).ready(async function() {
                         if(user.roomtype == "private"){
                              li = `<li class="list-group-item bgchange mb-2 d-flex justify-content-between">
                                         <img src="${user.roompic}" class="profilepicroom  img-fluid img-thumbnail">
-                                        <button class="btn btn-primary joinroombtn animate__animated animate__pulse animate__infinite ms-1" type="${user.roomtype}" createrid='${user.createrid}' roomname='${user.roomname}' roompass'${roompassword}'><i class="fa fa-video"></i></button>
+                                        <button class="btn btn-primary joinroombtn animate__animated animate__pulse animate__infinite ms-1" type="${user.roomtype}" createrid='${user.createrid}' roomname='${user.roomname}' roompass'${user.roompassword}'><i class="fa fa-video"></i></button>
                                         <span class="mt-3">${user.roomname}</span>
                                         <span class="mt-3">${user.roomlimit}</span><!-- user joined total -->
-                                        <span class="text-success" id='roomid${user._id}'><i class="fa fa-fire" aria-hidden="true"></i></span>
+                                        <span class="text-success mt-3" id='roomid${user._id}'><i class="fa fa-fire" aria-hidden="true"></i></span>
                                         
                                     </li>`;
                             $("#insertuserroom").append(li);
@@ -126,7 +126,7 @@ $(document).ready(async function() {
                                         <button class="btn btn-primary joinroombtn animate__animated animate__pulse animate__infinite ms-1" type="${user.roomtype}" createrid='${user.createrid}'><i class="fa fa-video"></i></button>
                                         <span class="mt-3">${user.roomname}</span>
                                         <span class="mt-3">${user.roomlimit}</span><!-- user joined total -->
-                                        <span class="text-success" id='roomid${user._id}'><i class="fa fa-fire" aria-hidden="true"></i></span>
+                                        <span class="text-success mt-3" id='roomid${user._id}'><i class="fa fa-fire" aria-hidden="true"></i></span>
                                         
                                     </li>`;
                             $("#insertuserroom").append(li);
@@ -139,7 +139,6 @@ $(document).ready(async function() {
                     let type = $(this).attr('type');
                     let createrid = $(this).attr('createrid');
                     let roomname = $(this).attr('roomname');
-                    let roompass = $(this).attr('roompass');
                     $("#roomnameisname").html(roomname);
                     roomuserid = createrid;
                     if(type == 'private')
@@ -334,17 +333,16 @@ $('.callingbtn').each(function(){
         let type = $(this).attr('type');
         if(type == "mute" || type == "unmute")
         {
+            let type = $(this).attr('type');
             if(type == 'mute')
             {
-                $("#mute").removeClass('fa fa-microphone-slash');
-                $("#mute").addClass('fa fa-microphone');
+                $("#mute").html('<i class="fa fa-microphone"></i>');
                 $("#mute").attr('type','unmute');
                 localstream.getTracks()[0].enabled = false;
             }
             else
             {
-                $("#mute").removeClass('fa fa-microphone');
-                $("#mute").addClass('fa fa-microphone-slash');
+                $("#mute").html('<i class="fa fa-microphone-slash"></i>');
                 $("#mute").attr('type','mute');
                 localstream.getTracks()[0].enabled = true;
             }
@@ -353,15 +351,13 @@ $('.callingbtn').each(function(){
         {
             if(type == "on")
             {
-                $("#cameraoff").removeClass('fa-solid fa-video-slash');
-                $("#cameraoff").addClass('fa-solid fa-video');
+                $("#cameraoff").html('<i class="fa fa-video"></i>');
                 $("#cameraoff").attr('type','off');
                 localstream.getTracks()[1].enabled = false;
             }
             else
             {
-                $("#cameraoff").removeClass('fa-solid fa-video');
-                $("#cameraoff").addClass('fa-solid fa-video-slash');
+                $("#cameraoff").html('<i class="fa fa-video-slash"></i>');
                 $("#cameraoff").attr('type','on');
                 localstream.getTracks()[1].enabled = true;
             }
@@ -377,6 +373,7 @@ $('.callingbtn').each(function(){
         }
     })
 });
+
 
 $("#disconnected").click(function(){
     let from = $(this).attr('from');

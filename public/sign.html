@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Quickify – Sign Up</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="assets/images/icon.png" type="image/x-icon">
+  <!-- <link rel="stylesheet" href="assets/css/style.css"> -->
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/animate.min.css">
+  <link rel="stylesheet" href="assets/css/all.min.css">
+  <script src="assets/js/all.min.js"></script>
+  <script src="assets/js/bootstrap.min.js"></script>
+  <script src="assets/js/jquery-3.7.1.min.js"></script>
+  <script type="module" src="assets/js/index.js"></script>
+  <script type="module" src="assets/js/sign.js"></script>
+  <script type="module" src="assets/js/login.js"></script>
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/sign.css">
+</head>
+<body>
+
+  <div class="card auth-card p-4" id="signupcard">
+    <div class="text-center mb-1">
+      <div class="logo"><span>Quick</span>ify⚡</div>
+    </div>
+
+    <h5 class="text-center fw-bold">Welcome to Quickify</h5>
+    <p class="text-center text-muted small-text">
+      Please enter your details below to start using the app.
+    </p>
+
+    <!-- Google Button -->
+    <a href="/api/auth/google" class="nav-link">
+        <button class="btn w-100 google-btn mb-2">
+          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+               width="18" class="me-2">
+          Continue with Google
+        </button>
+    </a>
+
+    <div class="text-center text-muted small">— Sign Up to Quickify —</div>
+
+    <!-- Form -->
+    <form class="signup_frm animate__animated animate__pulse" enctype="multipart/form-data">
+
+        <center>
+           <div class="picbox img-thumnail img-fluid d-none">
+             <img src="assets/images/friends-family-making-videocall-catching-up.jpg" class="img-thumnail img-fluid" id="storeimg">
+           </div>
+           <div class="progress d-none mb-2">
+             <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+           </div>
+         </center>
+      <!-- Profile Picture -->
+      <div class="mb-2">
+        <label class="form-label small fw-semibold">Profile Picture</label>
+        <input type="file" id="profilepic" name="profilepic" class="form-control" autocomplete="off" required accept="image/*">
+      </div>
+
+      <div class="mb-2">
+        <div class="input-group">
+          <span class="input-group-text"><i class="bi bi-person"></i></span>
+          <div class="form-floating">
+            <input type="text" id="username" name="username" class="form-control" autocomplete="off" required placeholder="Main Username">
+            <label for="username">Username</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-2">
+        <div class="input-group">
+          <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+          <div class="form-floating">
+            <input type="email" id="email" name="email" class="form-control" autocomplete="off" required placeholder="Email Address">
+            <label for="ed">Email Address</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-2">
+        <div class="input-group">
+          <span class="input-group-text"><i class="bi bi-lock"></i></span>
+            <div class="form-floating">
+              <input type="password" id="password" name="password" class="form-control" autocomplete="off" required placeholder="Password">
+              <label for="pass">Password</label>
+            </div>
+        </div>
+      </div>
+
+      <div class="mb-2">
+        <div class="input-group">
+          <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+            <div class="form-floating">
+              <input type="number" id="mobilenumber" name="mobilenumber" class="form-control" autocomplete="off" required placeholder="Mobile Number">
+              <label for="mn">Mobile Number</label>
+            </div>
+            <input type="hidden" id="otp" name="otp">
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100 signup-btn animate__animated animate__fadeInLeft" id="signup_frm_btn">
+        Sign Up
+      </button>
+    </form>
+
+    <p class="text-center mt-3 small-text">
+      Already have an account?
+      <a href="login.html" class="fw-semibold text-primary text-decoration-none" id="alreadysign">Sign In</a>
+    </p>
+  </div>
+
+
+
+  <!-- otp Verification -->
+
+  <div class="card auth-card p-4 text-center d-none" id="otp_verify">
+    <div class="logo mb-2"> <span>Quick</span>ify⚡</div>
+
+    <h5 class="fw-bold">Verify OTP</h5>
+    <p class="text-muted small-text">
+      Enter the 6-digit code sent to your email
+    </p>
+
+    <form class="otp_verify_frm">
+        <!-- OTP Inputs -->
+    <div class="d-flex justify-content-center gap-2 my-4">
+      <input type="text" maxlength="1" class="form-control otp-input" id="digit1" />
+      <input type="text" maxlength="1" class="form-control otp-input" id="digit2" />
+      <input type="text" maxlength="1" class="form-control otp-input" id="digit3" />
+      <input type="text" maxlength="1" class="form-control otp-input" id="digit4" />
+      <input type="text" maxlength="1" class="form-control otp-input" id="digit5" />
+      <input type="text" maxlength="1" class="form-control otp-input" id="digit6" />
+      <input type="hidden" id="verifyemail">
+    </div>
+
+    <button class="btn btn-primary w-100 verify-btn mb-3" id="verifybtn">
+      Verify OTP
+    </button>
+    </form>
+
+    <p class="small-text text-muted">
+      Didn’t receive the code?
+      <a href="#" class="text-primary fw-semibold text-decoration-none">
+        Resend OTP
+      </a>
+    </p>
+  </div>
+
+  <!-- otp Verification end -->
+
+</body>
+</html>
+<script>
+    const inputs = document.querySelectorAll(".otp-input");
+
+    inputs.forEach((input, index) => {
+      input.addEventListener("input", (e) => {
+        if (e.target.value && index < inputs.length - 1) {
+          inputs[index + 1].focus();
+        }
+      });
+
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Backspace" && !input.value && index > 0) {
+          inputs[index - 1].focus();
+        }
+      });
+    });
+
+    // Paste full OTP
+    inputs[0].addEventListener("paste", (e) => {
+      const pasteData = e.clipboardData.getData("text").trim();
+      if (/^\d{6}$/.test(pasteData)) {
+        pasteData.split("").forEach((digit, i) => {
+          inputs[i].value = digit;
+        });
+        inputs[5].focus();
+      }
+      e.preventDefault();
+    });
+</script>

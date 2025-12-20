@@ -94,11 +94,11 @@ $(document).ready(function(){
                         <li class="list-group-item customuserlist d-flex justify-content-between" id="dellist${index._id}">
                                 
                                     <img src="${index.rpic}" class="img-fluid img-thumbnail profilepicroom" id="profilepicroom">
-                                    <span class="mt-4">${index.rusername}</span>
-                                    <span class="mt-4">${index.rstatus}</span>
+                                    <span class="mt-2">${index.rusername}</span>
+                                    <span class="mt-2">${index.rstatus}</span>
                                     <div class="btn-group">
-                                    <button class="btn-grad-b callanddel" type="call" id="call${index.rid}" rid="${index.rid}"><i class="fa fa-video animate__animated animate__pulse animate__infinite"></i></button>
-                                    <button class="btn-grad callanddel" type="delete" id="delete${index.rid}" deleteid="${index._id}"><i class="fa fa-trash animate__animated animate__pulse animate__infinite"></i></button>
+                                    <button class="btn btn-primary callanddel" type="call" id="call${index.rid}" rid="${index.rid}"><i class="fa fa-video animate__animated animate__pulse animate__infinite"></i></button>
+                                    <button class="btn btn-danger callanddel" type="delete" id="delete${index.rid}" deleteid="${index._id}"><i class="fa fa-trash animate__animated animate__pulse animate__infinite"></i></button>
                                     </div>
                                 
                             </li>

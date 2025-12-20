@@ -14,14 +14,22 @@ export const quickify = async (req,res) => {
 
 export const quicksign = async (req,res) => {
     let {username,email,mobilenumber,password} = req.body;
-    const profilePicUrl = req.file?.path || "";
-    let otp = await sendOTP(email);
-    let pass = password;
-    const salt = await bcrypt.genSalt(10);
-    const hash = await bcrypt.hash(`${pass}`, salt);
-    let insertuser = new Quickusers({profilepic:profilePicUrl,username,email,mobilenumber,otp,password:hash,accountstatus:'null',userstatus:true});
-    await insertuser.save();
-    res.send({status:true,message:'success',email});
+    let getuser = await Quickusers.findOne({email:email});
+    if(getuser == null)
+    {
+        res.status(200).json({status:false,message:'User already Exit'});
+    }
+    else
+    {
+        const profilePicUrl = req.file?.path || "";
+        let otp = await sendOTP(email);
+        let pass = password;
+        const salt = await bcrypt.genSalt(10);
+        const hash = await bcrypt.hash(`${pass}`, salt);
+        let insertuser = new Quickusers({profilepic:profilePicUrl,username,email,mobilenumber,otp,password:hash,accountstatus:'null',userstatus:true});
+        await insertuser.save();
+        res.send({status:true,message:'success',email});
+    }
 }
 
 export const quicklogin = async (req,res) => {
