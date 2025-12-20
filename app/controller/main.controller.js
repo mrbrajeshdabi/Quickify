@@ -15,7 +15,7 @@ export const quickify = async (req,res) => {
 export const quicksign = async (req,res) => {
     let {username,email,mobilenumber,password} = req.body;
     let getuser = await Quickusers.findOne({email:email});
-    if(getuser == null)
+    if(getuser != null)
     {
         res.status(200).json({status:false,message:'User already Exit'});
     }
