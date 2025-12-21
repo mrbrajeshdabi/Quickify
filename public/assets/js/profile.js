@@ -87,6 +87,7 @@ $(document).ready(function(){
         let userid = $("#cpuserid").val();
         if(newpass == confirmp)
         {
+            $("#changepassbtn").html('Please Wait..');
             changePass(userid,oldpass,confirmp).then((res)=>{
                 if(res.status == true)
                 {

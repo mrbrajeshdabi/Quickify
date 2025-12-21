@@ -196,6 +196,7 @@
                         </select>
                     </div>
                 </div>
+
                 <div class="input-group mb-2 text-dark">
                     <span class="input-group-text"><i class="fa fa-shield" aria-hidden="true"></i></span>
                     <div class="form-floating">
@@ -241,8 +242,14 @@
         </div>
         <div class="card-body">
             <div class="videobox bg-dark">
-                <video id="svideo" autoplay playsine class="img-fluid"></video>
-                <div class="rvideobox">
+                <!-- <video id="svideo" autoplay playsine class="img-fluid"></video> -->
+                <div class="rvideobox border">
+                    <div class="row p-0 m-0" id="grow">
+                        <!-- <div class="col-md-6 p-0 m-0"><video id="rvideo" autoplay playsine class="img-fluid"></video></div> -->
+                        <!-- <div class="col-md-6 p-0 m-0"><video id="vvideo" autoplay playsine class="img-fluid"></video></div> -->
+                        <!-- <div class="col-md-6 p-0 m-0"><video id="pvideo" autoplay playsine class="img-fluid"></video></div> -->
+                        <!-- <div class="col-md-6 p-0 m-0"><video id="dvideo" autoplay playsine class="img-fluid"></video></div> -->
+                    </div>
                     <!-- <video id="rvideo" autoplay playsine class="img-fluid mb-1"></video>
                     <video id="vvideo" autoplay playsine class="img-fluid mb-1"></video>
                     <video id="pvideo" autoplay playsine class="img-fluid mb-1"></video>
@@ -655,18 +662,7 @@
             $('#cente').html('<i class="fa fa-folder animate__animated animate__pulse animate__infinite text-light" aria-hidden="true"></i>');
             $(this).attr('type','close');
         }
-    })
-
-
-        async function video(params) {
-            let stream = await navigator.mediaDevices.getUserMedia({video:true,audio:false});
-            document.getElementById('svideo').srcObject=stream;
-            document.getElementById('rvideo').srcObject=stream;
-            document.getElementById('vvideo').srcObject=stream;
-            document.getElementById('pvideo').srcObject=stream;
-            document.getElementById('dvideo').srcObject=stream;
-        }
-        // video();
+    });
 
     });
 </script>

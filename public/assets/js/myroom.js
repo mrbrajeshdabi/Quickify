@@ -71,7 +71,17 @@ $(document).ready(async function() {
                     $("#calling").removeClass('d-none');
                     customcam().then((stream)=>{
                         localstream = stream;
-                        document.getElementById('svideo').srcObject = stream;
+                        // document.getElementById('svideo').srcObject = stream;
+                        let cols = document.createElement('div');
+                        cols.setAttribute('class','col-md-6 p-0 m-0');
+                        let video = document.createElement("video");
+                        video.setAttribute('class','img-fluid');
+                        video.id = "video-" + rmid;
+                        video.autoplay = true;
+                        video.playsInline = true;
+                        video.srcObject = stream;
+                        cols.appendChild(video);
+                        document.querySelector("#grow").append(cols);
                         roomOC(rmid,type).then((res)=>{
                             if(res.status == true)
                             {
@@ -211,7 +221,17 @@ async function startremotevideo(params) {
     $("#createroom").addClass('d-none');
     $("#userprofile").addClass('d-none');
     $("#calling").removeClass('d-none');
-    document.querySelector("#svideo").srcObject = localstream;
+    // document.querySelector("#svideo").srcObject = localstream;
+    let cols = document.createElement('div');
+    cols.setAttribute('class','col-md-6 p-0 m-0');
+    let video = document.createElement("video");
+    video.setAttribute('class','img-fluid');
+    video.id = "video-my";
+    video.autoplay = true;
+    video.playsInline = true;
+    video.srcObject = localstream;
+    cols.appendChild(video);
+    document.querySelector("#grow").append(cols);
 }
 
 function createPeer(joinid)
@@ -228,13 +248,17 @@ function createPeer(joinid)
     {
         if (!remoteStreams[joinid]) {
             remoteStreams[joinid] = new MediaStream();
+            let cols = document.createElement('div');
+            cols.setAttribute('class','col-md-6 p-0 m-0');
+            cols.setAttribute('id','col-'+joinid);
             let video = document.createElement("video");
-            video.setAttribute('class','img-fluid mb-1');
+            video.setAttribute('class','img-fluid');
             video.id = "video-" + joinid;
             video.autoplay = true;
             video.playsInline = true;
             video.srcObject = remoteStreams[joinid];
-            document.querySelector(".rvideobox").append(video);
+            cols.appendChild(video);
+            document.querySelector("#grow").append(cols);
         }
         remoteStreams[joinid].addTrack(event.track);
     }
@@ -291,24 +315,15 @@ socket.on('candidate',async({from,to,candidate})=>{
 });
 
 socket.on('user-exit',({roomuserid,joinid})=>{
-    // if(createrid == roomuserid)
-    // {
-    //     if (peers[joinid]) peers[joinid].close();
-    //     delete peers[joinid];
-
-    //     if (remoteStreams[joinid]) {
-    //         delete remoteStreams[joinid];
-    //     }
-    //     let vid = document.getElementById("video-" + joinid);
-    //     if (vid) vid.remove();
-    // }
     if (peers[joinid]) peers[joinid].close();
     delete peers[joinid];
     if (remoteStreams[joinid]) {
         delete remoteStreams[joinid];
     }
+    let col = document.getElementById('col-'+joinid);
     let vid = document.getElementById("video-" + joinid);
     if (vid) vid.remove();
+    if(col) col.remove();
 });
 
 socket.on('joinerid-room-close',(joinerid)=>{
@@ -381,6 +396,7 @@ $("#disconnected").click(function(){
     {
         peers[from].close();
         delete peers[from];
+        // delete remoteStreams[from];
         setTimeout(() => {
             history.go();
             socket.emit('user-exit',{roomuserid,joinid:createrid});
