@@ -1,5 +1,5 @@
 import express from 'express';
-import { addCustomUser, changepass, deactivateaccount, deleteCustomUser, deleteroom,getCustomUser,getuserdata,logincheckgoogle,quickify, quicklogin, quickroom, quickshowroom, quicksign, searchUser, sendemailotp, showallroom, updateprofile, updateroom, verifyotp } from '../controller/main.controller.js';
+import { addCustomUser, changepass, createnewpass, deactivateaccount, deleteCustomUser, deleteroom,getCustomUser,getuserdata,logincheckgoogle,quickify, quicklogin, quickroom, quickshowroom, quicksign, resetPassword, searchUser, sendemailotp, showallroom, updateprofile, updateroom, verifyotp } from '../controller/main.controller.js';
 // import { upload } from '../middleware/upload.js';
 import { veryfiTokan } from '../middleware/tokan.js';
 import passport from 'passport';
@@ -38,4 +38,6 @@ router.get("/auth/google/callback",passport.authenticate("google", {session:fals
 router.post('/get-user',veryfiTokan,getuserdata);
 router.put('/verify-otp',verifyOTP,verifyotp);
 router.get('/sendotp',sendemailotp);
+router.put('/reset-password',resetPassword);
+router.put('/create-new-password',createnewpass);
 //http://localhost:3000/api/auth/google/callback

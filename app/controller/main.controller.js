@@ -384,6 +384,55 @@ export let sendemailotp = async (req,res) => {
     res.status(200).json({status:true,otp});
 }
 
+export let resetPassword = async (req,res) => {
+    try {
+        let checkemail = await Quickusers.findOne({email:req.query.email});
+        if(checkemail != null)
+        {
+            let otp = await sendOTP(req.query.email)
+            if(otp)
+            {
+                let otpupdate = await Quickusers.updateOne({email:req.query.email},{$set:{otp:otp}});
+                if(otpupdate)
+                {
+                    res.status(200).json({status:true,message:'Reset Email Send',otp});
+                }
+                else
+                {
+                    res.status(200).json({status:false,message:'Something Else'});
+                }
+            }
+            else
+            {
+                res.status(200).json({status:false,message:'Otp Not Send'});
+            }
+        }
+        else
+        {
+            res.status(200).json({status:false,message:'No Email ! Please Check Your Email'});
+        }
+    } catch (error) {
+        res.status(500).json({status:false,messsage:error});
+    }
+
+}
+
+export let createnewpass = async (req,res) => {
+    let {email,newpassword,confirmpassword} = req.body;
+    if(newpassword != confirmpassword) res.send({status:false,message:'Password Does Not Match'});
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(`${confirmpassword}`, salt);
+    let updatepass = await Quickusers.updateOne({email:email},{$set:{password:hash}});
+    if(updatepass)
+    {
+        res.send({status:true,message:'password change success'});
+    }
+    else
+    {
+        res.send({status:false,message:'Please Try sometime Later'});
+    }
+}
+
 
 
 
